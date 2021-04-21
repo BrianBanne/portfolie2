@@ -1,0 +1,24 @@
+{
+  "name": "portfolie2",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run client\" \"npm run server\"",
+    "client": "cd client && npm run start",
+    "server": "cd server && npm run dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hanseklev/portfolie2.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hanseklev/portfolie2/issues"
+  },
+  "homepage": "https://github.com/hanseklev/portfolie2#readme",
+  "dependencies": {
+    "concurrently": "^6.0.2"
+  }
+}
