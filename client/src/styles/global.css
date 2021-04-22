@@ -1,0 +1,174 @@
+:root {
+  --main-bg: peachpuff;
+  --main-text: black;
+  --text-hover: blue;
+}
+
+body {
+  background-color: var(--main-bg);
+}
+
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+
+main {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  position: sticky;
+  padding: 0 1rem;
+}
+
+/* .nav {
+} */
+
+.nav__link {
+  text-decoration: none;
+  color: var(--main-text);
+  transition: all 0.4s;
+}
+.nav__link a:hover {
+  color: red;
+}
+
+.nav__link:not(:first-child) {
+  margin-left: 1rem;
+}
+
+.productGrid {
+  max-width: 960px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 46px;
+  justify-items: center;
+  list-style-type: none;
+  margin: 2rem auto;
+  padding: 0;
+
+  /* @media screen and (min-width: 450px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 768px) {
+    padding: 0 4rem;
+  } */
+}
+
+/* .productGrid__item {
+} */
+
+.productPreview {
+  position: relative;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+  width: 300px;
+  min-height: 350px;
+}
+
+.productPreview__figure {
+  transition: 0.3s all;
+}
+
+.productPreview__figure:hover {
+  transform: scale(1.1);
+}
+
+.productPreview__info {
+  text-align: right;
+}
+
+.productPreview__link {
+  text-decoration: none;
+  color: black;
+}
+
+.cartContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.cart__item{
+  display: flex;
+  align-items: center;
+}
+
+/* .button__cart {
+} */
+
+.checkoutForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
+  margin: 0 auto;
+  border: solid;
+}
+
+.input {
+  width: 100%;
+  padding: 1.55rem 0.8rem 0.55rem;
+  border-radius: 4px;
+  border: 2px solid var(--color-highlighted);
+  background-color: peachpuff;
+  transition: border-color 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.input:focus {
+  width: 100%;
+  outline-color: green;
+}
+
+.input__label {
+  display: block;
+  width: 100%;
+  background-color: transparent;
+
+  position: relative;
+  border: 2px solid #f0f0f0;
+  border-radius: 1px;
+  font-size: 1.35rem;
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.input__label:focus {
+  outline: 0;
+  border-color: #777;
+}
+
+.input__label-text {
+  display: block;
+  position: absolute;
+  top: 0.6rem;
+  left: 0.9rem;
+  margin: 0;
+  background-color: transparent;
+
+  will-change: transform;
+  font-size: 14px;
+  transform: translate(-0.02rem, 0.82rem) scale(1.5625);
+
+  transform-origin: left center;
+  transition: transform 0.4s;
+  will-change: transform;
+  transform: translate(-0.02rem, 0.82rem) scale(1.5625);
+}
+
+.input__label-text-focus {
+  transform: none;
+}
