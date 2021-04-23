@@ -23,7 +23,6 @@ const CartContainer = () => {
     return getSubtotal() + SHIPPING;
   }
 
-  console.log(cart);
   return (
     <div className="cartContainer">
       {cart?.length > 0 ? (

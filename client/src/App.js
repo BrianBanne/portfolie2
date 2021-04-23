@@ -6,28 +6,45 @@ import ShopPage from "./pages/shop";
 import { AppProvider } from "./components/context/app-context";
 import CartPage from "./pages/cart";
 import CheckoutPage from "./pages/checkout";
+import ProtectedRoute from "./components/routes/protected-route";
+import LoginPage from "./pages/login";
+import { AuthProvider } from "./components/context/auth-context";
+import AdminProductsPage from "./pages/admin/products";
+import AdminOrdersPage from "./pages/admin/orders";
 
 function App() {
   return (
     <AppProvider>
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/">
-            <IndexPage />
-          </Route>
-          <Route path="/shop">
-            <ShopPage />
-          </Route>
-          <Route path="/admin">
-            <AdminPage />
-          </Route>
-          <Route path="/cart">
-            <CartPage />
-          </Route>
-          <Route path="/checkout">
-            <CheckoutPage />
-          </Route>
-        </Switch>
+        <AuthProvider>
+          <Switch>
+            <Route exact path="/">
+              <IndexPage />
+            </Route>
+            <Route path="/shop">
+              <ShopPage />
+            </Route>
+         
+            <Route path="/cart">
+              <CartPage />
+            </Route>
+            <Route path="/checkout">
+              <CheckoutPage />
+            </Route>
+            <Route path="/login">
+              <LoginPage />
+            </Route>
+            <ProtectedRoute exact path="/admin">
+              <AdminPage />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/admin/products">
+              <AdminProductsPage />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/admin/orders">
+              <AdminOrdersPage />
+            </ProtectedRoute>
+          </Switch>
+        </AuthProvider>
       </BrowserRouter>
     </AppProvider>
   );

@@ -8,13 +8,13 @@ const Header = () => {
     <header className="header">
       <nav className="nav">
         <Link to="/" className="nav__link">
-          Home
+          home
         </Link>
         <Link to="/shop" className="nav__link">
-          Shop
+          shop
         </Link>
         <Link to="/admin" className="nav__link">
-          Admin
+          log in
         </Link>
       </nav>
 

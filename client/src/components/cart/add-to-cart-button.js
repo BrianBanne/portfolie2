@@ -4,6 +4,8 @@ import { AppContext } from "../context/app-context";
 const AddToCartButton = ({ product }) => {
   const [cart, setCart] = useContext(AppContext);
 
+
+  //TODO: update qty
   function handleAddToCart() {
     setCart((prev) => ([ ...prev, product ]));
     alert(product.name + 'added to cart')
