@@ -1,10 +1,11 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import { Link, useHistory } from "react-router-dom";
-import { AppContext } from "../context/app-context";
+import { ShopContext } from "../context/shop-context";
 import Button from "../shared/button";
 
 const Header = () => {
-  const [cart] = useContext(AppContext);
+  const { cart } = useContext(ShopContext);
+  console.log(cart);
   return (
     <header className="header">
       <nav className="nav">
@@ -33,13 +34,13 @@ const CartIcon = ({ cart }) => {
     <Button
       label={
         history.location.pathname === "/cart"
-          ? "close"
+          ? "close x"
           : `Cart: ${cart?.length}`
       }
       primary
-      style={{ width: "70px" }}
+      style={{ width: "80px" }}
       onClick={() => {
-        history.push(history.location.pathname === "/cart" ? "/" : `/cart`);
+        history.push(history.location.pathname === "/cart" ? window.history.back() : `/cart`);
       }}
     />
   );

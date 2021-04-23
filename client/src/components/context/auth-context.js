@@ -2,7 +2,7 @@ import React, { createContext, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 
 const initialState = {
-  user: null,
+  cart: [],
 };
 
 if (localStorage.getItem("user")) {
@@ -23,7 +23,7 @@ if (cookies.get(TOKEN_NAME) !== null) {
   try {
     const user = jwtDecode(cookies.get(TOKEN_NAME));
 
-    if (user.exp * 1000 < Date.now()) {
+    if (user.exp * 10 00 < Date.now()) {
       cookies.set(TOKEN_NAME, null);
     } else {
       initialState.user = user;
@@ -87,7 +87,7 @@ const AuthProvider = ({ children }) => {
   };
 
   const logout = () => {
-    history.push("/");
+    history.push("/login");
     localStorage.removeItem("user")
     dispatch({
       type: "LOGOUT",

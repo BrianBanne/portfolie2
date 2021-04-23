@@ -7,8 +7,16 @@ const ProductPage = ({ data }) => {
   //TODO: get slug from server
   const { id } = useParams();
   const product = data.find((p) => p.id === Number(id));
+  console.log(product);
 
-  console.log(id);
+
+  const StockStatus = ({ product }) => {
+    if (product.stockStatus > 0)
+      return (
+        <span style={{ color: "green" }}>{product.stockStatus} in stock</span>
+      );
+    else return <span style={{ color: "red" }}>out of stock :(</span>;
+  };
 
   if (!product)
     return (
@@ -20,8 +28,8 @@ const ProductPage = ({ data }) => {
 
   return (
     <Layout>
-      <div className="productPreview" style={{margin: '0 auto'}}>
-        <figure className="productPreview__figure">
+      <article className="product" style={{ margin: "0 auto" }}>
+        <figure className="product__column">
           <img
             src={imageUrl}
             style={{ width: "100%", objectFit: "cover" }}
@@ -29,13 +37,14 @@ const ProductPage = ({ data }) => {
           />
         </figure>
 
-        <div className="productPreview__info">
-          <h2>{name}</h2>
+        <div className="product__column">
+          <h2 style={{ textAlign: "left" }}>{name}</h2>
           <p>{description}</p>
           <span style={{ display: "block" }}>{price} kr</span>
-          <AddToCartButton product={product} />
+          <p><StockStatus product={product}/></p>
+          <AddToCartButton product={product} inInStock={product.stockStatus > 0} />
         </div>
-      </div>
+      </article>
     </Layout>
   );
 };

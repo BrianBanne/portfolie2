@@ -1,6 +1,6 @@
 import React from "react";
 
-const Button = ({ primary, secondary, label, ...props }) => {
+const Button = ({ primary, secondary, small, label, ...props }) => {
   if (primary)
     return (
       <button className="button button__primary" {...props}>
@@ -10,6 +10,12 @@ const Button = ({ primary, secondary, label, ...props }) => {
   if (secondary)
     return (
       <button className="button button__secondary" {...props}>
+        {label}
+      </button>
+    );
+    if (small)
+    return (
+      <button className="button button__small"  {...props} >
         {label}
       </button>
     );
