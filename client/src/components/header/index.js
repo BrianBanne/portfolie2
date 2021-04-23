@@ -1,6 +1,7 @@
-import React, { useContext } from "react";
-import { Link } from "react-router-dom";
+import React, { useContext, useState } from "react";
+import { Link, useHistory } from "react-router-dom";
 import { AppContext } from "../context/app-context";
+import Button from "../shared/button";
 
 const Header = () => {
   const [cart] = useContext(AppContext);
@@ -18,17 +19,28 @@ const Header = () => {
         </Link>
       </nav>
 
-      <CartIcon cart={cart}/>
+      <CartIcon cart={cart} />
     </header>
   );
 };
 
 export default Header;
 
-const CartIcon = ({cart}) => {
+const CartIcon = ({ cart }) => {
+  const history = useHistory();
+
   return (
-    <Link to="/cart">
-      <span>Cart: {cart?.length}</span>
-    </Link>
+    <Button
+      label={
+        history.location.pathname === "/cart"
+          ? "close"
+          : `Cart: ${cart?.length}`
+      }
+      primary
+      style={{ width: "70px" }}
+      onClick={() => {
+        history.push(history.location.pathname === "/cart" ? "/" : `/cart`);
+      }}
+    />
   );
 };

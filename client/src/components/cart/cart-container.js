@@ -50,7 +50,7 @@ const CartContainer = () => {
       ) : (
         <p>
           Your cart is empty,{" "}
-          <Link to="/shop">click here to get to the shop</Link>
+          <Link to="/shop">click here to fix that</Link>
         </p>
       )}
     </div>

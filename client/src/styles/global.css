@@ -133,7 +133,7 @@ main {
   align-items: center;
   width: 350px;
   margin: 0 auto;
-  border: solid;
+  border: solid var(--secondary-light);
 }
 
 /* LOGIN FORM */

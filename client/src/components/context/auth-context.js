@@ -1,6 +1,5 @@
 import React, { createContext, useReducer } from "react";
 import { useHistory } from "react-router-dom";
-import { invertColors } from "../../styles/lib";
 
 const initialState = {
   user: null,

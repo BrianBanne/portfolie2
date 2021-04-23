@@ -11,6 +11,8 @@ import LoginPage from "./pages/login";
 import { AuthProvider } from "./components/context/auth-context";
 import AdminProductsPage from "./pages/admin/products";
 import AdminOrdersPage from "./pages/admin/orders";
+import ProductPage from "./components/product/product";
+import { PRODUCTS } from "./api/test";
 
 function App() {
   return (
@@ -24,7 +26,10 @@ function App() {
             <Route path="/shop">
               <ShopPage />
             </Route>
-         
+            <Route path="/product/:id">
+              <ProductPage data={PRODUCTS} />
+            </Route>
+
             <Route path="/cart">
               <CartPage />
             </Route>

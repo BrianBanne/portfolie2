@@ -1,5 +1,6 @@
 import React from "react";
 import { useFormFields } from "../hooks";
+import Button from "../shared/button";
 import Input from "../shared/input";
 
 const CheckoutContainer = () => {
@@ -49,7 +50,7 @@ const CheckoutContainer = () => {
         value={formFields.phone}
         onChange={createChangeHandler("phone")}
       />
-      <button type="submit">Place order</button>
+      <Button secondary type="submit" label="Place order"/>
     </form>
   );
 };
