@@ -2,10 +2,10 @@
   "name": "server",
   "version": "1.0.0",
   "description": "The backend",
-  "main": "node server.js",
+  "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "start": "server.js"
   },
   "author": "",
   "license": "ISC",
