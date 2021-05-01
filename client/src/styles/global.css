@@ -295,10 +295,11 @@ fieldset {
 }
 
 .button__small {
-  width: 40px;
-  height: 40px;
+  width: 36px;
+  height: 36px;
   margin: 0;
 
+  font-size: 1.25rem;
   color: var(--primary-light);
   background: var(--secondary-dark);
   border: solid 2px var(--secondary-dark);

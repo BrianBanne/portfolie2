@@ -75,7 +75,7 @@ const LoginPage = () => {
             value={formFields.password}
             onChange={createChangeHandler("password")}
           />
-          <Button label="LOG IN" primary/>
+          <Button label="LOG IN" secondary/>
         </form>
       </div>
     </Layout>
