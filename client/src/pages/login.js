@@ -3,11 +3,17 @@ import Input from "../components/shared/input";
 import { useFormFields } from "../components/hooks/index";
 import { AuthContext } from "../components/context/auth-context";
 import { useHistory } from "react-router-dom";
-import Layout from '../components/layout/index'
+import Layout from "../components/layout/index";
 import Button from "../components/shared/button";
+import { GoogleLogin } from "react-google-login";
+import { getCustomers, loginGoogle } from "../api";
+
 const LoginPage = () => {
   const { loginAdmin, loginUser, user } = useContext(AuthContext);
   const history = useHistory();
+
+  const CLIENT_ID =
+    "910772755966-9jn7nj6bdf9bu6t80416etmeli7k3nmb.apps.googleusercontent.com";
 
   const { formFields, createChangeHandler } = useFormFields({
     email: "",
@@ -23,6 +29,12 @@ const LoginPage = () => {
     }
   });
 
+  useEffect(() => {
+    getCustomers()
+      .then((data) => console.log(data))
+      .catch((err) => console.log(err));
+  }, []);
+
   function handleLogin(event) {
     event.preventDefault();
     //validate
@@ -33,6 +45,26 @@ const LoginPage = () => {
       loginAdmin(formFields);
     }
     if (formFields.userType === "user") loginUser(formFields);
+  }
+
+  function handleGoogleLogin(response) {
+    console.log(response);
+
+    /*  const googlePayload = {
+      firstName: response.profileObj.givenName,
+      lastName: response.profileObj.familyName,
+      email: response.profileObj.email,
+      token: response.googleId,
+      Image: response.profileObj.imageUrl,
+      ProviderId: "Google",
+    }; */
+    //axios post google login
+    loginGoogle({ token: response.tokenId })
+      .then((user) => {
+        console.log(user);
+        history.push('/user')
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -75,7 +107,16 @@ const LoginPage = () => {
             value={formFields.password}
             onChange={createChangeHandler("password")}
           />
-          <Button label="LOG IN" secondary/>
+          <Button label="LOG IN" secondary />
+          <p style={{ marginTop: "1rem" }}>or</p>
+          <GoogleLogin
+            className="button button__secondary"
+            clientId={CLIENT_ID}
+            buttonText="Log in with google"
+            onSuccess={handleGoogleLogin}
+            onFailure={handleGoogleLogin}
+            cookiePolicy={"single_host_origin"}
+          />
         </form>
       </div>
     </Layout>

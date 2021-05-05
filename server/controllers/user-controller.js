@@ -1,10 +1,12 @@
 const bcrypt = require("bcrypt");
-const Customer = require("../models/customer");
+const Customer = require("../database/models/customer");
 
+const { OAuth2Client } = require("google-auth-library");
+const client = new OAuth2Client(process.env.OAUTH_CLIENT_ID);
 //todo add auth
 
 async function createCustomer(req, res) {
-  //const userInput = req.userInput;
+  //const userInput = req.body.userInput;
   const userData = {
     email: "per@email.com",
     password: "heiehi123",
@@ -54,4 +56,45 @@ async function getCustomerById(id) {
   }
 }
 
-module.exports = { getCustomers, getCustomerById, createCustomer };
+//todo send session header?? undefined
+
+async function handleGoogleLogin(req, res) {
+  console.log("hei");
+  const { token } = req.body;
+
+  const ticket = await client.verifyIdToken({
+    idToken: token,
+    audience: process.env.RLpGkNm2obN95ekSJTOW08Lv,
+  });
+
+  const { given_name, family_name, email } = ticket.getPayload();
+
+  console.log(email);
+
+  const user = await Customer.findOne({ email: email });
+
+  if (user) {
+    console.log("new");
+    console.log(user);
+    req.headers.Authorization = user._id;
+    return res.status(201).json({ user: user, token: ticket });
+  }
+
+  const newUser = new Customer({
+    firstName: given_name,
+    lastName: family_name,
+    email: email,
+  });
+  console.log("old");
+  console.log(newUser);
+  req.headers.Authorization = newUser._id;
+
+  return res.status(201).json({ user: newUser, token: ticket });
+}
+
+module.exports = {
+  getCustomers,
+  getCustomerById,
+  createCustomer,
+  handleGoogleLogin,
+};
