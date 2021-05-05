@@ -3,6 +3,7 @@ import { invertColors } from "../../styles/lib";
 import { AuthContext } from "../context/auth-context";
 import Header from "../header";
 import AdminHeader from "../header/admin-header";
+import UserHeader from "../header/user-header";
 
 const Layout = ({ children }) => {
   const { user } = useContext(AuthContext);
@@ -13,9 +14,7 @@ const Layout = ({ children }) => {
 
   function getHeader() {
     if (user?.userType === "admin") return <AdminHeader />;
-    if (user?.userType === "user")
-      //todo userheader
-      return <Header />;
+    if (user?.userType === "user") return <UserHeader />;
     else return <Header />;
   }
   return (

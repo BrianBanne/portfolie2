@@ -1,17 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
+import { Link } from "react-router-dom";
+import { ShopContext } from "../context/shop-context";
+import Button from "../shared/button";
 
 const CartItem = ({ product }) => {
-  //const [cart, setCart] = useContext(AppContext);
-  //TODO: update qty
+  const { increment, decrement, removeFromCart } = useContext(ShopContext);
 
-
+  console.log(product);
   function handleRemoveProduct(event) {
     event.preventDefault();
+    removeFromCart(product);
   }
 
-  function handleQtyChange(event, action) {
+  function handleIncrement(event, action) {
     event.preventDefault();
+    increment(product);
+  }
 
+  function handleDecrement(event, action) {
+    event.preventDefault();
+    if (product.quantity === 1) removeFromCart(product);
+    decrement(product);
   }
 
   return (
@@ -19,24 +28,33 @@ const CartItem = ({ product }) => {
       <figure style={{ width: "100px" }}>
         <img src={product.imageUrl} alt={product.name} width="100%" />
       </figure>
-      <div>
-        <h2>{product.name}</h2>
+      <div className="cart__item-section">
+        <h2><Link to={`/product/${product.id}`}>{product.name}</Link></h2>
         <p>{product.description}</p>
       </div>
-      <div>
+      <div className="cart__item-section">
         <span style={{ display: "block" }}>{product.price} kr</span>
-        <button onClick={(event) => handleRemoveProduct(event)}>Remove</button>
+        <Button
+          label="remove"
+          style={{ width: "100px" }}
+          primary
+          onClick={(event) => handleRemoveProduct(event)}
+        />
       </div>
-      <div>
-        <button
-          style={{ display: "block" }}
-          onClick={(event) => handleQtyChange(event, "INCREMENT")}
-        >
-          +
-        </button>
-        <button onClick={(event) => handleQtyChange(event, "INCREMENT")}>
-          -
-        </button>
+      <div style={{textAlign:'center'}}>
+        <Button
+          small
+          onClick={(event) => handleIncrement(event)}
+          label="+"
+        />
+        <span style={{ textAlign: "center", width: "48px" , height: "48px", marginTop:'1rem'}}>
+          {product.quantity}
+        </span>
+        <Button
+          small
+          onClick={(event) => handleDecrement(event)}
+          label="-"
+        />
       </div>
     </li>
   );

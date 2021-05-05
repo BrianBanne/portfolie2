@@ -18,40 +18,42 @@ const CheckoutContainer = () => {
   });
 
   return (
-    <form className="checkoutForm" onSubmit={handleSubmit}>
-      <Input
-        label="First name"
-        name="firstName"
-        value={formFields.firstName}
-        onChange={createChangeHandler("firstName")}
-      />
-      <Input
-        label="Last name"
-        name="lastName"
-        value={formFields.lastName}
-        onChange={createChangeHandler("lastName")}
-      />
-      <Input
-        label="Email"
-        name="email"
-        type="email"
-        value={formFields.email}
-        onChange={createChangeHandler("email")}
-      />
-      <Input
-        label="Address"
-        name="address"
-        value={formFields.address}
-        onChange={createChangeHandler("address")}
-      />
-      <Input
-        label="Phone"
-        name="phone"
-        value={formFields.phone}
-        onChange={createChangeHandler("phone")}
-      />
-      <Button secondary type="submit" label="Place order"/>
-    </form>
+    <div className="form__container">
+      <form className="flex" onSubmit={handleSubmit}>
+        <Input
+          label="First name"
+          name="firstName"
+          value={formFields.firstName}
+          onChange={createChangeHandler("firstName")}
+        />
+        <Input
+          label="Last name"
+          name="lastName"
+          value={formFields.lastName}
+          onChange={createChangeHandler("lastName")}
+        />
+        <Input
+          label="Email"
+          name="email"
+          type="email"
+          value={formFields.email}
+          onChange={createChangeHandler("email")}
+        />
+        <Input
+          label="Address"
+          name="address"
+          value={formFields.address}
+          onChange={createChangeHandler("address")}
+        />
+        <Input
+          label="Phone"
+          name="phone"
+          value={formFields.phone}
+          onChange={createChangeHandler("phone")}
+        />
+        <Button secondary type="submit" label="Place order" />
+      </form>
+    </div>
   );
 };
 

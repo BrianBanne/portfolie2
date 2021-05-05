@@ -1,21 +1,20 @@
 export function invertColors(invert = false) {
   const root = document.documentElement;
 
+ //const  COLORS = ['#f6f5f5', "#f7f6e7", "#1687a7" , "#314e52"]
+ const  COLORS = ['#f6f5f5', "#d3e0ea", "#1687a7" , "#276678"]
+
+ 
+
   if (invert) {
-    root.style.setProperty("--primary-light", "#1687a7");
-    root.style.setProperty("--secondary-light", "#314e52");
-    root.style.setProperty("--secondary-dark", "#f7f6e7");
-    root.style.setProperty("--primary-dark", "#f6f5f5");
+    root.style.setProperty("--primary-light", COLORS[2]);
+    root.style.setProperty("--secondary-light",COLORS[3]);
+    root.style.setProperty("--secondary-dark", COLORS[0]);
+    root.style.setProperty("--primary-dark", COLORS[1]);
   } else {
-    root.style.setProperty("--primary-light", "#f6f5f5");
-    root.style.setProperty("--secondary-light", "#f7f6e7");
-    root.style.setProperty("--secondary-dark", "#1687a7");
-    root.style.setProperty("--primary-dark", "#314e52");
+    root.style.setProperty("--primary-light", COLORS[0]);
+    root.style.setProperty("--secondary-light", COLORS[1]);
+    root.style.setProperty("--secondary-dark", COLORS[2]);
+    root.style.setProperty("--primary-dark", COLORS[3]);
   }
 }
-
-/* --primary-light: #f6f5f5;
---secondary-light: #f7f6e7;
---secondary-dark: #1687a7;
---primary-dark: #314e52;
-} */

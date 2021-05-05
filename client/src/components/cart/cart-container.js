@@ -1,11 +1,12 @@
 import React, { useContext } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
-import { AppContext } from "../context/app-context";
+import { ShopContext } from "../context/shop-context";
+import Button from "../shared/button";
 import CartItem from "./cart-item";
 
 const CartContainer = () => {
-  const [cart, setCart] = useContext(AppContext);
+  const { cart, clearCart } = useContext(ShopContext);
   const history = useHistory();
   const SHIPPING = 50;
 
@@ -16,7 +17,7 @@ const CartContainer = () => {
   }
 
   function handleClearCart() {
-    setCart([]);
+    clearCart();
   }
 
   function getTotal() {
@@ -27,7 +28,7 @@ const CartContainer = () => {
     <div className="cartContainer">
       {cart?.length > 0 ? (
         <>
-          <ul>
+          <ul className="cart__item-container">
             {cart &&
               cart.map((product, idx) => (
                 <CartItem key={idx} product={product} />
@@ -38,19 +39,18 @@ const CartContainer = () => {
             <div>Shipping: {SHIPPING} kr</div>
             <div>Total: {getTotal()} kr</div>
           </div>
-          <button onClick={handleClearCart}>Clear cart</button>
-          <button
+          <Button primary onClick={handleClearCart} label="Clear cart" />
+          <Button
+            secondary
+            label="Go to checkout"
             onClick={() => {
               history.push("/checkout");
             }}
-          >
-            Go to checkout
-          </button>
+          />
         </>
       ) : (
         <p>
-          Your cart is empty,{" "}
-          <Link to="/shop">click here to fix that</Link>
+          Your cart is empty, <Link to="/shop">click here to fix that</Link>
         </p>
       )}
     </div>

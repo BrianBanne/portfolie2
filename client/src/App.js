@@ -3,7 +3,7 @@ import "./styles/global.css";
 import IndexPage from "./pages";
 import AdminPage from "./pages/admin";
 import ShopPage from "./pages/shop";
-import { AppProvider } from "./components/context/app-context";
+import { ShopProvider } from "./components/context/shop-context";
 import CartPage from "./pages/cart";
 import CheckoutPage from "./pages/checkout";
 import ProtectedRoute from "./components/routes/protected-route";
@@ -13,10 +13,12 @@ import AdminProductsPage from "./pages/admin/products";
 import AdminOrdersPage from "./pages/admin/orders";
 import ProductPage from "./components/product/product";
 import { PRODUCTS } from "./api/test";
+import UserPage from "./pages/user";
+import UserOrdersPage from "./pages/user/orders";
 
 function App() {
   return (
-    <AppProvider>
+    <ShopProvider>
       <BrowserRouter>
         <AuthProvider>
           <Switch>
@@ -48,10 +50,16 @@ function App() {
             <ProtectedRoute exact path="/admin/orders">
               <AdminOrdersPage />
             </ProtectedRoute>
+            <ProtectedRoute exact path="/user">
+              <UserPage />
+            </ProtectedRoute>
+            <ProtectedRoute exact path="/user/orders">
+              <UserOrdersPage />
+            </ProtectedRoute>
           </Switch>
         </AuthProvider>
       </BrowserRouter>
-    </AppProvider>
+    </ShopProvider>
   );
 }
 
