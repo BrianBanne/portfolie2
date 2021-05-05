@@ -5,7 +5,6 @@ import Button from "../shared/button";
 
 const Header = () => {
   const { cart } = useContext(ShopContext);
-  console.log(cart);
   return (
     <header className="header">
       <nav className="nav">
