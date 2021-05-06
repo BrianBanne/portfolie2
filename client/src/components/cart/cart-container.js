@@ -48,7 +48,6 @@ const CartContainer = () => {
             <div>Subtotal: {getSubtotal()} kr</div>
             <div>Shipping: {SHIPPING} kr</div>
             <div>Total: {getTotal()} kr</div>
-            
             <div>Total after price reduction: {getTotal().strike} kr `{'->'}`{priceReductionForRandomCustomer()} kr</div>
           </div>
           <Button primary onClick={handleClearCart} label="Clear cart" />
@@ -68,10 +67,16 @@ const CartContainer = () => {
     </div>
   );
 };
+/**  lite greier for å åpne en popup som forteller at prisen er redusert. 
+     ikke bli for forbauset om det ikke går, first time for everything xD
+*/
 var modal = document.getElementById("myModal");
 var span = document.getElementsByClassName("close")[0];
 span.onclick = function() {
   modal.style.display = "none";
+}
+if (this.window.open() === true) {
+  modal.style.display = "block";
 }
 window.onclick = function(event) {
   if (event.target === modal) {
