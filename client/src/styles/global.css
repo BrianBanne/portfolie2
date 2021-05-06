@@ -170,6 +170,7 @@ main {
   align-items: center;
   justify-content: center;
   margin-top: 2rem;
+  
 }
 
 .cart__item-container {
@@ -392,6 +393,7 @@ th {
   text-transform: uppercase;
   border-bottom: 1px solid var(--primary-dark);
 }
+
 
 /*   
   background-color: transparent;
