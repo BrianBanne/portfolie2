@@ -26,46 +26,19 @@ const CartContainer = () => {
   function priceReductionForRandomCustomer() {
     return getTotal() - getTotal();
   }
-  //funker ikke
-  window.onload = function() {
-    var modal = document.getElementById("myModal");
-    var span = document.getElementsByClassName("close")[0];
-    var btn = document.getElementById("checkout");
+
+  window.onload = function() { 
     setTimeout(function() {
-        document.getElementById('myModal').style.display = 'block';
-    }, 1000);
-    span.onclick =  modal.style.visibility = "hidden";
-    btn.onclick = function() {
-      modal.style.display = "block";
-    }
-    window.onclick = function(event) {
-      if (event.target === modal) {
-        modal.style.visibility = "hidden";
-      }
-    }
+        alert("Congratulations! As our x customer, you've just got a 100% discount on your cart\n developer note, fill x with specified amount from management")
+        var myDiv = document.getElementById('theDiv');
+        myDiv.style.display = myDiv.style.display === 'none' ? 'block' : 'none';
+    }, 3000);
 }
-  //funker ikke 
+
+
   return (
     <div className="cartContainer">
-    <div id="myModal" class="modal">
-
-<div class="modal-content">
-  <div class="modal-header">
-    <span class="close">&times;</span>
-    <h2>Modal Header</h2>
-  </div>
-  <div class="modal-body">
-    <p>Some text in the Modal Body</p>
-    <p>Some other text...</p>
-  </div>
-  <div class="modal-footer">
-    <h3>Modal Footer</h3>
-  </div>
-</div>
-
-</div>
-
-      {cart?.length > 0 ? (
+    {cart?.length > 0 ? (
         <>
           <ul className="cart__item-container">
             {cart &&
@@ -74,12 +47,13 @@ const CartContainer = () => {
               ))}
           </ul>
           <div>
-         
             <div>Subtotal: {getSubtotal()} kr</div>
             <div>Shipping: {SHIPPING} kr</div>
             <div>Total: {getTotal()} kr</div>
-            <div>Total after price reduction: <div style={{ "text-decoration": "line-through","display": "inline"}}> {getTotal().toString()}</div> {'->'} {priceReductionForRandomCustomer()} kr</div>
-          </div>
+            <div id="theDiv" onload="setInterval(onTimerElapsed, 1000);" style={{"display":"none"}}>Total after price reduction: <div 
+            style={{ "text-decoration": "line-through","display": "inline"}}> {getTotal().toString()}</div> {'->'} 
+            {priceReductionForRandomCustomer()} kr</div>
+          </div> 
         
           <Button primary onClick={handleClearCart} label="Clear cart" />
           <Button
