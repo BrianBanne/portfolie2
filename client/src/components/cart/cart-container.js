@@ -23,9 +23,19 @@ const CartContainer = () => {
   function getTotal() {
     return getSubtotal() + SHIPPING;
   }
-
+  function priceReductionForRandomCustomer() {
+    return getTotal() - getTotal();
+  }
+  
   return (
+   
     <div className="cartContainer">
+     <div id ="mymodal" class="modal">
+    <div class="modal-content">
+      <span class ="close">&times;</span>
+      <p>Congratulations! You're one lucky customer :D Today the cost is on us. Enjoy your free products</p>
+    </div>
+    </div>
       {cart?.length > 0 ? (
         <>
           <ul className="cart__item-container">
@@ -38,6 +48,8 @@ const CartContainer = () => {
             <div>Subtotal: {getSubtotal()} kr</div>
             <div>Shipping: {SHIPPING} kr</div>
             <div>Total: {getTotal()} kr</div>
+            
+            <div>Total after price reduction: {getTotal().strike} kr `{'->'}`{priceReductionForRandomCustomer()} kr</div>
           </div>
           <Button primary onClick={handleClearCart} label="Clear cart" />
           <Button
@@ -56,5 +68,16 @@ const CartContainer = () => {
     </div>
   );
 };
+var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+span.onclick = function() {
+  modal.style.display = "none";
+}
+window.onclick = function(event) {
+  if (event.target === modal) {
+    modal.style.display = "none";
+  }
+}
+
 
 export default CartContainer;
