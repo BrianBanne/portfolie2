@@ -2,14 +2,40 @@ import React, { useContext } from "react";
 import { TestAPI } from "../../api/test-api";
 import { AuthContext } from "../../components/context/auth-context";
 import Layout from "../../components/layout/index";
+import Form from "../../components/shared/form";
 import ProfileInfo from "../../components/update-profile";
 
 const AdminPage = () => {
   const { user } = useContext(AuthContext);
-  const userOrders = TestAPI.ORDERS.filter(id => id === 321)
-  console.log('orders', userOrders);
+  const userOrders = TestAPI.ORDERS.filter((id) => id === 321);
+  console.log("orders", userOrders);
 
   //api get user orders by user id
+ function  handleUpdateDetails(){
+
+ }
+
+  const ADMIN_PERSONAL_DETAILS = [
+    {
+      type: "password",
+      label: "Password",
+      name: 'password',
+      value: ''
+    },
+    {
+      type: "password",
+      label: "Enter password again",
+      name: 'password2',
+      value: ''
+
+
+    },
+    {
+      type: "submit",
+      label: "Update details",
+      onClick: handleUpdateDetails()
+    },
+  ];
 
   return (
     <Layout>
@@ -19,9 +45,8 @@ const AdminPage = () => {
       </div>
       <section>
         <h2>Update personal info:</h2>
-        <ProfileInfo user={user}/>
+        <Form items={ADMIN_PERSONAL_DETAILS} />
       </section>
-    
     </Layout>
   );
 };

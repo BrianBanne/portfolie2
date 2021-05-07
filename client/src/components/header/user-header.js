@@ -4,8 +4,7 @@ import { AuthContext } from "../context/auth-context";
 import Button from "../shared/button";
 
 const UserHeader = () => {
-
-  const {logout} = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   return (
     <header className="header">
       <nav className="nav">
@@ -13,14 +12,20 @@ const UserHeader = () => {
           home
         </Link>
         <Link to="/user/orders" className="nav__link">
-         my  orders
+          my orders
         </Link>
       </nav>
 
-      <Button label="Log out" style={{width:'100px'}} secondary onClick={()=> logout()}/>
+      <div>
+        <Button
+          label="Log out"
+          style={{ width: "100px" }}
+          secondary
+          onClick={() => logout()}
+        />
+      </div>
     </header>
   );
 };
 
 export default UserHeader;
-

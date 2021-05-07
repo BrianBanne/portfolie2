@@ -34,6 +34,8 @@ const PRODUCTS = [
 const ORDERS = [
   {
     orderId: "#123",
+    firstName: 'Hans',
+    lastName: 'emann',
     userId: 110,
     status: "COMPLETED",
     amount: 2500,
@@ -41,6 +43,8 @@ const ORDERS = [
   },
   {
     orderId: "#321",
+    firstName: 'Brian',
+    lastName: 'Mann',
     userId: 111,
     status: "CANCELLED",
     amount: 1500,
@@ -48,6 +52,8 @@ const ORDERS = [
   },
   {
     orderId: "#322",
+    firstName: 'Per',
+    lastName: 'Spellemann',
     userId: 111,
     status: "CANCELLED",
     amount: 1500,

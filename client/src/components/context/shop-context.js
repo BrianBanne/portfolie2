@@ -1,4 +1,4 @@
-import { createContext, useReducer } from "react";
+import { createContext, useReducer, useState } from "react";
 
 export const ShopContext = createContext();
 
@@ -9,6 +9,7 @@ const storage = localStorage.getItem("cart")
 const initialState = {
   cart: storage,
 };
+
 
 function setLocalStorage(cart) {
   localStorage.setItem("cart", JSON.stringify(cart.length > 0 ? cart : []));
@@ -44,11 +45,11 @@ const ShopReducer = (state, action) => {
       };
 
     case "DECREMENT":
-  // slår ann feil når man reduserer til 0, fikk det ikke til å funke med min fiks
+      // slår ann feil når man reduserer til 0, fikk det ikke til å funke med min fiks
       state.cart[state.cart.findIndex(({ id }) => id === action.payload.id)]
         .quantity--;
       return { ...state, cart: [...state.cart] };
-    
+
     case "REMOVE":
       return {
         ...state,

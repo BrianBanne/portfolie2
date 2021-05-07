@@ -4,8 +4,7 @@ import { AuthContext } from "../context/auth-context";
 import Button from "../shared/button";
 
 const AdminHeader = () => {
-
-  const {logout} = useContext(AuthContext);
+  const { logout } = useContext(AuthContext);
   return (
     <header className="header">
       <nav className="nav">
@@ -20,10 +19,16 @@ const AdminHeader = () => {
         </Link>
       </nav>
 
-      <Button label="Log out" style={{width:'100px'}} secondary onClick={()=> logout()}/>
+      <div>
+        <Button
+          label="Log out"
+          style={{ width: "100px" }}
+          secondary
+          onClick={() => logout()}
+        />
+      </div>
     </header>
   );
 };
 
 export default AdminHeader;
-
