@@ -9,7 +9,6 @@ const ProductPage = ({ data }) => {
   const product = data.find((p) => p.id === Number(id));
   console.log(product);
 
-
   const StockStatus = ({ product }) => {
     if (product.stockStatus > 0)
       return (
@@ -29,20 +28,32 @@ const ProductPage = ({ data }) => {
   return (
     <Layout>
       <article className="product" style={{ margin: "0 auto" }}>
-        <figure className="product__column">
-          <img
-            src={imageUrl}
-            style={{ width: "100%", objectFit: "cover" }}
-            alt="t-skjorte"
-          />
-        </figure>
+        <div className="product__row">
+          <figure className="product__column">
+            <img
+              src={imageUrl}
+              style={{ width: "100%", objectFit: "cover" }}
+              alt="t-skjorte"
+            />
+          </figure>
 
-        <div className="product__column">
-          <h2 style={{ textAlign: "left" }}>{name}</h2>
+          <div className="product__column">
+            <h2 style={{ textAlign: "left" }}>{name}</h2>
+            <p>{description}</p>
+            <span style={{ display: "block" }}>{price} kr</span>
+            <p>
+              <StockStatus product={product} />
+            </p>
+            <AddToCartButton
+              product={product}
+              inInStock={product.stockStatus > 0}
+            />
+          </div>
+        </div>
+        <div className="product__row">
+          {/* TODO: ADD LONG DESCRIPTION */}
+          <h3>Description</h3>
           <p>{description}</p>
-          <span style={{ display: "block" }}>{price} kr</span>
-          <p><StockStatus product={product}/></p>
-          <AddToCartButton product={product} inInStock={product.stockStatus > 0} />
         </div>
       </article>
     </Layout>

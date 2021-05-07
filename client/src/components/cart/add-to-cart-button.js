@@ -14,7 +14,7 @@ const AddToCartButton = ({ product, inInStock }) => {
     history.push("/cart");
   }
   return (
-    <Button secondary disabled={!inInStock} onClick={() => handleAddToCart()} label="Add to cart" />
+    <Button secondary disabled={!inInStock} onClick={() => handleAddToCart()} label={inInStock ? "Add to cart" : 'Out of stock'} />
   );
 };
 

@@ -30,17 +30,23 @@ const CartIcon = ({ cart }) => {
   const history = useHistory();
 
   return (
-    <Button
-      label={
-        history.location.pathname === "/cart"
-          ? "close x"
-          : `Cart: ${cart?.length}`
-      }
-      primary
-      style={{ width: "80px" }}
-      onClick={() => {
-        history.push(history.location.pathname === "/cart" ? window.history.back() : `/cart`);
-      }}
-    />
+    <div>
+      <Button
+        label={
+          history.location.pathname === "/cart"
+            ? "close x"
+            : `Cart: ${cart?.length}`
+        }
+        primary
+        style={{ width: "80px" }}
+        onClick={() => {
+          history.push(
+            history.location.pathname === "/cart"
+              ? window.history.back()
+              : `/cart`
+          );
+        }}
+      />
+    </div>
   );
 };
