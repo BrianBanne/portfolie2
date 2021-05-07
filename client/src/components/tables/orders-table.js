@@ -1,36 +1,25 @@
 import React from "react";
 import OrderTableItem from "./order-table.item";
 
-const OrderTable = () => {
-  const orders = [
-    {
-      id: "#123",
-      name: "Hans Briansen",
-      status: "COMPLETED",
-      amount: 2500,
-    },
-    {
-      id: "#321",
-      name: "Brian Hansen",
-      status: "CANCELLED",
-      amount: 1500,
-    },
-  ];
+const OrderTable = ({ orders }) => {
   return (
     <div>
       <table>
         <thead>
           <tr>
             <th>Order ID</th>
-            <th>Name</th>
-            <th>Status</th>
+            <th>Date</th>
+            <th># of items</th>
             <th>Amount</th>
+            <th>Status</th>
           </tr>
         </thead>
 
         <tbody>
           {orders.length > 0 &&
-            orders.map((order) => <OrderTableItem key={order.id} order={order} />)}
+            orders.map((order) => (
+              <OrderTableItem key={order.orderId} order={order} />
+            ))}
         </tbody>
       </table>
     </div>
