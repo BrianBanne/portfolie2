@@ -5,15 +5,13 @@
   "main": "node server.js",
   "scripts": {
     "dev": "nodemon server.js",
-    "start": "node server.js"
+    "server": "node server.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "bcrypt": "^5.0.1",
-    "cors": "^2.8.5",
+    "dns": "^0.2.2",
     "express": "^4.17.1",
-    "google-auth-library": "^7.0.4",
     "mongoose": "^5.12.7"
   },
   "devDependencies": {

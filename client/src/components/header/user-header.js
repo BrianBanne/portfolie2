@@ -9,7 +9,7 @@ const UserHeader = () => {
   return (
     <header className="header">
       <nav className="nav">
-        <Link to="/admin" className="nav__link">
+        <Link to="/user" className="nav__link">
           home
         </Link>
         <Link to="/user/orders" className="nav__link">
