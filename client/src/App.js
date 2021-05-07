@@ -12,7 +12,7 @@ import { AuthProvider } from "./components/context/auth-context";
 import AdminProductsPage from "./pages/admin/products";
 import AdminOrdersPage from "./pages/admin/orders";
 import ProductPage from "./components/product/product";
-import { PRODUCTS } from "./api/test";
+import { TestAPI } from "./api/test-api";
 import UserPage from "./pages/user";
 import UserOrdersPage from "./pages/user/orders";
 
@@ -29,7 +29,7 @@ function App() {
               <ShopPage />
             </Route>
             <Route path="/product/:id">
-              <ProductPage data={PRODUCTS} />
+              <ProductPage data={TestAPI.PRODUCTS} />
             </Route>
 
             <Route path="/cart">
