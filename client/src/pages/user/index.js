@@ -6,7 +6,7 @@ import ProfileInfo from "../../components/update-profile";
 const UserPage = () => {
   const { user } = useContext(AuthContext);
 
-  const UPDATE_PROFILE_INFO = [{type: 'input', onChange}]
+ // const UPDATE_PROFILE_INFO = [{type: 'input', onChange}]
 
   return (
     <Layout>

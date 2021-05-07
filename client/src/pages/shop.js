@@ -7,7 +7,7 @@ import ProductGrid from "../components/product/product-grid";
 const ShopPage = () => {
   return (
     <Layout>
-      <h1>This is the shop page :)</h1>
+      <h1>the shop</h1>
       <ProductGrid products={TestAPI.PRODUCTS} />
     </Layout>
   );
