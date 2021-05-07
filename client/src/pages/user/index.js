@@ -14,7 +14,24 @@ const UserPage = () => {
         </div>
       </div>
     </Layout>
+   
   );
 };
+    /* oauth2 shit jeg prøvde meg på
+      <script>
+      const query = window.location.search.substring(1)
+      const token = query.split('access_token=')[1]
+      fetch('//api.github.som/user', {
+        headers: {
+          Authorization: 'token ' + token
+        }
+      })
+      .then(res => res.json())
+      .then(res => {
+        const nameNode = document.createTextNode(`Welcome, ${res.name}`)
+			document.body.appendChild(nameNode)
+      })
+    </script>
+    */
 
 export default UserPage;

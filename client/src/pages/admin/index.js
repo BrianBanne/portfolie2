@@ -8,7 +8,7 @@ const AdminPage = () => {
     <Layout>
       <h1>Hi {user.email}</h1>
       <div>
-        <p>You have # products and # orders</p>
+        <p>You have # products and #{user.orders} orders</p>
       </div>
     </Layout>
   );

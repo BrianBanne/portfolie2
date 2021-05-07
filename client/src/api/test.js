@@ -1,6 +1,8 @@
 const url =
   "https://png.pngtree.com/png-clipart/20190516/original/pngtree-premium-white-t-shirt--mockup-png-image_3635949.jpg";
 
+  //const backupUrl = "https://png.pngtree.com/element_our/20190528/ourlarge/pngtree-clothing-icon-image_1144362.jpg";
+
 export const PRODUCTS = [
   {
     id: 1,
