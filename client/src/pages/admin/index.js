@@ -3,7 +3,6 @@ import { TestAPI } from "../../api/test-api";
 import { AuthContext } from "../../components/context/auth-context";
 import Layout from "../../components/layout/index";
 import Form from "../../components/shared/form";
-import ProfileInfo from "../../components/update-profile";
 
 const AdminPage = () => {
   const { user } = useContext(AuthContext);

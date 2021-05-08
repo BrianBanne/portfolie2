@@ -4,10 +4,11 @@ const orderSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   orderStatus: { type: String },
   customer: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-  shippingAddress: { type: String, required: true },
-  shippingMethod: { type: String },
+  address: { type: String, required: true },
+  postcode: { type: String, required: true },
+  city: { type: String, required: true },
   total: { type: Number, required: true },
-  products: [{ type: mongoose.Schema.Types.ObjectId, ref: "Product" }],
+  products: [{ type: mongoose.Schema.Types.ObjectId, ref: "CartItem"}],
 
   //todo: add orders reference
 });

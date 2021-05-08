@@ -2,7 +2,8 @@ const express = require("express");
 const cors = require('cors')
 const mongoose = require("mongoose");
 const { createCustomer, getCustomers, handleGoogleLogin } = require("./controllers/user-controller");
-const isAuth = require('./middleware/auth-middleware')
+const isAuth = require('./middleware/auth-middleware');
+const ShopRouter = require("./routes/shop-routes");
 
 //const DB_HOST = "simplelinuxvm-tfh4puu22joq4.norwayeast.cloudapp.azure.com";
 //const URL = `mongodb://adminHans:Tvgj3789@${DB_HOST}:27017/ecomm`;
@@ -23,6 +24,7 @@ const server = express()
 
 server.use(express.json())
 server.use(cors())
+server.use("/api", ShopRouter)
 //server.use(isAuth)
 
 server.get("/", (req, res) => {
