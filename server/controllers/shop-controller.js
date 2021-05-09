@@ -1,5 +1,6 @@
 const Order = require("../database/models/order");
 const Product = require("../database/models/product");
+const { sendError } = require("../lib");
 
 async function getAllProducts(req, res) {
   try {
@@ -12,7 +13,8 @@ async function getAllProducts(req, res) {
 
 async function getProduct(req, res) {
   const productId = req.params.id;
-  if (!productId) return sendError(res, 400, "Product id not defined in request");
+  if (!productId)
+    return sendError(res, 400, "Product id not defined in request");
   try {
     const product = await Product.findById(productId);
     return res.status(200).json({ product: product });
@@ -52,7 +54,8 @@ async function updateProduct(req, res) {
   //auth
   const productId = req.params.id;
   const updatedValues = req.body;
-  if (!productId) return sendError(res, 400, "Product id not defined in request");
+  if (!productId)
+    return sendError(res, 400, "Product id not defined in request");
   try {
     const product = await Product.findById(productId);
     product.name = updatedValues.name;
@@ -85,22 +88,16 @@ async function deleteProduct(req, res) {
 }
 
 async function deleteAllProducts(req, res) {
-    //auth
-    try {
-      const deletedProducts = await Product.remove({})
-      console.log(deletedProducts);
-      return res.status(200).json({
-        message: "Products succesfully deleted",
-      });
-    } catch (error) {
-      return sendError(res, 500, "Unable to delete products");
-    }
+  //auth
+  try {
+    const deletedProducts = await Product.remove({});
+    console.log(deletedProducts);
+    return res.status(200).json({
+      message: "Products succesfully deleted",
+    });
+  } catch (error) {
+    return sendError(res, 500, "Unable to delete products");
   }
-
-
-
-function sendError(res, code, message) {
-  return res.status(code).json({ error: message });
 }
 
 module.exports = {

@@ -3,7 +3,7 @@ const cors = require('cors')
 const mongoose = require("mongoose");
 const { createCustomer, getCustomers, handleGoogleLogin } = require("./controllers/user-controller");
 const isAuth = require('./middleware/auth-middleware');
-const ShopRouter = require("./routes/shop-routes");
+const Router = require("./routes/shop-routes");
 
 //const DB_HOST = "simplelinuxvm-tfh4puu22joq4.norwayeast.cloudapp.azure.com";
 //const URL = `mongodb://adminHans:Tvgj3789@${DB_HOST}:27017/ecomm`;
@@ -24,15 +24,12 @@ const server = express()
 
 server.use(express.json())
 server.use(cors())
-server.use("/api", ShopRouter)
+server.use("/api", Router)
 //server.use(isAuth)
 
 server.get("/", (req, res) => {
-  res.send("This is the backend :)");
+  res.send("Welcome to the server:) Make requests to the api at /api");
 });
-server.get("api/addUser", createCustomer);
-server.get("/api/customers", getCustomers);
-server.post("/api/customer/login/google", handleGoogleLogin)
 
 server.listen(PORT, ADDRESS, () =>
   console.log(`Server listening at port ${PORT}`)

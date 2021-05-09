@@ -4,7 +4,7 @@ const url =
 const PRODUCTS = [
   {
     id: 1,
-    name: "Kul tskjorte",
+    name: "Dårllig teve",
     sku: 111,
     price: 200,
     stockStatus: 0,

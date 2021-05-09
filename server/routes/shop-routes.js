@@ -2,14 +2,26 @@ const express = require("express");
 const ShopController = require("../controllers/shop-controller");
 const OrderController = require('../controllers/order-controller')
 
-const ShopRouter = express.Router();
+const Router = express.Router();
 
-ShopRouter.get("/products", ShopController.getAllProducts);
-ShopRouter.get("/product/:id", ShopController.getProduct);
-ShopRouter.put("/product/:id", ShopController.updateProduct);
-ShopRouter.delete("/product/:id", ShopController.deleteProduct);
-ShopRouter.post("/product", ShopController.createProduct);
+// USER ROUTES
 
-ShopRouter.post("/:userId/order/create", OrderController.createOrder)
 
-module.exports = ShopRouter
+
+//  PRODUCT ROUTES
+Router.get("/products", ShopController.getAllProducts);
+Router.get("/product/:id", ShopController.getProduct);
+Router.put("/product/:id", ShopController.updateProduct);
+Router.delete("/product/:id", ShopController.deleteProduct);
+Router.post("/product", ShopController.createProduct);
+
+
+// ORDER ROUTES
+Router.post("/order/create", OrderController.createOrder)
+Router.get("/orders", OrderController.getAllOrders)
+Router.get("/order/:id", OrderController.getOrder)
+Router.put("/order/:id", OrderController.updateOrder)
+Router.delete("/order/:id", OrderController.deleteOrder)
+
+
+module.exports = Router
