@@ -11,19 +11,19 @@ const ProductTable = ({ products, handleEditProduct }) => {
       <table>
         <thead>
           <tr>
-            <th>Varenummer?</th>
+            <th>Stock number</th>
             <th>Image</th>
             <th>Name</th>
             <th>Stock status</th>
             <th>Price</th>
-            <th>Category?</th>
+            <th>Category</th>
             <th></th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           {products.length > 0 &&
-            products.map((product) => <ProductTableItem key={product.sku} product={product} handeEdit={handleEditProduct} />)}
+            products.map((product) => <ProductTableItem key={product.sku} product={product} handleEdit={handleEditProduct} />)}
         </tbody>
       </table>
     </div>

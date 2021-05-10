@@ -34,7 +34,7 @@ const ShopReducer = (state, action) => {
         cart: [...state.cart],
         ...setLocalStorage(state.cart),
       };
-
+          //øker med 2 ad gangen
     case "INCREMENT":
       state.cart[state.cart.findIndex(({ id }) => id === action.payload.id)]
         .quantity++;

@@ -33,7 +33,6 @@ const UserPage = () => {
       label: "Update details",
       onClick: handleUpdateDetails()
     },
-
   ];
 
  // const UPDATE_PROFILE_INFO = [{type: 'input', onChange}]
@@ -51,7 +50,7 @@ const UserPage = () => {
           <div>
         <Button 
           label="Log out"
-          style={{ "width": "100px", "position": "relative", "margin-left": "440px" }}
+          style={{ "width": "100px", "position": "relative", "margin-left": "435px" }}
           secondary
           onClick={() => logout()}
         />
@@ -62,21 +61,4 @@ const UserPage = () => {
    
   );
 };
-    /* oauth2 shit jeg prøvde meg på
-      <script>
-      const query = window.location.search.substring(1)
-      const token = query.split('access_token=')[1]
-      fetch('//api.github.som/user', {
-        headers: {
-          Authorization: 'token ' + token
-        }
-      })
-      .then(res => res.json())
-      .then(res => {
-        const nameNode = document.createTextNode(`Welcome, ${res.name}`)
-			document.body.appendChild(nameNode)
-      })
-    </script>
-    */
-
 export default UserPage;

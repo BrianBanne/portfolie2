@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import AddToCartButton from "../cart/add-to-cart-button";
 
 const ProductPreview = ({ product }) => {
+  //sku eller id i link to? 
   const { name, imageUrl, price, id, stockStatus } = product;
   console.log(stockStatus);
   //TODO: get slug from server

@@ -1,33 +1,36 @@
 const url =
   "https://png.pngtree.com/png-clipart/20190516/original/pngtree-premium-white-t-shirt--mockup-png-image_3635949.jpg";
-
+//hva er sku?? satt id til sku for nå
 const PRODUCTS = [
   {
-    id: 1,
+    id: 111,
     name: "Dårllig teve",
     sku: 111,
     price: 200,
     stockStatus: 0,
     imageUrl: url,
     description: "Fet greie",
+    category: "T-shirt",
   },
   {
-    id: 2,
+    id: 122,
     name: "Grei tskjorte",
     price: 250,
     sku: 122,
     stockStatus: 5,
     imageUrl: url,
     description: "Veldig fet greie",
+    category: "T-shirt",
   },
   {
-    id: 32,
+    id: 321,
     name: "Ok tskjorte",
     price: 2499,
     sku: 321,
     stockStatus: 2,
     imageUrl: url,
     description: "Ok greie, funker til det meste",
+    category: "T-shirt",
   },
 ];
 
