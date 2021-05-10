@@ -26,6 +26,7 @@ ul {
   margin: 0;
   padding: 0;
   font-weight: normal;
+  text-align: center;
 }
 
 ol,
@@ -76,8 +77,8 @@ main {
   height: 60px;
   position: sticky;
   padding: 0 1rem;
+  
 }
-
 /* .nav {
 } */
 
@@ -85,6 +86,7 @@ main {
   text-decoration: none;
   color: var(--main-text);
   transition: all 0.4s;
+  margin: 20px;
 }
 .nav__link a:hover {
   color: red;
@@ -240,8 +242,9 @@ input {
 
 .form__container {
 /*   width: 100%;
- */  min-height: calc(100vh - 74px);
-  /* height: auto; */
+      height: 300px; 
+ */  
+  min-height: calc(100vh - 280px); 
   border-radius: 5px;
   margin: auto;
   background-color: var(--secondary-light);

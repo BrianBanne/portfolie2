@@ -9,13 +9,13 @@ const Header = () => {
     <header className="header">
       <nav className="nav">
         <Link to="/" className="nav__link">
-          home
+          Home
         </Link>
         <Link to="/shop" className="nav__link">
-          shop
+          Shop
         </Link>
         <Link to="/admin" className="nav__link">
-          log in
+          Log in
         </Link>
       </nav>
 
@@ -25,6 +25,7 @@ const Header = () => {
 };
 
 export default Header;
+
 
 const CartIcon = ({ cart }) => {
   const history = useHistory();
