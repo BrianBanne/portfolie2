@@ -6,10 +6,10 @@ import { AuthConsumer } from "../context/auth-context";
 function ProtectedRoute({ children, ...rest }) {
   return (
     <AuthConsumer>
-      {({ user }) => (
+      {({ token }) => (
         <Route
           {...rest}
-          render={() => (user ? children : <Redirect to="/login" />)}
+          render={() => (token ? children : <Redirect to="/login" />)}
         />
       )}
     </AuthConsumer>

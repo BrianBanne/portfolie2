@@ -1,11 +1,10 @@
-import React, { useContext } from "react";
+import React from "react";
 import { TestAPI } from "../../api/test-api";
-import { AuthContext } from "../../components/context/auth-context";
 import Layout from "../../components/layout/index";
 import Form from "../../components/shared/form";
 
 const AdminPage = () => {
-  const { user } = useContext(AuthContext);
+ // const { user } = useContext(AuthContext);
   const userOrders = TestAPI.ORDERS.filter((id) => id === 321);
   console.log("orders", userOrders);
 
@@ -38,9 +37,9 @@ const AdminPage = () => {
 
   return (
     <Layout>
-      <h1>Hi {user.email}</h1>
+      <h1>Hi gluint </h1>
       <div>
-        <p>You have # products and #{user.orders} orders</p>
+        {/* <p>You have # products and #{user.orders} orders</p> */}
       </div>
       <section>
         <h2>Update personal info:</h2>

@@ -15,6 +15,7 @@ import ProductPage from "./components/product/product";
 import { TestAPI } from "./api/test-api";
 import UserPage from "./pages/user";
 import UserOrdersPage from "./pages/user/orders";
+import LoginUser from "./components/routes/login-user";
 
 function App() {
   return (
@@ -38,7 +39,7 @@ function App() {
             <Route path="/checkout">
               <CheckoutPage />
             </Route>
-            <Route path="/login">
+            <Route exact path="/login">
               <LoginPage />
             </Route>
             <ProtectedRoute exact path="/admin">
@@ -53,6 +54,9 @@ function App() {
             <ProtectedRoute exact path="/user">
               <UserPage />
             </ProtectedRoute>
+            <Route path="/login/user">
+              <LoginUser/>
+            </Route>
             <ProtectedRoute exact path="/user/orders">
               <UserOrdersPage />
             </ProtectedRoute>

@@ -1,16 +1,14 @@
-import React, { useContext } from "react";
-import { AuthContext } from "../../components/context/auth-context";
+import React from "react";
 import Layout from "../../components/layout/index";
-import ProfileInfo from "../../components/update-profile";
 
 const UserPage = () => {
-  const { user } = useContext(AuthContext);
+ // const { user } = useContext(AuthContext);
 
  // const UPDATE_PROFILE_INFO = [{type: 'input', onChange}]
 
   return (
     <Layout>
-      <h1>Hi {user.email}</h1>
+      <h1>Hi {}</h1>
       <div>
         <p>You have # products and # orders</p>
         <div>

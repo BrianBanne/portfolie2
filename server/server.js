@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const { createCustomer, getCustomers, handleGoogleLogin } = require("./controllers/user-controller");
 const isAuth = require('./middleware/auth-middleware');
 const Router = require("./routes/shop-routes");
+const AuthRouter = require("./routes/auth-routes");
 
 //const DB_HOST = "simplelinuxvm-tfh4puu22joq4.norwayeast.cloudapp.azure.com";
 //const URL = `mongodb://adminHans:Tvgj3789@${DB_HOST}:27017/ecomm`;
@@ -25,7 +26,8 @@ const server = express()
 server.use(express.json())
 server.use(cors())
 server.use("/api", Router)
-//server.use(isAuth)
+server.use("/auth", AuthRouter)
+server.use(isAuth)
 
 server.get("/", (req, res) => {
   res.send("Welcome to the server:) Make requests to the api at /api");

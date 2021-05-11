@@ -6,15 +6,17 @@ import AdminHeader from "../header/admin-header";
 import UserHeader from "../header/user-header";
 
 const Layout = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
+
+  console.log('user', user);
 
   useEffect(()=> {
-    user?.userType === "admin" ? invertColors(true) : invertColors()
+    user?.type === "ADMIN" ? invertColors(true) : invertColors()
   })
 
   function getHeader() {
-    if (user?.userType === "admin") return <AdminHeader />;
-    if (user?.userType === "user") return <UserHeader />;
+    if (token && user?.type === "ADMIN") return <AdminHeader />;
+    if (token && user?.type === "USER") return <UserHeader />;
     else return <Header />;
   }
   return (
