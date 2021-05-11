@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import { getRedirectUrl } from "../api";
+import { API, getRedirectUrl } from "../api";
 import { AuthContext } from "../components/context/auth-context";
 import { useFormFields, useQuery } from "../components/hooks/index";
 import Layout from "../components/layout/index";
@@ -7,7 +7,7 @@ import Button from "../components/shared/button";
 import Input from "../components/shared/input";
 
 const LoginPage = () => {
-  const { loginAdmin, loginUser} = useContext(AuthContext);
+  const { loginAdmin, loginUser } = useContext(AuthContext);
   const query = useQuery();
 
   const { formFields, createChangeHandler } = useFormFields({
@@ -24,20 +24,29 @@ const LoginPage = () => {
     }
   }); */
 
-  /*Handles automatic login redirect when token from server is served */
+  /*Handles automatic user login redirect when token from server is served */
   useEffect(() => {
-    const token =  query.get("token");
+    const token = query.get("token");
     const email = query.get("email");
     if (!(token && email)) return;
-    
+
     loginUser(token, email);
   }, [query, loginUser]);
 
-  function handleLogin(event) {
+  function handleAdminLogin(event) {
     event.preventDefault();
-    if (formFields.userType === "admin") {
-      loginAdmin(formFields);
+    if (formFields.userType === "ADMIN") {
+      console.log(formFields);
+      API.loginAdmin(formFields)
+        .then(({ data }) => loginAdmin(data))
+        .catch((err) => getErrorData(err));
     }
+  }
+
+  function getErrorData(err) {
+    const errMsg = err?.response?.data.error;
+    if (errMsg) alert(errMsg);
+    console.log(err);
   }
 
   function handleGoogleLogin(event) {
@@ -50,7 +59,7 @@ const LoginPage = () => {
   return (
     <Layout>
       <div className="form__container">
-        <form onSubmit={handleLogin} className="flex">
+        <form className="flex">
           <h2>Log in</h2>
           <fieldset style={{ textAlign: "center", marginTop: "2rem" }}>
             <legend style={{ marginBottom: "1rem" }}>I am an</legend>
@@ -58,7 +67,7 @@ const LoginPage = () => {
               type="radio"
               label="User"
               name="userType"
-              value="user"
+              value="USER"
               onChange={createChangeHandler("userType")}
               inline="true"
               defaultChecked
@@ -67,12 +76,12 @@ const LoginPage = () => {
               type="radio"
               label="Admin"
               name="userType"
-              value="admin"
+              value="ADMIN"
               onChange={createChangeHandler("userType")}
               inline="true"
             />
           </fieldset>
-          {formFields.userType === "admin" ? (
+          {formFields.userType === "ADMIN" ? (
             <fieldset>
               <Input
                 label="Email"
@@ -90,7 +99,11 @@ const LoginPage = () => {
                 value={formFields.password}
                 onChange={createChangeHandler("password")}
               />
-              <Button label="LOG IN" secondary />
+              <Button
+                label="LOG IN"
+                secondary
+                onClick={(e) => handleAdminLogin(e)}
+              />
             </fieldset>
           ) : (
             <Button

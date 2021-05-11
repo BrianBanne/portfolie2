@@ -8,11 +8,9 @@ import UserHeader from "../header/user-header";
 const Layout = ({ children }) => {
   const { token, user } = useContext(AuthContext);
 
-  console.log('user', user);
-
-  useEffect(()=> {
-    user?.type === "ADMIN" ? invertColors(true) : invertColors()
-  })
+  useEffect(() => {
+    user?.type === "ADMIN" ? invertColors(true) : invertColors();
+  });
 
   function getHeader() {
     if (token && user?.type === "ADMIN") return <AdminHeader />;

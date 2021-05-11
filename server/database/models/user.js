@@ -5,7 +5,8 @@ const userSchema = new mongoose.Schema({
   password: { type: String, required: false },
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
-  userType: { type: String, enum: ["USER, ADMIN"], default: "USER" },
+  userType: { type: String, enum: ["USER", "ADMIN"], default: "USER" },
 });
 
-module.exports = mongoose.model("Admin", userSchema);
+const User = mongoose.model("User", userSchema);
+module.exports = User

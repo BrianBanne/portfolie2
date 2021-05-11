@@ -1,21 +1,19 @@
 import { BrowserRouter, Route, Switch } from "react-router-dom";
-import "./styles/global.css";
+import { AuthProvider } from "./components/context/auth-context";
+import { ShopProvider } from "./components/context/shop-context";
+import ProductPage from "./components/product/product";
+import ProtectedRoute from "./components/routes/protected-route";
 import IndexPage from "./pages";
 import AdminPage from "./pages/admin";
-import ShopPage from "./pages/shop";
-import { ShopProvider } from "./components/context/shop-context";
+import AdminOrdersPage from "./pages/admin/orders";
+import AdminProductsPage from "./pages/admin/products";
 import CartPage from "./pages/cart";
 import CheckoutPage from "./pages/checkout";
-import ProtectedRoute from "./components/routes/protected-route";
 import LoginPage from "./pages/login";
-import { AuthProvider } from "./components/context/auth-context";
-import AdminProductsPage from "./pages/admin/products";
-import AdminOrdersPage from "./pages/admin/orders";
-import ProductPage from "./components/product/product";
-import { TestAPI } from "./api/test-api";
+import ShopPage from "./pages/shop";
 import UserPage from "./pages/user";
 import UserOrdersPage from "./pages/user/orders";
-import LoginUser from "./components/routes/login-user";
+import "./styles/global.css";
 
 function App() {
   return (
@@ -30,7 +28,7 @@ function App() {
               <ShopPage />
             </Route>
             <Route path="/product/:id">
-              <ProductPage data={TestAPI.PRODUCTS} />
+              <ProductPage />
             </Route>
 
             <Route path="/cart">
@@ -54,9 +52,7 @@ function App() {
             <ProtectedRoute exact path="/user">
               <UserPage />
             </ProtectedRoute>
-            <Route path="/login/user">
-              <LoginUser/>
-            </Route>
+       
             <ProtectedRoute exact path="/user/orders">
               <UserOrdersPage />
             </ProtectedRoute>

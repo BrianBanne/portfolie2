@@ -1,12 +1,10 @@
 import React from "react";
-import { TestAPI } from "../../api/test-api";
 import Layout from "../../components/layout/index";
 import Form from "../../components/shared/form";
 
 const AdminPage = () => {
  // const { user } = useContext(AuthContext);
-  const userOrders = TestAPI.ORDERS.filter((id) => id === 321);
-  console.log("orders", userOrders);
+  //const userOrders = TestAPI.ORDERS.filter((id) => id === 321);
 
   //api get user orders by user id
  function  handleUpdateDetails(){

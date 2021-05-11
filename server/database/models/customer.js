@@ -5,7 +5,7 @@ const User = require("./user");
 
 // discriminator makes the customer model inherit from the user model
 
-const customerSchema = User.discriminator(
+const Customer = User.discriminator(
   "Customer",
   new Schema({
     address: { type: String, required: true },
@@ -15,4 +15,4 @@ const customerSchema = User.discriminator(
   })
 );
 
-module.exports = customerSchema;
+module.exports = Customer;

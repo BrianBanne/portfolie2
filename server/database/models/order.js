@@ -23,5 +23,5 @@ const orderSchema = new mongoose.Schema({
 
   //todo: add orders reference
 });
-
-module.exports = mongoose.model("Order", orderSchema);
+const Order =  mongoose.model("Order", orderSchema);
+module.exports = Order

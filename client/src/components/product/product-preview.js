@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import AddToCartButton from "../cart/add-to-cart-button";
 
 const ProductPreview = ({ product }) => {
-  const { name, imageUrl, price, id, stockStatus } = product;
-  console.log(stockStatus);
+  const { name, imageUrl, price, _id, stockQuantity } = product;
   //TODO: get slug from server
   return (
     <div className="productPreview">
-      <Link to={`/product/${id}`} className="productPreview__link">
+      <Link to={`/product/${_id}`} className="productPreview__link">
         <figure className="productPreview__figure">
           <img
             src={imageUrl}
@@ -20,13 +19,13 @@ const ProductPreview = ({ product }) => {
 
       <div className="productPreview__info">
         <h2 style={{textAlign:'right'}}>
-          <Link to={`/product/${id}`} className="productPreview__link">
+          <Link to={`/product/${_id}`} className="productPreview__link">
             {name}
           </Link>
         </h2>
         <span style={{ display: "block" }}>{price} kr</span>
       </div>
-      <AddToCartButton inInStock={stockStatus > 0} product={product} />
+      <AddToCartButton inInStock={stockQuantity > 0} product={product} />
 
     </div>
   );

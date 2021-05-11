@@ -9,11 +9,12 @@ const initialState = {
   },
 };
 
-if (localStorage.getItem("token")) {
+if (localStorage.getItem("session")) {
   try {
-    const token = JSON.parse(localStorage.getItem("token"));
+    const session = JSON.parse(localStorage.getItem("session"));
     //check if expired??
-    initialState.token = token;
+    initialState.token = session.token;
+    initialState.user.type = session.type;
   } catch (error) {
     console.error(error);
   }
@@ -30,14 +31,14 @@ const AuthContext = createContext({
 function AuthReducer(state, action) {
   switch (action.type) {
     case "LOGIN":
-      localStorage.setItem("token", JSON.stringify(action.payload.token));
+      localStorage.setItem("session", JSON.stringify(action.payload));
       return {
         ...state,
         token: action.payload.token,
         user: { type: action.payload.type, email: action.payload.email },
       };
     case "LOGOUT":
-      localStorage.removeItem("token");
+      localStorage.removeItem("session");
       return { ...state, token: null, user: null };
     default:
       return state;
@@ -48,7 +49,7 @@ const AuthProvider = ({ children }) => {
   const history = useHistory();
 
   const loginUser = (token, email) => {
-    console.log(token, email);
+    //console.log(token, email);
     dispatch({
       type: "LOGIN",
       payload: { token: token, type: "USER", email: email },
@@ -56,16 +57,17 @@ const AuthProvider = ({ children }) => {
     history.push("/user");
   };
 
-  const loginAdmin = (token) => {
+  const loginAdmin = (data) => {
     dispatch({
       type: "LOGIN",
-      payload: { token: token, type: "ADMIN" },
+      payload: { token: data.token, type: "ADMIN", email: data.user.email },
     });
+    history.push("/admin");
   };
 
   const logout = () => {
     history.push("/login");
-    localStorage.removeItem("token");
+    localStorage.removeItem("session");
     dispatch({
       type: "LOGOUT",
     });
