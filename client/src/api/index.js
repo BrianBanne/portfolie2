@@ -32,6 +32,8 @@ export const getRedirectUrl = () => server.get("/auth/login/google");
 const getAllProducts = () => api.get("/products");
 const getProductFromId = (id) => api.get(`/product/${id}`);
 
+const createOrder = (payload) => api.post("/order/create", payload)
+
 //** USER API **/
 
 //** ADMIN API **/
@@ -42,6 +44,6 @@ const deleteProduct = (id) => admin.delete(`/product/${id}`);
 
 export const getCustomers = () => api.get("/customers");
 
-export const API = { getAllProducts, getProductFromId, loginAdmin };
+export const API = { getAllProducts, getProductFromId, loginAdmin, createOrder };
 
 export const AdminAPI = { getAllOrders, loginAdmin, deleteProduct };

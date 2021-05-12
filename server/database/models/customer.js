@@ -8,9 +8,9 @@ const User = require("./user");
 const Customer = User.discriminator(
   "Customer",
   new Schema({
-    address: { type: String, required: true },
-    postcode: { type: String, required: true },
-    city: { type: String, required: true },
+    address: { type: String, required: false },
+    postcode: { type: String, required: false },
+    city: { type: String, required: false },
     orders: [{ type: Schema.Types.ObjectId, ref: "Order" }],
   })
 );

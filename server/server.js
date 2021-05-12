@@ -28,11 +28,6 @@ server.use(cors());
 server.use("/api", Router);
 server.use("/auth", AuthRouter);
 server.use("/admin", AdminRouter, )
-//server.use(isAuth);
-
-/* if (mongoose.Collection.collectionName === 0) {
-  await initDbData();
-} */
 
 server.get("/", (req, res) => {
   res.send("Welcome to the server:) Make requests to the api at /api");

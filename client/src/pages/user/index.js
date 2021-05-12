@@ -1,42 +1,80 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../../components/context/auth-context";
 import Layout from "../../components/layout/index";
+import Button from "../../components/shared/button";
+import Form from "../../components/shared/form";
 
 const UserPage = () => {
- // const { user } = useContext(AuthContext);
+  const { user, logout } = useContext(AuthContext);
 
- // const UPDATE_PROFILE_INFO = [{type: 'input', onChange}]
+  function handleSetShippingInfo() {
+    console.log();
+  }
+
+  const USER_SHIPPING_INFO = [
+    {
+      type: "input",
+      label: "First name",
+      name: "firstName",
+    },
+    {
+      type: "input",
+      label: "Last name",
+      name: "lastName",
+    },
+    {
+      type: "email",
+      label: "Email",
+      name: "email",
+    },
+    {
+      type: "input",
+      label: "Address",
+      name: "address",
+    },
+    {
+      type: "input",
+      label: "Postcode",
+      name: "postcode",
+      inline: 1,
+    },
+    {
+      type: "input",
+      label: "City",
+      name: "city",
+      inline: 1,
+    },
+    {
+      type: "submit",
+      className: "button button__secondary mt1",
+      label: "Update details",
+      onClick: handleSetShippingInfo(),
+    },
+  ];
 
   return (
     <Layout>
-      <h1>Hi {}</h1>
-      <div>
-        <p>You have # products and # orders</p>
+      <div className="flex__row">
+        <h1>Hi {user.email}</h1>
+
         <div>
-          <h2>Update personal info here:</h2>
+          <Button
+            label="Log out"
+            style={{ width: "100px" }}
+            secondary
+            onClick={() => logout()}
+          />
         </div>
-        <section>
-          <h2>Update personal info:</h2>
-        </section>
+      </div>
+      <div>
+        <Form
+          title="Update shipping info"
+          items={USER_SHIPPING_INFO}
+          onSubmit={handleSetShippingInfo}
+        />
       </div>
     </Layout>
-   
   );
 };
-    /* oauth2 shit jeg prøvde meg på
-      <script>
-      const query = window.location.search.substring(1)
-      const token = query.split('access_token=')[1]
-      fetch('//api.github.som/user', {
-        headers: {
-          Authorization: 'token ' + token
-        }
-      })
-      .then(res => res.json())
-      .then(res => {
-        const nameNode = document.createTextNode(`Welcome, ${res.name}`)
-			document.body.appendChild(nameNode)
-      })
-    </script>
-    */
 
 export default UserPage;

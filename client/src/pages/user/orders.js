@@ -7,7 +7,7 @@ const UserOrdersPage = () => {
 
   return (
     <Layout>
-      <h1>Orders</h1>
+      <h1>my orders</h1>
       <p>todo: orderlist</p>
       <div>
        {/*  <OrderTable orders={userOrders} /> */}

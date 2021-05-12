@@ -30,21 +30,31 @@ async function getToken(req, res) {
 
   const userinfo = await oauth2Client.getTokenInfo(tokens.access_token);
   const email = userinfo.email;
+  console.log(userInfo);
 
-  console.log(userinfo);
+  if (!email)
+    return res.status(400).json({ error: "Unable to obtain email from login" });
 
-  /** TODO: check if user exists, if not, create a new */
+  const user = await getUserFromEmail(email);
+  console.log(user);
 
-  //const userExists = Customer.findOne({ email: email });
-  //if (userExists) return res.redirect(`http://localhost:3000/login/user?token=${tokens.access_token}`);
-
- /* console.log("ny bruker");
-
-  const newUser = new Customer({ email: email });
-  await newUser.save(); */
-  return res.redirect(`http://localhost:3000/login/?token=${tokens.access_token}&email=${email}`);
+  return res.redirect(
+    `http://localhost:3000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
+  );
 }
 
+async function getUserFromEmail(email) {
+  console.log(email);
+  const userExists = await Customer.findOne({ email: email });
+  console.log(userExists);
+  if (userExists) return { email: userExists.email, id: userExists.id };
+
+  const newUser = new Customer({ email: email });
+  await newUser.save();
+  console.log(newUser);
+  console.log('new user');
+  return { email: userExists.email, id: userExists.id };
+}
 
 function authorizeWithGoogle(req, res) {}
 
