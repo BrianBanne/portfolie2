@@ -12,17 +12,17 @@ const AdminProductsPage = () => {
     {
       type: "input",
       label: "Image Url",
-      name: "url",
+      name: "imageUrl",
     },
     {
       type: "input",
       label: "Product name",
-      name: "productname",
+      name: "name",
     },
     {
       type: "input",
       label: "stock Status",
-      name: "stockstatus",
+      name: "stockQuantity",
     }, 
     {
       type: "input",
@@ -31,8 +31,13 @@ const AdminProductsPage = () => {
     },
     {
       type: "input",
-      label: "Category",
-      name: "category",
+      label: "description",
+      name: "description",
+    },
+    {
+      type: "input",
+      label: "short description",
+      name: "shortDescription"
     },
     {
       type: "submit",
@@ -56,6 +61,8 @@ const AdminProductsPage = () => {
     console.log(product);
     AdminAPI.addproduct(product)
     .then(() => getProducts())
+    .then(() => setShow(!showAddProducts))
+    .then(() => alert(`${product.name} added to collection`))
     .catch((err) => console.log(err));
   }
 

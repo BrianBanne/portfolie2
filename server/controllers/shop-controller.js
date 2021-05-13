@@ -26,6 +26,7 @@ async function getProduct(req, res) {
 async function createProduct(req, res) {
   //auth
   const product = req.body;
+  //console.log(product);
 
   try {
     const productExists = await Product.findOne({ name: product.name });
@@ -35,12 +36,12 @@ async function createProduct(req, res) {
     const newProduct = new Product({
       name: product.name,
       price: product.price,
-      descrption: product.descrption,
+      description: product.description,
       shortDescription: product.shortDescription,
       imageUrl: product.imageUrl,
-      stockQuantity: product.quantity,
+      stockQuantity: product.stockQuantity,
     });
-
+    console.log(newProduct);
     const result = await newProduct.save();
     return res
       .status(201)

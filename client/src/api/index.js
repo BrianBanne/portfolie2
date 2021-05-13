@@ -42,7 +42,7 @@ const getAllOrders = () => admin.get("/admin/orders");
 
 const deleteProduct = (id) => admin.delete(`/product/${id}`);
 
-const addproduct = (payload) => admin.post(`/product/${payload}`);
+const addproduct = (payload) => admin.post("/product", payload);
 
 export const getCustomers = () => api.get("/customers");
 

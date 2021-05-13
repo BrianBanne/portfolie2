@@ -13,7 +13,7 @@ async function validateAdmin(req, res, next) {
     return res.status(401).json({ error: "Missing authorization header" });
   const token = authHeader.split(" ")[1];
   const decodedToken = jwt.decode(token, process.env.JWT_ACCESS_SECRET);
-
+  
   if (!decodedToken)
     return res
       .status(403)
