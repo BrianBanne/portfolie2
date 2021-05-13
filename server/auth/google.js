@@ -53,7 +53,7 @@ async function getUserFromEmail(email) {
   await newUser.save();
   console.log(newUser);
   console.log('new user');
-  return { email: userExists.email, id: userExists.id };
+  return { email: newUser.email, id: newUser.id };
 }
 
 function authorizeWithGoogle(req, res) {}

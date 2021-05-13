@@ -37,13 +37,15 @@ const createOrder = (payload) => api.post("/order/create", payload)
 //** USER API **/
 
 //** ADMIN API **/
-const loginAdmin = (payload) => admin.post("/auth/login/admin", payload);
+const loginAdmin = (payload) => server.post("/auth/login/admin", payload);
 const getAllOrders = () => admin.get("/admin/orders");
 
 const deleteProduct = (id) => admin.delete(`/product/${id}`);
+
+const addproduct = (payload) => admin.post(`/product/${payload}`);
 
 export const getCustomers = () => api.get("/customers");
 
 export const API = { getAllProducts, getProductFromId, loginAdmin, createOrder };
 
-export const AdminAPI = { getAllOrders, loginAdmin, deleteProduct };
+export const AdminAPI = { getAllOrders, loginAdmin, deleteProduct, addproduct };

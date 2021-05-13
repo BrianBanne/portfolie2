@@ -4,8 +4,8 @@ import AddToCartButton from "../cart/add-to-cart-button";
 
 const ProductPreview = ({ product }) => {
   //sku eller id i link-to? 
-  const { name, imageUrl, price, id, stockStatus } = product;
-  console.log(stockStatus);
+  const { name, imageUrl, price, id, stockQuantity } = product;
+  console.log(stockQuantity);
   //TODO: get slug from server
   return (
     <div className="productPreview">
@@ -26,7 +26,7 @@ const ProductPreview = ({ product }) => {
         </h2>
         <span style={{ display: "block" }}>{price} kr</span>
       </div>
-      <AddToCartButton inInStock={stockStatus > 0} product={product} />
+      <AddToCartButton inInStock={stockQuantity > 0} product={product} />
 
     </div>
   );

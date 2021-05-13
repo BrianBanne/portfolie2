@@ -1,13 +1,10 @@
 import React from "react";
-import Button from "../shared/button";
 import ProductTableItem from "./product-table-item";
 
 const ProductTable = ({ products, handleEditProduct }) => {
   return (
     <div>
-      <div>
-        <Button secondary style={{width:'200px'}} label="Add new"/>
-      </div>
+     
       <table>
         <thead>
           <tr>

@@ -6,6 +6,7 @@ const Router = require("./routes/shop-routes");
 const AuthRouter = require("./routes/auth-routes");
 const seedDatabase = require("./data/seed");
 const AdminRouter = require("./routes/admin-routes");
+require ("dotenv").config();
 
 //const DB_HOST = "simplelinuxvm-tfh4puu22joq4.norwayeast.cloudapp.azure.com";
 //const URL = `mongodb://adminHans:Tvgj3789@${DB_HOST}:27017/ecomm`;
