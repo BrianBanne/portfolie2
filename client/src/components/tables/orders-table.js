@@ -28,7 +28,7 @@ const OrderTable = ({ orders, isAdmin }) => {
         <tbody>
           {orders &&
             orders.map((order) => (
-              <OrderTableItem key={order.orderId} order={order} isAdmin />
+              <OrderTableItem key={order._id} order={order} isAdmin={isAdmin} />
             ))}
         </tbody>
       </table>

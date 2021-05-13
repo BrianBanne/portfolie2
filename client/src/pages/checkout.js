@@ -18,7 +18,7 @@ const CheckoutPage = () => {
       user: user,
     };
     console.log(order);
-    API.createOrder(order)
+    API.createOrder(order).then(({ data }) => alert(data.message));
   }
   const CHECKOUT_DETAILS = [
     {

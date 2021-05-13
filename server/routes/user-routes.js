@@ -1,11 +1,10 @@
 const express = require("express");
+const OrderController = require('../controllers/order-controller')
+const {validateUser} = require('../middleware/auth-middleware')
 
-const userRoutes = express.Router();
+const UserRouter = express.Router();
+UserRouter.use(validateUser)
 
-userRoutes.post("/login/user", async (req, res) => {
-  const { token } = req.body;
-});
+UserRouter.get("/orders", OrderController.getUserOrders)
 
-userRoutes.post("/login/admin", async (req, res) => {
-  const { token } = req.body;
-});
+module.exports = UserRouter

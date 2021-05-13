@@ -1,16 +1,27 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
+import { API } from "../../api";
+import { AuthContext } from "../../components/context/auth-context";
 import Layout from "../../components/layout/index";
+import OrderTable from "../../components/tables/orders-table";
 
 const UserOrdersPage = () => {
-// const userOrders = TestAPI.ORDERS //.filter((userId) => userId == '110');
-  //console.log(TestAPI.ORDERS);
+  const { token } = useContext(AuthContext);
+
+  const [orders, setOrders] = useState();
+
+  useEffect(() => {
+    API.getUserOrders(token)
+      .then(({ data }) => {
+        setOrders(data.orders);
+      })
+      .catch((err) => console.log(err));
+  }, [token]);
 
   return (
     <Layout>
       <h1>my orders</h1>
-      <p>todo: orderlist</p>
       <div>
-       {/*  <OrderTable orders={userOrders} /> */}
+        <OrderTable orders={orders} />
       </div>
     </Layout>
   );
