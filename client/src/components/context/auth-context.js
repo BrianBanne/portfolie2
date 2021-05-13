@@ -2,62 +2,44 @@ import React, { createContext, useReducer } from "react";
 import { useHistory } from "react-router-dom";
 
 const initialState = {
-  cart: [],
+  token: "",
+  user: {
+    email: "",
+    type: "",
+  },
 };
 
-if (localStorage.getItem("user")) {
+if (localStorage.getItem("session")) {
   try {
-    const user = JSON.parse(localStorage.getItem("user"))
+    const session = JSON.parse(localStorage.getItem("session"));
     //check if expired??
-    initialState.user = user
-    
+    initialState.token = session.token;
+    initialState.user.type = session.type;
   } catch (error) {
     console.error(error);
   }
 }
 
-
-/* const cookies = new Cookies();
-
-if (cookies.get(TOKEN_NAME) !== null) {
-  try {
-    const user = jwtDecode(cookies.get(TOKEN_NAME));
-
-    if (user.exp * 10 00 < Date.now()) {
-      cookies.set(TOKEN_NAME, null);
-    } else {
-      initialState.user = user;
-    }
-  } catch (err) {
-    console.log(err);
-  }
-} */
-
-export const fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-      this.isAuthenticated = true
-      setTimeout(cb, 100) // fake async
-    },
-    signout(cb) {
-      this.isAuthenticated = false
-      setTimeout(cb, 100) // fake async
-    }
-  }
-
 const AuthContext = createContext({
+  token: null,
   user: null,
   logout: () => {},
   loginUser: () => {},
-  loginAdmin: () => {}
+  loginAdmin: () => {},
 });
 
 function AuthReducer(state, action) {
   switch (action.type) {
     case "LOGIN":
-      return { ...state, user: action.payload };
+      localStorage.setItem("session", JSON.stringify(action.payload));
+      return {
+        ...state,
+        token: action.payload.token,
+        user: { type: action.payload.type, email: action.payload.email },
+      };
     case "LOGOUT":
-      return { ...state, user: null };
+      localStorage.removeItem("session");
+      return { ...state, token: null, user: null };
     default:
       return state;
   }
@@ -66,29 +48,26 @@ const AuthProvider = ({ children }) => {
   const [state, dispatch] = useReducer(AuthReducer, initialState);
   const history = useHistory();
 
-  const loginUser = (userData) => {
-    localStorage.setItem("user", JSON.stringify(userData));
-    history.push("/user");
-
+  const loginUser = (token, email) => {
+    //console.log(token, email);
     dispatch({
       type: "LOGIN",
-      payload: userData,
+      payload: { token: token, type: "USER", email: email },
     });
+    history.push("/user");
   };
 
-  const loginAdmin = (userData) => {
-    localStorage.setItem("user", JSON.stringify(userData));
-    history.push("/admin");
-
+  const loginAdmin = (data) => {
     dispatch({
       type: "LOGIN",
-      payload: userData,
+      payload: { token: data.token, type: "ADMIN", email: data.user.email },
     });
+    history.push("/admin");
   };
 
   const logout = () => {
     history.push("/login");
-    localStorage.removeItem("user")
+    localStorage.removeItem("session");
     dispatch({
       type: "LOGOUT",
     });
@@ -97,6 +76,7 @@ const AuthProvider = ({ children }) => {
   return (
     <AuthContext.Provider
       value={{
+        token: state.token,
         user: state.user,
         loginUser,
         loginAdmin,

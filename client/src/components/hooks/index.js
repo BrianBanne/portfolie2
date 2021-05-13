@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useLocation } from "react-router";
 
 export const useFormFields = (initialValues) => {
   const [formFields, setFormFields] = useState(initialValues);
@@ -7,4 +8,8 @@ export const useFormFields = (initialValues) => {
   };
   return { formFields, createChangeHandler };
 };
+
+export function useQuery() {
+  return new URLSearchParams(useLocation().search);
+}
 

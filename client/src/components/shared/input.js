@@ -17,7 +17,7 @@ const Input = ({ label, onChange, value = "", type = "text", ...props }) => {
   };
 
   return (
-    <div className={`input__wrapper ${props.inline ?  'inline' : ''}`}>
+    <div className={`input__wrapper ${props.inline ? 'input__inline' : ''}`}>
       <label className="input__label" htmlFor={props.name}>{label}</label>
       <input
         className="input"

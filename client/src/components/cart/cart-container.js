@@ -83,7 +83,7 @@ const CartContainer = () => {
           <Button primary onClick={handleClearCart} label="Clear cart" />
           <Button
             secondary
-            label="Go to checkout"
+            label="Proceed to checkout"
             id="checkout"
             onClick={() => {
               history.push("/checkout");

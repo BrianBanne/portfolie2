@@ -1,36 +1,56 @@
+const Customer = require("../database/models/customer");
 const Order = require("../database/models/order");
+const Product = require("../database/models/product");
 const { sendError } = require("../lib");
 
 async function createOrder(req, res) {
   //if customer has not created account customerId is left blank
   //const customerId = req.params.userId || "";
   const order = req.body;
+  const { shippingDetails, cart, user } = order;
   const cartItems = [];
-
+  let total = 0
   //todo: calc total from products
 
-  order.cart.forEach((item) =>
+  const products = [];
+
+  for (const cartItem of cart) {
+    const product = await Product.findOne({ _id: cartItem._id });
+    total = total + (cartItem.quantity * product.price)
+    //products.push(product);
+  }
+
+  console.log('product', total);
+
+  /*   cart.forEach((item) =>
     cartItems.push({
-      product: item.productId,
+      product: item._id,
       quantity: item.quantity,
     })
-  );
+  ); */
   try {
-    const newOrder = new Order({
+    res.status(200);
+    /* console.log("order", order);
+    console.log("cartItmes", cartItems);
       orderStatus: "pending payment",
       total: order.total,
       products: cartItems,
-      firstName: order.firstName,
-      lastName: order.lastName,
-      address: order.address,
-      postcode: order.postcode,
-      city: order.city,
+      firstName: shippingDetails.firstName,
+      lastName: shippingDetails.lastName,
+      address: shippingDetails.address,
+      postcode: shippingDetails.postcode,
+      city: shippingDetails.city,
     });
-    if (order.userId) newOrder.customer = order.userId;
+    if (user.email) {
+      const existingCustomer = await Customer.findOne({
+        email: user.email,
+      });
+      if (existingCustomer) newOrder.customer = existingCustomer.id;
+    }
     const result = await newOrder.save();
     return res
       .status(201)
-      .json({ message: "order succesfully placed!", order: result._doc });
+      .json({ message: "order succesfully placed!", order: result._doc }); */
   } catch (error) {
     console.log(error);
     return sendError(

@@ -1,15 +1,12 @@
-import React, { useContext } from "react";
-import { TestAPI } from "../../api/test-api";
-import { AuthContext } from "../../components/context/auth-context";
+import React from "react";
 import Layout from "../../components/layout/index";
 import Form from "../../components/shared/form";
 import Button from "../../components/shared/button";
 
 const AdminPage = () => {
-  const { user } = useContext(AuthContext);
-  const userOrders = TestAPI.ORDERS.filter((id) => id === 321);
-  console.log("orders", userOrders);
-  const { logout } = useContext(AuthContext);
+ // const { user } = useContext(AuthContext);
+  //const userOrders = TestAPI.ORDERS.filter((id) => id === 321);
+
   //api get user orders by user id
   //TODO: update user details
  function  handleUpdateDetails(){
@@ -40,9 +37,9 @@ const AdminPage = () => {
   
   return ( 
     <Layout>
-      <h1>Hi {user.email}</h1>
+      <h1>Hi gluint </h1>
       <div>
-        <p>You have # products and #{user.orders} orders</p>
+        {/* <p>You have # products and #{user.orders} orders</p> */}
       </div>
       <section>
         <h2>Update personal info:</h2>

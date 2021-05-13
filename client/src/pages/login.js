@@ -1,19 +1,14 @@
 import React, { useContext, useEffect } from "react";
-import Input from "../components/shared/input";
-import { useFormFields } from "../components/hooks/index";
+import { API, getRedirectUrl } from "../api";
 import { AuthContext } from "../components/context/auth-context";
-import { useHistory } from "react-router-dom";
+import { useFormFields, useQuery } from "../components/hooks/index";
 import Layout from "../components/layout/index";
 import Button from "../components/shared/button";
-import { GoogleLogin } from "react-google-login";
-import { getCustomers, loginGoogle } from "../api";
+import Input from "../components/shared/input";
 
 const LoginPage = () => {
-  const { loginAdmin, loginUser, user } = useContext(AuthContext);
-  const history = useHistory();
-
-  const CLIENT_ID =
-    "910772755966-9jn7nj6bdf9bu6t80416etmeli7k3nmb.apps.googleusercontent.com";
+  const { loginAdmin, loginUser } = useContext(AuthContext);
+  const query = useQuery();
 
   const { formFields, createChangeHandler } = useFormFields({
     email: "",
@@ -21,102 +16,102 @@ const LoginPage = () => {
     userType: "",
   });
 
-  useEffect(() => {
-    if (user) {
+  /*  useEffect(() => {
+    if (token) {
       user.userType === "admin"
         ? history.push("/admin")
         : history.push("/user");
     }
-  });
+  }); */
 
+  /*Handles automatic user login redirect when token from server is served */
   useEffect(() => {
-    getCustomers()
-      .then((data) => console.log(data))
-      .catch((err) => console.log(err));
-  }, []);
+    const token = query.get("token");
+    const email = query.get("email");
+    if (!(token && email)) return;
 
-  function handleLogin(event) {
+    loginUser(token, email);
+  }, [query, loginUser]);
+
+  function handleAdminLogin(event) {
     event.preventDefault();
-    //validate
-    //backend validate
-    // return token
-    //ssetoken
-    if (formFields.userType === "admin") {
-      loginAdmin(formFields);
+    if (formFields.userType === "ADMIN") {
+      console.log(formFields);
+      API.loginAdmin(formFields)
+        .then(({ data }) => loginAdmin(data))
+        .catch((err) => getErrorData(err));
     }
-    if (formFields.userType === "user") loginUser(formFields);
   }
 
-  function handleGoogleLogin(response) {
-    console.log(response);
+  function getErrorData(err) {
+    const errMsg = err?.response?.data.error;
+    if (errMsg) alert(errMsg);
+    console.log(err);
+  }
 
-    /*  const googlePayload = {
-      firstName: response.profileObj.givenName,
-      lastName: response.profileObj.familyName,
-      email: response.profileObj.email,
-      token: response.googleId,
-      Image: response.profileObj.imageUrl,
-      ProviderId: "Google",
-    }; */
-    //axios post google login
-    loginGoogle({ token: response.tokenId })
-      .then((user) => {
-        console.log(user);
-        history.push('/user')
-      })
+  function handleGoogleLogin(event) {
+    event.preventDefault();
+    getRedirectUrl()
+      .then(({ data }) => (window.location = data.url))
       .catch((err) => console.log(err));
   }
 
   return (
     <Layout>
       <div className="form__container">
-        <form onSubmit={handleLogin} className="flex">
+        <form className="flex">
           <h2>Log in</h2>
-          <fieldset style={{ border: "none", textAlign: "center" }}>
-            <legend>I am an</legend>
-            <Input
-              type="radio"
-              label="Admin"
-              name="userType"
-              value="admin"
-              onChange={createChangeHandler("userType")}
-              inline="true"
-            />
+          <fieldset style={{ textAlign: "center", marginTop: "2rem" }}>
+            <legend style={{ marginBottom: "1rem" }}>I am an</legend>
             <Input
               type="radio"
               label="User"
               name="userType"
-              value="user"
+              value="USER"
+              onChange={createChangeHandler("userType")}
+              inline="true"
+              defaultChecked
+            />
+            <Input
+              type="radio"
+              label="Admin"
+              name="userType"
+              value="ADMIN"
               onChange={createChangeHandler("userType")}
               inline="true"
             />
           </fieldset>
-          <Input
-            label="Email"
-            name="email"
-            type="email"
-            autoComplete="email"
-            value={formFields.email}
-            onChange={createChangeHandler("email")}
-          />
-          <Input
-            label="Password"
-            name="passwlrd"
-            type="password"
-            autoComplete="current-password"
-            value={formFields.password}
-            onChange={createChangeHandler("password")}
-          />
-          <Button label="LOG IN" secondary />
-          <p style={{ marginTop: "1rem" }}>or</p>
-          <GoogleLogin
-            className="button button__secondary"
-            clientId={CLIENT_ID}
-            buttonText="Log in with google"
-            onSuccess={handleGoogleLogin}
-            onFailure={handleGoogleLogin}
-            cookiePolicy={"single_host_origin"}
-          />
+          {formFields.userType === "ADMIN" ? (
+            <fieldset>
+              <Input
+                label="Email"
+                name="email"
+                type="email"
+                autoComplete="email"
+                value={formFields.email}
+                onChange={createChangeHandler("email")}
+              />
+              <Input
+                label="Password"
+                name="passwlrd"
+                type="password"
+                autoComplete="current-password"
+                value={formFields.password}
+                onChange={createChangeHandler("password")}
+              />
+              <Button
+                label="LOG IN"
+                secondary
+                onClick={(e) => handleAdminLogin(e)}
+              />
+            </fieldset>
+          ) : (
+            <Button
+              google
+              label="Log in with google"
+              onClick={(e) => handleGoogleLogin(e)}
+            />
+          )}
         </form>
       </div>
     </Layout>

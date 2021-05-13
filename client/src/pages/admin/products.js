@@ -1,45 +1,27 @@
-import React from "react";
-import { TestAPI } from "../../api/test-api";
-import { useReducer } from "react";
+import React, { useEffect, useState } from "react";
+import { AdminAPI, API } from "../../api";
 import Layout from "../../components/layout";
 import ProductTable from "../../components/tables/product-table";
 
+const AdminProductsPage = () => {
+  const [products, setProducts] = useState();
 
-const storage = localStorage.getItem("productlist")
-? JSON.parse(localStorage.getItem("productlist"))
-: [];
+  function getProducts() {
+    API.getAllProducts()
+      .then(({ data }) => setProducts(data.products))
+      .catch((err) => console.log(err));
+  }
 
-const initialState = {
-  productlist: storage,
-};
+  useEffect(() => {
+    getProducts();
+  }, []);
 
-
-function setLocalStorage(productlist) {
-  localStorage.setItem("produclist", JSON.stringify(productlist.length > 0 ? productlist : []));
-}
-
-const ProductReducer = (state, action) => {
-switch (action.type) {
-  case "REMOVE":
-    return {
-      ...state,
-      productlist: state.productlist.filter(({ id }) => id !== action.payload.id),
-      ...setLocalStorage(state.productlist),
-       
-    };
-
-    default:
-      return { state };
-
-}
-};
-    //idk what the fuck i am doing
-const AdminProductsPage = ({ children }) => {
-  const [state, dispatch] = useReducer(ProductReducer, initialState);
-
-  function handleEditProduct(product){
+  function handleEditProduct(product) {
     console.log(product);
-    //api remove product and fetch new
+    AdminAPI.deleteProduct(product._id)
+      .then(() => alert(`${product.name} deleted`))
+      .then(() => getProducts())
+      .catch((err) => console.log(err));
   }
   function handleDeleteProduct(product) {
     console.log(product);
@@ -55,7 +37,7 @@ const AdminProductsPage = ({ children }) => {
   return (
     <Layout>
       <h1>Products</h1>
-      <ProductTable products={TestAPI.PRODUCTS} handleEditProduct={handleEditProduct} handleDeleteProduct={handleDeleteProduct}/>
+      <ProductTable products={products} handleEditProduct={handleEditProduct} />
     </Layout>
   );
 };

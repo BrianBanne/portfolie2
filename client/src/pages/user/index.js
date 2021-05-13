@@ -1,64 +1,79 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../../components/context/auth-context";
 import Layout from "../../components/layout/index";
-import ProfileInfo from "../../components/update-profile";
 import Button from "../../components/shared/button";
 import Form from "../../components/shared/form";
 
-
 const UserPage = () => {
-  const { user } = useContext(AuthContext);
-  const { logout } = useContext(AuthContext);
-  function  handleUpdateDetails(){
+  const { user, logout } = useContext(AuthContext);
 
+  function handleSetShippingInfo() {
+    console.log();
   }
 
-  const USER_PERSONAL_DETAILS = [
+  const USER_SHIPPING_INFO = [
     {
-      type: "password",
-      label: "Password",
-      name: 'password',
-      value: ''
+      type: "input",
+      label: "First name",
+      name: "firstName",
     },
     {
-      type: "password",
-      label: "Enter password again",
-      name: 'password2',
-      value: ''
-
-
+      type: "input",
+      label: "Last name",
+      name: "lastName",
+    },
+    {
+      type: "email",
+      label: "Email",
+      name: "email",
+    },
+    {
+      type: "input",
+      label: "Address",
+      name: "address",
+    },
+    {
+      type: "input",
+      label: "Postcode",
+      name: "postcode",
+      inline: 1,
+    },
+    {
+      type: "input",
+      label: "City",
+      name: "city",
+      inline: 1,
     },
     {
       type: "submit",
+      className: "button button__secondary mt1",
       label: "Update details",
-      onClick: handleUpdateDetails()
+      onClick: handleSetShippingInfo(),
     },
   ];
 
- // const UPDATE_PROFILE_INFO = [{type: 'input', onChange}]
-
   return (
     <Layout>
-      <h1>Hi {user.email}</h1>
-      <div>
-        <p>You have # products and # orders</p>
-      
-        <section>
-          <h2>Update personal info:</h2>
-          <Form items={USER_PERSONAL_DETAILS}
-        />
-          <div>
-        <Button 
-          label="Log out"
-          style={{ "width": "100px", "position": "relative", "margin-left": "435px" }}
-          secondary
-          onClick={() => logout()}
-        />
+      <div className="flex__row">
+        <h1>Hi {user.email}</h1>
+
+        <div>
+          <Button
+            label="Log out"
+            style={{ width: "100px" }}
+            secondary
+            onClick={() => logout()}
+          />
+        </div>
       </div>
-        </section>
+      <div>
+        <Form
+          title="Update shipping info"
+          items={USER_SHIPPING_INFO}
+          onSubmit={handleSetShippingInfo}
+        />
       </div>
     </Layout>
-   
   );
 };
 export default UserPage;

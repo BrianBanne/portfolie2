@@ -1,3 +1,5 @@
+require("dotenv").config();
+
 const url =
   "https://png.pngtree.com/png-clipart/20190516/original/pngtree-premium-white-t-shirt--mockup-png-image_3635949.jpg";
 //hva er sku?? satt id til sku for nå
@@ -10,7 +12,7 @@ const PRODUCTS = [
     stockStatus: 0,
     imageUrl: url,
     description: "Fet greie",
-    category: "T-shirt",
+    shortDescription: '"Litt lengre tekst om en fet greie',
   },
   {
     id: 122,
@@ -20,7 +22,7 @@ const PRODUCTS = [
     stockStatus: 5,
     imageUrl: url,
     description: "Veldig fet greie",
-    category: "T-shirt",
+    shortDescription: '"Litt lengre tekst om en veldig fet greie',
   },
   {
     id: 321,
@@ -30,66 +32,49 @@ const PRODUCTS = [
     stockStatus: 2,
     imageUrl: url,
     description: "Ok greie, funker til det meste",
-    category: "T-shirt",
+    shortDescription: '"Litt lengre tekst om en ok  greie',
   },
 ];
 
 const ORDERS = [
   {
     orderId: "#123",
-    firstName: 'Hans',
-    lastName: 'emann',
+    firstName: "Hans",
+    lastName: "emann",
     userId: 110,
     status: "COMPLETED",
     amount: 2500,
-    date: Date.now()
+    date: Date.now(),
   },
   {
     orderId: "#321",
-    firstName: 'Brian',
-    lastName: 'Mann',
+    firstName: "Brian",
+    lastName: "Mann",
     userId: 111,
     status: "CANCELLED",
     amount: 1500,
-    date: Date.now()
+    date: Date.now(),
   },
   {
     orderId: "#322",
-    firstName: 'Per',
-    lastName: 'Spellemann',
+    firstName: "Per",
+    lastName: "Spellemann",
     userId: 111,
     status: "CANCELLED",
     amount: 1500,
-    date: Date.now()
-
-  },
-];
-
-const USERS = [
-  {
-    userId: 111,
-    email: "brian@test.com",
-    password: "test123",
-    firstName: "Brian",
-    lastName: "Banne",
-  },
-  {
-    userId: 110,
-    email: "hans@test.com",
-    password: "test123",
-    firstName: "Hans",
-    lastName: "Klevstad",
+    date: Date.now(),
   },
 ];
 
 const ADMINS = [
   {
-    userId: 1,
-    email: "hans@test.com",
-    password: "test123",
-    firstName: "Hans",
-    lastName: "Klevstad",
+    email: process.env.MONGO_ADMIN_EMAIL,
+    password: process.env.MONGO_ADMIN_PASSWORD,
+    firstName: "Admin",
+    lastName: "Adminsen",
+    userType: "ADMIN",
   },
 ];
 
-export const TestAPI = { PRODUCTS, ORDERS, USERS, ADMINS };
+const DB_DATA = { PRODUCTS, ORDERS, ADMINS };
+module.exports = DB_DATA;

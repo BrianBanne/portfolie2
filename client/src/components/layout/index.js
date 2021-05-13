@@ -2,19 +2,17 @@ import React, { useContext, useEffect } from "react";
 import { invertColors } from "../../styles/lib";
 import { AuthContext } from "../context/auth-context";
 import Header from "../header";
-import AdminHeader from "../header/admin-header";
-import UserHeader from "../header/user-header";
 
 const Layout = ({ children }) => {
-  const { user } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
 
-  useEffect(()=> {
-    user?.userType === "admin" ? invertColors(true) : invertColors()
-  })
+  useEffect(() => {
+    user?.type === "ADMIN" ? invertColors(true) : invertColors();
+  });
 
   function getHeader() {
-    if (user?.userType === "admin") return <AdminHeader />;
-    if (user?.userType === "user") return <UserHeader />;
+    if (token && user?.type === "ADMIN") return <Header admin />;
+    if (token && user?.type === "USER") return <Header user />;
     else return <Header />;
   }
   return (
