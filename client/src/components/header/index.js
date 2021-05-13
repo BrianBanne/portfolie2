@@ -13,13 +13,13 @@ const Header = ({ user, admin }) => {
       <header className="header">
         <nav className="nav">
           <Link to="/admin" className="nav__link">
-            home
+            Home
           </Link>
           <Link to="/admin/products" className="nav__link">
-            products
+            Products
           </Link>
           <Link to="/admin/orders" className="nav__link">
-            orders
+            All orders
           </Link>
         </nav>
 
@@ -39,13 +39,13 @@ const Header = ({ user, admin }) => {
       <header className="header">
         <nav className="nav">
           <Link to="/user" className="nav__link">
-            home
+            Home
           </Link>
           <Link to="/user/orders" className="nav__link">
-            my profile
+            My orders
           </Link>
           <Link to="/shop" className="nav__link">
-            shop
+            Shop
           </Link>
         </nav>
         <CartIcon cart={cart} />
@@ -98,12 +98,3 @@ const CartIcon = ({ cart }) => {
   );
 };
 
-/* 
-        <div>
-          <Button
-            label="Log out"
-            style={{ width: "100px" }}
-            secondary
-            onClick={() => logout()}
-          />
-        </div>*/

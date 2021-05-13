@@ -4,10 +4,13 @@ import { ShopContext } from "../components/context/shop-context";
 import Layout from "../components/layout";
 import Form from "../components/shared/form";
 import { API } from "../api/index";
+import { useHistory } from "react-router-dom";
 
 const CheckoutPage = () => {
   const { cart } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
+  const history = useHistory();
+  
 
   function handleCheckout(formData) {
     console.log(formData);
@@ -18,7 +21,9 @@ const CheckoutPage = () => {
       user: user,
     };
     console.log(order);
-    API.createOrder(order).then(({ data }) => alert(data.message));
+    API.createOrder(order).then(({ data }) => alert(data.message))
+    .then(()=> history.push("/user/orders"));
+    
   }
   const CHECKOUT_DETAILS = [
     {

@@ -16,10 +16,10 @@ const UserOrdersPage = () => {
       })
       .catch((err) => console.log(err));
   }, [token]);
-
+console.log("ordershit12312312321312323", orders);
   return (
     <Layout>
-      <h1>my orders</h1>
+      <h1>My orders</h1>
       <div>
         <OrderTable orders={orders} />
       </div>

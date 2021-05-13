@@ -35,14 +35,11 @@ const AdminPage = () => {
 
   return (
     <Layout>
-      <h1>Hi gluint </h1>
+      <h1>Hi Admin </h1>
       <div>
         {/* <p>You have # products and #{user.orders} orders</p> */}
       </div>
-      <section>
-        <h2>Update personal info:</h2>
-        <Form items={ADMIN_PERSONAL_DETAILS} />
-      </section>
+      
     </Layout>
   );
 };

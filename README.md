@@ -1,5 +1,19 @@
 # portfolie2
 
+### problemos 
+inkrementering og dekrementering i carten er bad business!
+sjekke antall av hvert produkt for å fikse totalprisen!
+feil når man legger til nytt produkt, men det legger seg til alikevel
+edit produkter for admin
+Docker compose
+validering av produkter
+
+
+### mulig implementering om tid og viljestyrke 
+Prometheus - nettverks monitor
+SSL/TLS - API endpoints
+flere bilder til hvert produkt når man er inne på produktsiden
+
 ## Hello brian
 ### Get started
 1. Check that node is installed by running `node -v`
