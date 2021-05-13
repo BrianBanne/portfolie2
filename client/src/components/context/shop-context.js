@@ -48,7 +48,12 @@ const ShopReducer = (state, action) => {
       // slår ann feil når man reduserer til 0, fikk det ikke til å funke med min fiks
       state.cart[state.cart.findIndex(({ id }) => id === action.payload.id)]
         .quantity--;
+        if ([state.cart.findIndex(({ id }) => id === action.payload.id)].quantity <= 0) {
+          return 0;
+        } else {
+      
       return { ...state, cart: [...state.cart] };
+        }
 
     case "REMOVE":
       return {
