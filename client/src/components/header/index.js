@@ -60,13 +60,8 @@ const Header = ({ user, admin }) => {
         <Link to="/shop" className="nav__link">
           Shop
         </Link>
-<<<<<<< HEAD
-        <Link to="/admin" className="nav__link">
-          Log in
-=======
         <Link to="/login" className="nav__link">
-          log in
->>>>>>> 611dd519cf0caad3993a401e22c9f420826679de
+          Log in
         </Link>
       </nav>
 

@@ -5,7 +5,7 @@ const User = require("../database/models/user");
 
 require("dotenv").config();
 
-//const client = new OAuth2Client(process.env.OAUTH_CLIENT_ID);
+const client = new OAuth2Client(process.env.OAUTH_CLIENT_ID);
 
 async function validateAdmin(req, res, next) {
   const authHeader = req.headers.authorization;
@@ -23,7 +23,7 @@ async function validateAdmin(req, res, next) {
 }
 
 async function isAuth(req, res, next) {
-  /*   const authHeader = req.headers.authorization;
+    const authHeader = req.headers.authorization;
   const token = authHeader.split(" ")[1]
   console.log(token);
   console.log('secret',  process.env.GOOGLE_AUTH_SECRET);
@@ -34,19 +34,19 @@ async function isAuth(req, res, next) {
 
   } catch(err) {
     console.log(err);
-  } */
-  //const decoded = jwt.decode(token, process.env.GOOGLE_AUTH_SECRET);
+  } 
+  const decoded = jwt.decode(token, process.env.GOOGLE_AUTH_SECRET);
   next();
-  /* const ticket = await client.verifyIdToken({
+   const ticket = await client.verifyIdToken({
     idToken: token,
     audience: process.env.RLpGkNm2obN95ekSJTOW08Lv,
-  }); */
+  }); 
 
-  // const { given_name, family_name, email } = ticket.getPayload();
+   const { given_name, family_name, email } = ticket.getPayload();
 
-  // console.log(email);
+  console.log(email);
 
-  //const user = await Customer.findOne({ email: email });
+  const user = await Customer.findOne({ email: email });
 }
 
 module.exports = { validateAdmin };

@@ -1,19 +1,17 @@
 import React from "react";
 import Layout from "../../components/layout/index";
 import Form from "../../components/shared/form";
-import Button from "../../components/shared/button";
 
 const AdminPage = () => {
  // const { user } = useContext(AuthContext);
   //const userOrders = TestAPI.ORDERS.filter((id) => id === 321);
 
   //api get user orders by user id
-  //TODO: update user details
  function  handleUpdateDetails(){
 
  }
 
-  const USER_PERSONAL_DETAILS = [
+  const ADMIN_PERSONAL_DETAILS = [
     {
       type: "password",
       label: "Password",
@@ -34,8 +32,8 @@ const AdminPage = () => {
       onClick: handleUpdateDetails()
     },
   ];
-  
-  return ( 
+
+  return (
     <Layout>
       <h1>Hi gluint </h1>
       <div>
@@ -43,16 +41,7 @@ const AdminPage = () => {
       </div>
       <section>
         <h2>Update personal info:</h2>
-        <Form items={USER_PERSONAL_DETAILS}
-        />
-        <div>
-        <Button 
-          label="Log out"
-          style={{ "width": "100px", "position": "relative", "margin-left": "440px" }}
-          secondary
-          onClick={() => logout()}
-        />
-      </div>
+        <Form items={ADMIN_PERSONAL_DETAILS} />
       </section>
     </Layout>
   );

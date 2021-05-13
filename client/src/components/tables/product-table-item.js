@@ -12,7 +12,7 @@ const ProductTableItem = ({ product, handleEdit, handleRemove }) => {
       <td>{product.stockQuantity}</td>
       <td>{product.price} kr</td>
       <td></td>
-      <td><Button secondary style={{width:'70px'}} label="edit" onClick={()=>handeEdit(product)}/></td>
+      <td><Button secondary style={{width:'70px'}} label="edit" onClick={()=>handleEdit(product)}/></td>
 {/*       <td><Button secondary style={{width:'60px'}} label="X"/></td>
  */}    </tr>
   );

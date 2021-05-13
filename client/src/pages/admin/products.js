@@ -23,16 +23,6 @@ const AdminProductsPage = () => {
       .then(() => getProducts())
       .catch((err) => console.log(err));
   }
-  function handleDeleteProduct(product) {
-    console.log(product);
-    dispatch({ type: "REMOVE", product });
-    
-  }
-
-  const produclistActions = {
-    handleDeleteProduct,
-    ...state,
-  };
 
   return (
     <Layout>
