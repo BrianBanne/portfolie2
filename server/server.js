@@ -9,15 +9,20 @@ const AdminRouter = require("./routes/admin-routes");
 
 //const DB_HOST = "simplelinuxvm-tfh4puu22joq4.norwayeast.cloudapp.azure.com";
 //const URL = `mongodb://adminHans:Tvgj3789@${DB_HOST}:27017/ecomm`;
+console.log(process.env.MONOG_CLOUD_PASSWORD);
+const   mongoCloudUrl = `mongodb+srv://admin:${process.env.MONOG_CLOUD_PASSWORD}@portfolie2.dk8ag.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`
+
+
 const url = `mongodb://localhost:27017/ecomm`;
 
 mongoose
-  .connect(url, {
+  .connect(mongoCloudUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => console.log("Connected to database"))
   .then(() => seedDatabase(mongoose))
+  .catch(err => console.log())
 
 const PORT = 8080;
 const ADDRESS = "0.0.0.0";

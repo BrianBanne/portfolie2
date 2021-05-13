@@ -8,7 +8,7 @@ function seedDatabase(client) {
     if (err) {
       console.log(err);
     } else {
-      if (names.length < 0) createInstances();
+      if (names.length < 1) createInstances();
       else 
         console.log('Db already seeded');
     }
