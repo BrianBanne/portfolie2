@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 import { formatDate } from "../../utils/helpers";
 
 const OrderTableItem = ({ order, isAdmin }) => {
@@ -16,12 +15,12 @@ const OrderTableItem = ({ order, isAdmin }) => {
     return (
       <tr>
         <td>
-          <Link to={`/admin/order/${order.orderId}`}>{order.orderId}</Link>
+        TODO: orderID?
         </td>
         <td>{order.firstName + " " + order.lastName}</td>
         <td>{formatDate(order.date)}</td>
-        <td>{order.amount} kr</td>
-        <td>{getStatusColor(order)}</td>
+        <td>{order.total} kr</td>
+        <td>{order.orderStatus}</td>
       </tr>
     );
 

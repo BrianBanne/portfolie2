@@ -34,6 +34,7 @@ const user = axios.create({
   },
 });
 
+const loginAdmin = (payload) => server.post("/auth/login/admin", payload);
 export const getRedirectUrl = () => server.get("/auth/login/google");
 
 //** PRODUCT API **/
@@ -47,12 +48,11 @@ const createOrder = (payload) => api.post("/order/create", payload);
 const getUserOrders = (id) => user.get(`/orders`);
 
 //** ADMIN API **/
-const loginAdmin = (payload) => server.post("/auth/login/admin", payload);
-const getAllOrders = () => admin.get("/admin/orders");
-
-const deleteProduct = (id) => admin.delete(`/product/${id}`);
+const getAllOrders = () => admin.get("/orders");
 
 const addproduct = (payload) => admin.post("/product", payload);
+const editProduct = (id, payload) => admin.put(`/product/${id}`, payload);
+const deleteProduct = (id) => admin.delete(`/product/${id}`);
 
 export const getCustomers = () => api.get("/customers");
 
@@ -64,4 +64,10 @@ export const API = {
   getUserOrders,
 };
 
-export const AdminAPI = { getAllOrders, loginAdmin, deleteProduct, addproduct };
+export const AdminAPI = {
+  getAllOrders,
+  loginAdmin,
+  addproduct,
+  deleteProduct,
+  editProduct,
+};

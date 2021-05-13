@@ -24,9 +24,7 @@ async function getProduct(req, res) {
 }
 
 async function createProduct(req, res) {
-  //auth
   const product = req.body;
-  //console.log(product);
 
   try {
     const productExists = await Product.findOne({ name: product.name });
@@ -52,7 +50,6 @@ async function createProduct(req, res) {
 }
 
 async function updateProduct(req, res) {
-  //auth
   const productId = req.params.id;
   const updatedValues = req.body;
   if (!productId)
@@ -61,10 +58,10 @@ async function updateProduct(req, res) {
     const product = await Product.findById(productId);
     product.name = updatedValues.name;
     product.price = updatedValues.price;
-    product.descrption = updatedValues.descrption;
+    product.description = updatedValues.description;
     product.shortDescription = updatedValues.shortDescription;
     product.imageUrl = updatedValues.imageUrl;
-    product.stockQuantity = updatedValues.quantity;
+    product.stockQuantity = updatedValues.stockQuantity;
 
     await product.save();
     return res.status(200).json({ message: "Product successfully updated" });

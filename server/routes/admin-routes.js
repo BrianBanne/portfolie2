@@ -11,6 +11,8 @@ AdminRouter.use(validateAdmin)
 AdminRouter.put("/product/:id", ShopController.updateProduct);
 AdminRouter.delete("/product/:id", ShopController.deleteProduct);
 AdminRouter.post("/product", ShopController.createProduct);
+AdminRouter.put("/product/:id", ShopController.updateProduct);
+
 
 AdminRouter.get("/orders", OrderController.getAllOrders)
 AdminRouter.put("/order/:id", OrderController.updateOrder)

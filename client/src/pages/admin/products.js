@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { AdminAPI, API } from "../../api";
 import Layout from "../../components/layout";
 import ProductTable from "../../components/tables/product-table";
@@ -7,8 +7,14 @@ import Button from "../../components/shared/button";
 
 const AdminProductsPage = () => {
   const [products, setProducts] = useState();
-  const [showAddProducts, setShow] = useState(false);
+  const [showProductForm, setShowProductForm] = useState(false);
+  const [initialValues, setInitalValues] = useState();
+  const formRef = useRef();
   const PRODUCT_INFO = [
+    {
+      type: "title",
+      label: `${initialValues ? "Update product" : "Add product"}`,
+    },
     {
       type: "input",
       label: "Image Url",
@@ -42,7 +48,7 @@ const AdminProductsPage = () => {
     {
       type: "submit",
       className: "button button__secondary mt1",
-      label: "Add new",
+      label: `${initialValues ? "Update" : "Add new"}`,
     },
   ];
 
@@ -56,15 +62,29 @@ const AdminProductsPage = () => {
     getProducts();
   }, []);
 
-  function handleAddNewProduct(product) {
-     AdminAPI.addproduct(product)
-    .then(() => getProducts())
-    .then(() => setShow(!showAddProducts))
-    .then(() => alert(`${product.name} added to collection`))
-    .catch((err) => console.log(err));
+  function submitFormData(product) {
+    if (initialValues) {
+      AdminAPI.editProduct(product._id, product)
+        .then(() => alert(`Updated product ${product.name}`))
+        .then(() => setShowProductForm(false))
+        .then(() => getProducts())
+        .catch((err) => console.log(err));
+    } else {
+      AdminAPI.addproduct(product)
+        .then(() => getProducts())
+        .then(() => setShowProductForm(!showProductForm))
+        .then(() => alert(`${product.name} added to collection`))
+        .catch((err) => console.log(err));
+    }
   }
 
   function handleEditProduct(product) {
+    setInitalValues(product);
+    setShowProductForm(true);
+    formRef.current.scrollIntoView();
+  }
+
+  function handleDeleteProduct(product) {
     AdminAPI.deleteProduct(product._id)
       .then(() => alert(`${product.name} deleted`))
       .then(() => getProducts())
@@ -74,24 +94,29 @@ const AdminProductsPage = () => {
   return (
     <Layout>
       <h1>Products</h1>
-      <div>
+      <section ref={formRef}>
         <Button
           secondary
           style={{ width: "200px" }}
-          label="Add new"
-          onClick={() => setShow(!showAddProducts)}
+          label={showProductForm ? "Close" : "Add new"}
+          onClick={() => {
+            setInitalValues(false);
+            setShowProductForm(!showProductForm);
+          }}
         />
-      </div>
-      <div>
-        {showAddProducts && (
+        {showProductForm && (
           <Form
-            title="Add new"
             items={PRODUCT_INFO}
-            onSubmit={handleAddNewProduct}
+            onSubmit={submitFormData}
+            initialValues={initialValues}
           />
         )}
-      </div>
-      <ProductTable products={products} handleEditProduct={handleEditProduct} />
+      </section>
+      <ProductTable
+        products={products}
+        handleEditProduct={handleEditProduct}
+        handleDeleteProduct={handleDeleteProduct}
+      />
     </Layout>
   );
 };

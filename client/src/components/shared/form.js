@@ -3,8 +3,8 @@ import { useFormFields } from "../hooks";
 import Button from "./button";
 import Input from "./input";
 
-const Form = ({ items, onSubmit, title }) => {
-  const { formFields, createChangeHandler } = useFormFields({});
+const Form = ({ items, onSubmit, initialValues = {} }) => {
+  const { formFields, createChangeHandler } = useFormFields(initialValues);
 
   function handleSumbmit(event) {
     event.preventDefault();
@@ -12,10 +12,12 @@ const Form = ({ items, onSubmit, title }) => {
   }
   return (
     <form onSubmit={handleSumbmit} className="form__container">
-      <h2>{title}</h2>
       {items &&
         items.map(({ type, id, ...props }, idx) => {
           switch (type) {
+            case "title":
+              return <h2 key={idx}>{props.label}</h2>;
+
             case "input":
               return (
                 <Input
@@ -67,7 +69,7 @@ const Form = ({ items, onSubmit, title }) => {
                 />
               );
             case "text":
-            return <p style={{textAlign:'center'}}>{props.content}</p>
+              return <p style={{ textAlign: "center" }}>{props.content}</p>;
             default:
               return null;
           }

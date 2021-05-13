@@ -7,8 +7,8 @@ import Form from "../../components/shared/form";
 const UserPage = () => {
   const { user, logout } = useContext(AuthContext);
 
-  function handleSetShippingInfo() {
-    console.log();
+  function handleSetShippingInfo(info) {
+    console.log(info);
   }
 
   const USER_SHIPPING_INFO = [
@@ -48,7 +48,6 @@ const UserPage = () => {
       type: "submit",
       className: "button button__secondary mt1",
       label: "Update details",
-      onClick: handleSetShippingInfo(),
     },
   ];
 
