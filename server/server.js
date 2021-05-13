@@ -1,21 +1,20 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const Router = require("./routes/shop-routes");
 const AuthRouter = require("./routes/auth-routes");
 const seedDatabase = require("./data/seed");
 const AdminRouter = require("./routes/admin-routes");
-const UserRouter = require("./routes/user-routes");
+const Router = require("./routes");
 
 //const DB_HOST = "simplelinuxvm-tfh4puu22joq4.norwayeast.cloudapp.azure.com";
 //const URL = `mongodb://adminHans:Tvgj3789@${DB_HOST}:27017/ecomm`;
 console.log(process.env.MONOG_CLOUD_PASSWORD);
 const mongoCloudUrl = `mongodb+srv://admin:${process.env.MONOG_CLOUD_PASSWORD}@portfolie2.dk8ag.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
-const url = `mongodb://localhost:27017/ecomm`;
+const url = `mongodb://0.0.0.0:27017/ecomm`;
 
 mongoose
-  .connect(mongoCloudUrl, {
+  .connect(url, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -29,10 +28,10 @@ const server = express();
 
 server.use(express.json());
 server.use(cors({ exposedHeaders: 'user-id' }));
-server.use("/api", Router);
-server.use("/auth", AuthRouter);
-server.use("/admin", AdminRouter);
-server.use("/user", UserRouter);
+server.use("/api", Router.Public);
+server.use("/auth", Router.AuthRouter);
+server.use("/admin", Router.AdminRouter);
+server.use("/user", Router.UserRouter);
 
 server.get("/", (req, res) => {
   res.send("Welcome to the server:) Make requests to the api at /api");

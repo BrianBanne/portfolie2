@@ -31,3 +31,8 @@ to the server file, and automatically updates, so you don't have to reboot the w
  ## Authentication
 The client login utilizes OAuth2 for the login flow. This is a more secure solution since it do not require the user to provide us directly with the crendentials.
 For the admin-login, for practical reasons there is a more convential login solution with the good ol' email/password combination. These credentials will be provided in the pdf file, and is served by the `node env`
+
+
+## DOCKER
+### TOOD: 
+- Get docker db-connection up and going, and server-frontend
