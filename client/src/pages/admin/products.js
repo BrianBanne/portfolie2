@@ -23,7 +23,7 @@ const AdminProductsPage = () => {
       type: "input",
       label: "stock Status",
       name: "stockQuantity",
-    }, 
+    },
     {
       type: "input",
       label: "Price",
@@ -37,14 +37,13 @@ const AdminProductsPage = () => {
     {
       type: "input",
       label: "short description",
-      name: "shortDescription"
+      name: "shortDescription",
     },
     {
       type: "submit",
       className: "button button__secondary mt1",
       label: "Add new",
-      onClick : handleAddNewProduct(),
-    },	
+    },
   ];
 
   function getProducts() {
@@ -58,8 +57,7 @@ const AdminProductsPage = () => {
   }, []);
 
   function handleAddNewProduct(product) {
-    console.log(product);
-    AdminAPI.addproduct(product)
+     AdminAPI.addproduct(product)
     .then(() => getProducts())
     .then(() => setShow(!showAddProducts))
     .then(() => alert(`${product.name} added to collection`))
@@ -67,7 +65,6 @@ const AdminProductsPage = () => {
   }
 
   function handleEditProduct(product) {
-    console.log(product);
     AdminAPI.deleteProduct(product._id)
       .then(() => alert(`${product.name} deleted`))
       .then(() => getProducts())
@@ -78,15 +75,21 @@ const AdminProductsPage = () => {
     <Layout>
       <h1>Products</h1>
       <div>
-        <Button secondary style={{width:'200px'}} label="Add new" onClick={()=>setShow(!showAddProducts)}/>
+        <Button
+          secondary
+          style={{ width: "200px" }}
+          label="Add new"
+          onClick={() => setShow(!showAddProducts)}
+        />
       </div>
       <div>
-
-      {showAddProducts&&<Form
-        title="Add new"
-        items ={PRODUCT_INFO}
-        onSubmit={handleAddNewProduct}
-      />}
+        {showAddProducts && (
+          <Form
+            title="Add new"
+            items={PRODUCT_INFO}
+            onSubmit={handleAddNewProduct}
+          />
+        )}
       </div>
       <ProductTable products={products} handleEditProduct={handleEditProduct} />
     </Layout>

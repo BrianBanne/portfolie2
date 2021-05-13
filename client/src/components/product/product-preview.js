@@ -5,8 +5,6 @@ import AddToCartButton from "../cart/add-to-cart-button";
 const ProductPreview = ({ product }) => {
   //sku eller id i link-to? 
   const { name, imageUrl, price, id, stockQuantity } = product;
-  console.log(stockQuantity);
-  //TODO: get slug from server
   return (
     <div className="productPreview">
       <Link to={`/product/${id}`} className="productPreview__link">
