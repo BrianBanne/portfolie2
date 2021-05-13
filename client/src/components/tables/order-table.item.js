@@ -28,12 +28,12 @@ const OrderTableItem = ({ order, isAdmin }) => {
   return (
     <tr>
       <td>
-        {order.orderId}
+        Kanskje penere ID?
       </td>
       <td>{formatDate(order.date)}</td>
       <td>todo: qty mbe?</td>
-      <td>{order.amount} kr</td>
-      <td>{getStatusColor(order)}</td>
+      <td>{order.total} kr</td>
+      <td>{order.orderStatus}</td>
     </tr>
   );
 };

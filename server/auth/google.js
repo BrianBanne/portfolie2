@@ -30,7 +30,7 @@ async function getToken(req, res) {
 
   const userinfo = await oauth2Client.getTokenInfo(tokens.access_token);
   const email = userinfo.email;
- // console.log(userInfo);
+  // console.log(userInfo);
 
   if (!email)
     return res.status(400).json({ error: "Unable to obtain email from login" });
@@ -52,10 +52,14 @@ async function getUserFromEmail(email) {
   const newUser = new Customer({ email: email });
   await newUser.save();
   console.log(newUser);
-  console.log('new user');
-  return { email: userExists.email, id: userExists.id };
+  console.log("new user");
+  return { email: newUser.email, id: newUser.id };
+}
+
+async function getUserFromToken(access_token) {
+  return await oauth2Client.getTokenInfo(access_token);
 }
 
 function authorizeWithGoogle(req, res) {}
 
-module.exports = { getRedirectUrl, getToken };
+module.exports = { getRedirectUrl, getToken, getUserFromToken };

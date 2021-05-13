@@ -1,3 +1,4 @@
+const { getUserFromToken } = require("../auth/google");
 const Customer = require("../database/models/customer");
 const Order = require("../database/models/order");
 const Product = require("../database/models/product");
@@ -9,18 +10,16 @@ async function createOrder(req, res) {
   const order = req.body;
   const { shippingDetails, cart, user } = order;
   const cartItems = [];
-  let total = 0
+  let calculatedTotal = 0;
   //todo: calc total from products
 
   const products = [];
 
   for (const cartItem of cart) {
     const product = await Product.findOne({ _id: cartItem._id });
-    total = total + (cartItem.quantity * product.price)
+    calculatedTotal = calculatedTotal + cartItem.quantity * product.price;
     //products.push(product);
   }
-
-  console.log('product', total);
 
   /*   cart.forEach((item) =>
     cartItems.push({
@@ -29,11 +28,9 @@ async function createOrder(req, res) {
     })
   ); */
   try {
-    res.status(200);
-    /* console.log("order", order);
-    console.log("cartItmes", cartItems);
+    const newOrder = new Order({
       orderStatus: "pending payment",
-      total: order.total,
+      total: calculatedTotal,
       products: cartItems,
       firstName: shippingDetails.firstName,
       lastName: shippingDetails.lastName,
@@ -41,7 +38,8 @@ async function createOrder(req, res) {
       postcode: shippingDetails.postcode,
       city: shippingDetails.city,
     });
-    if (user.email) {
+
+    if (user) {
       const existingCustomer = await Customer.findOne({
         email: user.email,
       });
@@ -50,7 +48,7 @@ async function createOrder(req, res) {
     const result = await newOrder.save();
     return res
       .status(201)
-      .json({ message: "order succesfully placed!", order: result._doc }); */
+      .json({ message: "order succesfully placed!", order: result._doc });
   } catch (error) {
     console.log(error);
     return sendError(
@@ -117,6 +115,21 @@ async function getOrder(req, res) {
   }
 }
 
+async function getUserOrders(req, res) {
+  //todo: this is handled in middleware, maybe get userid from mw header?
+  const authHeader = req.headers.authorization;
+
+  const token = authHeader.split(" ")[1];
+  console.log("token", token);
+  const { email } = await getUserFromToken(token);
+
+  const { id: userId } = await Customer.findOne({ email: email });
+
+  const userOrders = await Order.find({ customer: userId });
+  console.log(userOrders);
+  return res.status(200).json({ orders: userOrders });
+}
+
 async function deleteOrder(req, res) {
   //todo: auth
   const orderId = req.params.id;
@@ -137,4 +150,5 @@ module.exports = {
   getOrder,
   updateOrder,
   deleteOrder,
+  getUserOrders,
 };
