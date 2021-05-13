@@ -6,7 +6,6 @@ import Button from "../shared/button";
 const CartItem = ({ product }) => {
   const { increment, decrement, removeFromCart } = useContext(ShopContext);
 
-  console.log(product);
   function handleRemoveProduct(event) {
     event.preventDefault();
     removeFromCart(product);
