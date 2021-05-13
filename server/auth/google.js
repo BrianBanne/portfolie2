@@ -30,7 +30,7 @@ async function getToken(req, res) {
 
   const userinfo = await oauth2Client.getTokenInfo(tokens.access_token);
   const email = userinfo.email;
-  console.log(userInfo);
+ // console.log(userInfo);
 
   if (!email)
     return res.status(400).json({ error: "Unable to obtain email from login" });
