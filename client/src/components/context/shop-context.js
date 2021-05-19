@@ -19,17 +19,37 @@ function setLocalStorage(cart) {
   localStorage.setItem("cart", JSON.stringify(cart.length > 0 ? cart : []));
 }
 
+/* function (state, action){
+
+}
+ */
+function getCartIdx(state, action) {
+  return state.cart.findIndex((product) => product.id === action.payload.id);
+}
 const ShopReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
-      if (!state.cart.find((product) => product.id === action.payload.id)) {
+      const cartItemIdx = getCartIdx(state, action);
+      console.log("idx", cartItemIdx);
+      if (cartItemIdx < 0) {
         state.cart.push({
           ...action.payload,
           quantity: 1,
         });
       } else {
-        state.cart[state.cart.findIndex(({ id }) => id === action.payload.id)]
-          .quantity++;
+        const newCart = [
+          ...state.cart.slice(0, cartItemIdx),
+          {
+            ...state.cart[cartItemIdx],
+            quantity: state.cart[cartItemIdx].quantity + 1,
+          },
+          ...state.cart.slice(cartItemIdx + 1),
+        ];
+        return {
+          ...state,
+          cart: newCart,
+          ...setLocalStorage(state.cart),
+        };
       }
 
       return {
@@ -39,26 +59,44 @@ const ShopReducer = (state, action) => {
       };
     //øker med 2 ad gangen
     case "INCREMENT":
-      state.cart[state.cart.findIndex(({ id }) => id === action.payload.id)]
-        .quantity++;
+      const cartItemId = getCartIdx(state, action);
+
+      const newCart = [
+        ...state.cart.slice(0, cartItemId),
+        {
+          ...state.cart[cartItemId],
+          quantity: state.cart[cartItemId].quantity + 1,
+        },
+        ...state.cart.slice(cartItemId + 1),
+      ];
       return {
         ...state,
-        cart: [...state.cart],
+        cart: newCart,
         ...setLocalStorage(state.cart),
       };
 
     case "DECREMENT":
-      // slår ann feil når man reduserer til 0, fikk det ikke til å funke med min fiks
-      state.cart[state.cart.findIndex(({ id }) => id === action.payload.id)]
-        .quantity--;
-      if (
-        [state.cart.findIndex(({ id }) => id === action.payload.id)].quantity <=
-        0
-      ) {
-        return 0;
-      } else {
-        return { ...state, cart: [...state.cart] };
-      }
+      const cartItemI = getCartIdx(state, action);
+      if (state.cart[cartItemI].quantity > 1) {
+        const newCart = [
+          ...state.cart.slice(0, cartItemI),
+          {
+            ...state.cart[cartItemI],
+            quantity: state.cart[cartItemI].quantity - 1,
+          },
+          ...state.cart.slice(cartItemI + 1),
+        ];
+        return {
+          ...state,
+          cart: newCart,
+          ...setLocalStorage(state.cart),
+        };
+      } else
+        return {
+          ...state,
+          cart: [...state.cart],
+          ...setLocalStorage(state.cart),
+        };
 
     case "REMOVE":
       return {
