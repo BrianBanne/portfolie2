@@ -1,9 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const mongoose = require("mongoose");
-const AuthRouter = require("./routes/auth-routes");
 const seedDatabase = require("./data/seed");
-const AdminRouter = require("./routes/admin-routes");
 const Router = require("./routes");
 
 //const DB_HOST = "simplelinuxvm-tfh4puu22joq4.norwayeast.cloudapp.azure.com";
@@ -30,8 +28,8 @@ server.use(express.json());
 server.use(cors({ exposedHeaders: 'user-id' }));
 server.use("/api", Router.Public);
 server.use("/auth", Router.AuthRouter);
-server.use("/admin", Router.AdminRouter);
-server.use("/user", Router.UserRouter);
+server.use("/api/admin", Router.AdminRouter);
+server.use("/api/user", Router.UserRouter);
 
 server.get("/", (req, res) => {
   res.send("Welcome to the server:) Make requests to the api at /api");

@@ -39,7 +39,7 @@ const Header = ({ user, admin }) => {
       <header className="header">
         <nav className="nav">
           <Link to="/user" className="nav__link">
-            Home
+            My page
           </Link>
           <Link to="/user/orders" className="nav__link">
             My orders

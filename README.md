@@ -7,6 +7,7 @@ feil når man legger til nytt produkt, men det legger seg til alikevel
 edit produkter for admin
 Docker compose
 validering av produkter
+push rabatt til server, slik at bruker ser at total er null og at rabatt er brukt
 
 
 ### mulig implementering om tid og viljestyrke 

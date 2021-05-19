@@ -5,11 +5,16 @@ import ProductTable from "../../components/tables/product-table";
 import Form from "../../components/shared/form";
 import Button from "../../components/shared/button";
 
+
+
 const AdminProductsPage = () => {
   const [products, setProducts] = useState();
   const [showProductForm, setShowProductForm] = useState(false);
   const [initialValues, setInitalValues] = useState();
   const formRef = useRef();
+  
+
+  
   const PRODUCT_INFO = [
     {
       type: "title",

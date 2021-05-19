@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useHistory } from "react-router";
 import { Link } from "react-router-dom";
 import { ShopContext } from "../context/shop-context";
@@ -6,19 +6,15 @@ import Button from "../shared/button";
 import CartItem from "./cart-item";
 
 const CartContainer = () => {
-  const { cart, clearCart } = useContext(ShopContext);
-  const storagePopup = localStorage.getItem("popupIsShown")
-    ? JSON.parse(localStorage.getItem("popupIsShown"))
-    : false;
-  const [popupIsShown, setPopupIsShown] = useState(storagePopup);
-
+  const { cart, clearCart, activeDiscount, setDiscount } =
+    useContext(ShopContext);
   const history = useHistory();
   const SHIPPING = 50;
-  //TODO: ikke bare telle for hvert produkt, men også hvor mange det er av produktet
 
   function getSubtotal() {
     let subtotal = 0;
-    cart && cart.forEach((product) => (subtotal += product.price));
+    cart &&
+      cart.forEach((product) => (subtotal += product.price * product.quantity));
     return subtotal;
   }
 
@@ -34,28 +30,25 @@ const CartContainer = () => {
   }
 
   useEffect(() => {
-    console.log("popu", popupIsShown);
-    if (!popupIsShown) {
+    if (!activeDiscount) {
       //prevents the popup activating on every cart-render
       setTimeout(function () {
         alert(
           "Congratulations! As our x customer, you've just got a 100% discount on your cart\n developer note, fill x with specified amount from management"
         );
-        setPopupIsShown(true);
-        localStorage.setItem("popupIsShown", true);
-      }, 3000);
+        setDiscount(true);
+      }, 2000);
     } else return;
-  }, [popupIsShown, setPopupIsShown]);
+  }, [activeDiscount, setDiscount]);
 
   const Total = ({ showDiscount }) => {
     if (showDiscount)
       return (
         <div>
-          Total after price reduction:{" "}
+          Total after price reduction:
           <div style={{ textDecoration: "line-through", display: "inline" }}>
-            {" "}
-            {getTotal().toString()}
-          </div>{" "}
+            {getTotal()}
+          </div>
           {"->"}
           {priceReductionForRandomCustomer()} kr
         </div>
@@ -77,7 +70,7 @@ const CartContainer = () => {
           <div>
             <div>Subtotal: {getSubtotal()} kr</div>
             <div>Shipping: {SHIPPING} kr</div>
-            <Total showDiscount={popupIsShown} />
+            <Total showDiscount={activeDiscount} />
           </div>
 
           <Button primary onClick={handleClearCart} label="Clear cart" />

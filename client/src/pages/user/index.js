@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { API } from "../../api";
 import { AuthContext } from "../../components/context/auth-context";
 import Layout from "../../components/layout/index";
 import Button from "../../components/shared/button";
@@ -7,11 +8,18 @@ import Form from "../../components/shared/form";
 const UserPage = () => {
   const { user, logout } = useContext(AuthContext);
 
-  function handleSetShippingInfo(info) {
-    console.log(info);
+  function handleSetShippingInfo(userDetails) {
+    API.updateUserDetails(userDetails)
+      .then(({ data }) => alert(data.message))
+      .then()
+      .catch((err) => alert(err.error));
   }
 
   const USER_SHIPPING_INFO = [
+    {
+      type: "title",
+      label: "Update details",
+    },
     {
       type: "input",
       label: "First name",
@@ -21,11 +29,6 @@ const UserPage = () => {
       type: "input",
       label: "Last name",
       name: "lastName",
-    },
-    {
-      type: "email",
-      label: "Email",
-      name: "email",
     },
     {
       type: "input",

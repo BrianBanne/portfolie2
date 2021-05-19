@@ -45,6 +45,7 @@ async function createOrder(req, res) {
       });
       if (existingCustomer) newOrder.customer = existingCustomer.id;
     }
+    console.log(newOrder);
     const result = await newOrder.save();
     return res
       .status(201)
@@ -90,8 +91,6 @@ async function updateOrder(req, res) {
 }
 
 async function getAllOrders(req, res) {
-  //todo: auth
-
   try {
     const orders = await Order.find();
     console.log(orders);
@@ -121,13 +120,13 @@ async function getUserOrders(req, res) {
 
   const token = authHeader.split(" ")[1];
   console.log("token", token);
-  const { email } = await getUserFromToken(token);
-
-  const { id: userId } = await Customer.findOne({ email: email });
-
-  const userOrders = await Order.find({ customer: userId });
-  console.log(userOrders);
-  return res.status(200).json({ orders: userOrders });
+  try {
+    const { email } = await getUserFromToken(token);
+    const { id: userId } = await Customer.findOne({ email: email });
+    const userOrders = await Order.find({ customer: userId });
+    console.log('userorders', userOrders);
+    return res.status(200).json({ orders: userOrders });
+  } catch (error) {}
 }
 
 async function deleteOrder(req, res) {

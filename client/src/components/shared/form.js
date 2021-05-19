@@ -10,6 +10,7 @@ const Form = ({ items, onSubmit, initialValues = {} }) => {
     event.preventDefault();
     onSubmit(formFields);
   }
+
   return (
     <form onSubmit={handleSumbmit} className="form__container">
       {items &&
@@ -69,7 +70,11 @@ const Form = ({ items, onSubmit, initialValues = {} }) => {
                 />
               );
             case "text":
-              return <p style={{ textAlign: "center" }}>{props.content}</p>;
+              return (
+                <p key={idx} style={{ textAlign: "center" }}>
+                  {props.content}
+                </p>
+              );
             default:
               return null;
           }

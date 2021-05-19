@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../components/context/auth-context";
 import { ShopContext } from "../components/context/shop-context";
 import Layout from "../components/layout";
@@ -7,25 +7,46 @@ import { API } from "../api/index";
 import { useHistory } from "react-router-dom";
 
 const CheckoutPage = () => {
-  const { cart } = useContext(ShopContext);
+  const { cart, clearCart, activeDiscount } = useContext(ShopContext);
   const { user } = useContext(AuthContext);
+  const [userDetails, setUserDetails] = useState();
   const history = useHistory();
-  
+
+  useEffect(() => {
+    let isSubscribed = true;
+
+    if (user.email) {
+      API.getUserDetails()
+        .then(({ data }) =>
+          isSubscribed ? setUserDetails(data.userDetails) : setUserDetails(null)
+        )
+        .catch((err) => console.log(err.message));
+    }
+    return () => (isSubscribed = false);
+  }, [user]);
 
   function handleCheckout(formData) {
-    console.log(formData);
-    console.log(cart);
+    console.log(user);
     const order = {
       shippingDetails: formData,
       cart: cart,
       user: user,
     };
-    console.log(order);
-    API.createOrder(order).then(({ data }) => alert(data.message))
-    .then(()=> history.push("/user/orders"));
-    
+    API.createOrder(order)
+      .then(({ data }) => {
+        alert(data.message);
+      })
+      .then(() => clearCart())
+      .then(() =>
+        user.email ? history.push("/user/orders") : history.push("/")
+      )
+      .catch((err) => alert(err.error));
   }
   const CHECKOUT_DETAILS = [
+    {
+      type: "title",
+      label: "Checkout",
+    },
     {
       type: "input",
       label: "First name",
@@ -35,11 +56,6 @@ const CheckoutPage = () => {
       type: "input",
       label: "Last name",
       name: "lastName",
-    },
-    {
-      type: "email",
-      label: "Email",
-      name: "email",
     },
     {
       type: "input",
@@ -60,7 +76,7 @@ const CheckoutPage = () => {
     },
     {
       type: "text",
-      content: 'Total of "amount"',
+      content: `To pay: ${activeDiscount ? 0 : cart.total} NOK `,
     },
     {
       type: "submit",
@@ -68,12 +84,14 @@ const CheckoutPage = () => {
       label: "Place order",
     },
   ];
+
   return (
     <Layout>
       <Form
         title="Checkout"
         items={CHECKOUT_DETAILS}
         onSubmit={handleCheckout}
+        initialValues={userDetails}
       />
     </Layout>
   );

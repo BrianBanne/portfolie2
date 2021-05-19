@@ -1,45 +1,27 @@
 import React from "react";
+import { useHistory } from "react-router";
 import Layout from "../../components/layout/index";
-import Form from "../../components/shared/form";
+import Button from "../../components/shared/button";
 
 const AdminPage = () => {
- // const { user } = useContext(AuthContext);
-  //const userOrders = TestAPI.ORDERS.filter((id) => id === 321);
-
-  //api get user orders by user id
- function  handleUpdateDetails(){
-
- }
-
-  const ADMIN_PERSONAL_DETAILS = [
-    {
-      type: "password",
-      label: "Password",
-      name: 'password',
-      value: ''
-    },
-    {
-      type: "password",
-      label: "Enter password again",
-      name: 'password2',
-      value: ''
-
-
-    },
-    {
-      type: "submit",
-      label: "Update details",
-      onClick: handleUpdateDetails()
-    },
-  ];
-
+  const history = useHistory();
   return (
     <Layout>
       <h1>Hi Admin </h1>
-      <div>
-        {/* <p>You have # products and #{user.orders} orders</p> */}
-      </div>
-      
+      <section>
+        <p>From here you can</p>
+        <Button
+          secondary
+          label="Manage products"
+          onClick={() => history.push("/admin/products")}
+        />
+        <p>or</p>
+        <Button
+          secondary
+          label="View orders"
+          onClick={() => history.push("/admin/orders")}
+        />
+      </section>
     </Layout>
   );
 };

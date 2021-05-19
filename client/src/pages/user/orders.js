@@ -10,13 +10,14 @@ const UserOrdersPage = () => {
   const [orders, setOrders] = useState();
 
   useEffect(() => {
-    API.getUserOrders(token)
-      .then(({ data }) => {
-        setOrders(data.orders);
-      })
-      .catch((err) => console.log(err));
-  }, [token]);
-console.log("ordershit12312312321312323", orders);
+    console.log('token ', token);
+      API.getUserOrders(token)
+        .then(({ data }) => {
+          setOrders(data.orders);
+        })
+        .catch((err) => console.log(err));
+  }, []);
+
   return (
     <Layout>
       <h1>My orders</h1>

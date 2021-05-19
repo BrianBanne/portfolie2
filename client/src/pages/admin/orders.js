@@ -9,12 +9,14 @@ const AdminOrdersPage = () => {
   const [orders, setOrders] = useState();
 
   useEffect(() => {
-    AdminAPI.getAllOrders(token)
-      .then(({ data }) => {
-        setOrders(data.orders);
-        console.log(data);
-      })
-      .catch((err) => console.log(err.response));
+    console.log('token ', token);
+    if (typeof token !== undefined ) {
+      AdminAPI.getAllOrders(token)
+        .then(({ data }) => {
+          setOrders(data.orders);
+        })
+        .catch((err) => console.log(err.response));
+    }
   }, [token]);
 
   return (

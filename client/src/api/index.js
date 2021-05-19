@@ -27,32 +27,34 @@ const api = axios.create({
 });
 
 const user = axios.create({
-  baseURL: "http://localhost:8080/user",
+  baseURL: "http://localhost:8080/api/user",
   headers: {
     "Content-Type": "application/json",
     authorization: `Bearer ${token}`,
   },
 });
 
-const loginAdmin = (payload) => server.post("/auth/login/admin", payload);
-export const getRedirectUrl = () => server.get("/auth/login/google");
+const loginAdmin = async (payload) => server.post("/auth/login/admin", payload);
+export const getRedirectUrl = async () => server.get("/auth/login/google");
 
 //** PRODUCT API **/
-const getAllProducts = () => api.get("/products");
-const getProductFromId = (id) => api.get(`/product/${id}`);
+const getAllProducts = async () => api.get("/products");
+const getProductFromId = async (id) => api.get(`/product/${id}`);
 
-const createOrder = (payload) => api.post("/order/create", payload);
+const createOrder = async (payload) => api.post("/order/create", payload);
 
 //** USER API **/
 
-const getUserOrders = (id) => user.get(`/orders`);
+const getUserOrders = async (id) => user.get(`/orders`);
+const updateUserDetails = async (payload) => user.put("/update", payload);
+const getUserDetails = async () => user.get("/details");
 
 //** ADMIN API **/
-const getAllOrders = () => admin.get("/orders");
+const getAllOrders = async () => admin.get("/orders");
 
-const addproduct = (payload) => admin.post("/product", payload);
-const editProduct = (id, payload) => admin.put(`/product/${id}`, payload);
-const deleteProduct = (id) => admin.delete(`/product/${id}`);
+const addproduct = async (payload) => admin.post("/product", payload);
+const editProduct = async (id, payload) => admin.put(`/product/${id}`, payload);
+const deleteProduct = async (id) => admin.delete(`/product/${id}`);
 
 export const getCustomers = () => api.get("/customers");
 
@@ -62,6 +64,8 @@ export const API = {
   loginAdmin,
   createOrder,
   getUserOrders,
+  updateUserDetails,
+  getUserDetails
 };
 
 export const AdminAPI = {

@@ -10,6 +10,7 @@ const {
 } = require("../middleware/auth-middleware");
 
 const { getRedirectUrl, getToken } = require("../auth/google");
+const UserController = require("../controllers/user-controller");
 
 // ADMIN ROUTES
 const AdminRouter = express.Router();
@@ -36,6 +37,8 @@ const UserRouter = express.Router();
 //Adds middleware to authorize user
 UserRouter.use(validateUser);
 UserRouter.get("/orders", OrderController.getUserOrders);
+UserRouter.put("/update", UserController.updateCustomerDetails)
+UserRouter.get("/details", UserController.getCustomerDetails)
 
 //  PULIC / PRODUCT ROUTES
 const Public = express.Router();
