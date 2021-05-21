@@ -1,6 +1,7 @@
 import axios from "axios";
 
-const serverURL = 'http://'+process.env.REACT_APP_API_URL+':8080';
+const serverURL = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : 'https://localhost:8080'
+
 console.log("serverurl", serverURL);
 
 const { token } = localStorage.getItem("session")
