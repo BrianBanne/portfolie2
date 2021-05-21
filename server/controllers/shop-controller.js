@@ -4,6 +4,7 @@ const { sendError } = require("../lib");
 
 async function getAllProducts(req, res) {
   try {
+    console.log('when you try your best');
     const products = await Product.find();
     return res.status(200).json({ products: products });
   } catch (error) {

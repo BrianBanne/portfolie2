@@ -12,6 +12,8 @@ const AdminProductsPage = () => {
   const [showProductForm, setShowProductForm] = useState(false);
   const [initialValues, setInitalValues] = useState();
   const formRef = useRef();
+
+  
   
 
   
@@ -56,6 +58,22 @@ const AdminProductsPage = () => {
       label: `${initialValues ? "Update" : "Add new"}`,
     },
   ];
+    /// validering??? maybe, not sure
+  function validate(product) {
+  if(product.name.length === 0) {
+    return false;
+  } else if(product.price <= 0) {
+    return false;
+  } else if(product.shortDescription.length === 0) {
+    return false;
+  } else if(product.description.length === 0) {
+    return false;
+  } else if(product.stockQuantity < 0) {
+    return false;
+  } else {
+    return true;
+  }
+  }
 
   function getProducts() {
     API.getAllProducts()
@@ -68,6 +86,7 @@ const AdminProductsPage = () => {
   }, []);
 
   function submitFormData(product) {
+    if (validate === true) {
     if (initialValues) {
       AdminAPI.editProduct(product._id, product)
         .then(() => alert(`Updated product ${product.name}`))
@@ -82,6 +101,7 @@ const AdminProductsPage = () => {
         .catch((err) => console.log(err));
     }
   }
+}
 
   function handleEditProduct(product) {
     setInitalValues(product);

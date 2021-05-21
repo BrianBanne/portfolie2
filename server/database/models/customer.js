@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const User = require("./user");
 
-// discriminator makes the customer model inherit from the user model
+//discriminator makes the customer model inherit from the user model
 
 const Customer = User.discriminator(
   "Customer",

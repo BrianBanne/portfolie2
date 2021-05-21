@@ -8,14 +8,15 @@ import { useHistory } from "react-router-dom";
 
 const CheckoutPage = () => {
   const { cart, clearCart, activeDiscount } = useContext(ShopContext);
-  const { user } = useContext(AuthContext);
+  const { token, user } = useContext(AuthContext);
+
   const [userDetails, setUserDetails] = useState();
   const history = useHistory();
 
   useEffect(() => {
     let isSubscribed = true;
 
-    if (user.email) {
+    if (token) {
       API.getUserDetails()
         .then(({ data }) =>
           isSubscribed ? setUserDetails(data.userDetails) : setUserDetails(null)
@@ -23,7 +24,7 @@ const CheckoutPage = () => {
         .catch((err) => console.log(err.message));
     }
     return () => (isSubscribed = false);
-  }, [user]);
+  }, [token]);
 
   function handleCheckout(formData) {
     console.log(user);

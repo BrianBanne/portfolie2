@@ -1,23 +1,35 @@
 version: "3"
 services:
+  prometheus:
+    container_name: prometheus-svc
+    image: prom/prometheus
+    ports: 
+      - "9100:9090"
+    command: --config.file=server/prometheus/prometheus.yml
+    volumes:
+      - ./prometheus.yaml:/server/prometheus/prometheus.yaml
   client:
     build:
       context: client
       dockerfile: Dockerfile
+    env_file:
+      - .env
     volumes:
       - "./client:/app"
     ports:
-      - "8082:3000"
+      - "3000:3000"
     depends_on:
       - server
   server:
     build:
       context: server
       dockerfile: Dockerfile
+    env_file:
+      - .env
     volumes:
       - "./server:/app"
     ports:
-      - "8081:8080"
+      - "8080:8080"
     depends_on:
       - db
   db:
@@ -25,6 +37,7 @@ services:
     container_name: mongodb
     volumes:
       - mongodb_data:/data/db
+    restart: always
     ports:
       - 27017:27017
 volumes:

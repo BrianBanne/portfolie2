@@ -19,6 +19,8 @@
   },
   "homepage": "https://github.com/hanseklev/portfolie2#readme",
   "dependencies": {
-    "concurrently": "^6.0.2"
+    "concurrently": "^6.0.2",
+    "docker": "^1.0.0",
+    "prom-client": "^13.1.0"
   }
 }
