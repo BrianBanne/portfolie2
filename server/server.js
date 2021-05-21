@@ -3,6 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const express = require("express");
 const cors = require("cors");
+const swaggerUi = require("swagger-ui-express");
 
 const mongoose = require("mongoose");
 const seedDatabase = require("./data/seed");
@@ -34,6 +35,11 @@ server.use(express.json());
 server.use((req, res, next) => {
   req.secure ? next() : res.redirect("https://" + req.headers.host + req.url);
 });
+server.use(
+  "/docs",
+  swaggerUi.serve,
+  swaggerUi.setup(require("./swagger_out.json"))
+);
 server.use(cors({ exposedHeaders: "user-id" }));
 server.use("/api", Router.Public);
 server.use("/auth", Router.AuthRouter);
@@ -54,7 +60,6 @@ server.get("/", (req, res) => {
   counter.inc();
   res.send("Welcome to the server:) Make requests to the api at /api");
 });
-
 
 //Server that redirects all incoming http-requests to https
 http

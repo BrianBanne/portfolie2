@@ -1,6 +1,6 @@
 const express = require("express");
 
-const ShopController = require("../controllers/shop-controller");
+const ProductController = require("../controllers/product-controller");
 const OrderController = require("../controllers/order-controller");
 const loginAdmin = require("../auth/admin");
 
@@ -16,9 +16,9 @@ const UserController = require("../controllers/user-controller");
 const AdminRouter = express.Router();
 //Adds middleware to authorize admin
 AdminRouter.use(validateAdmin);
-AdminRouter.post("/product", ShopController.createProduct);
-AdminRouter.put("/product/:id", ShopController.updateProduct);
-AdminRouter.delete("/product/:id", ShopController.deleteProduct);
+AdminRouter.post("/product", ProductController.createProduct);
+AdminRouter.put("/product/:id", ProductController.updateProduct);
+AdminRouter.delete("/product/:id", ProductController.deleteProduct);
 
 AdminRouter.get("/orders", OrderController.getAllOrders);
 AdminRouter.put("/order/:id", OrderController.updateOrder);
@@ -37,13 +37,13 @@ const UserRouter = express.Router();
 //Adds middleware to authorize user
 UserRouter.use(validateUser);
 UserRouter.get("/orders", OrderController.getUserOrders);
-UserRouter.put("/update", UserController.updateCustomerDetails)
-UserRouter.get("/details", UserController.getCustomerDetails)
+UserRouter.put("/update", UserController.updateCustomerDetails);
+UserRouter.get("/details", UserController.getCustomerDetails);
 
 //  PULIC / PRODUCT ROUTES
 const Public = express.Router();
-Public.get("/products", ShopController.getAllProducts);
-Public.get("/product/:id", ShopController.getProduct);
+Public.get("/products", ProductController.getAllProducts);
+Public.get("/product/:id", ProductController.getProduct);
 
 // ORDER ROUTES
 Public.post("/order/create", OrderController.createOrder);
