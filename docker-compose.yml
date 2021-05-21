@@ -9,7 +9,7 @@ services:
     volumes:
       - "./client:/app"
     ports:
-      - "3001:3000"
+      - "3000:3000"
     depends_on:
       - server
   server:

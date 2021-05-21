@@ -11,7 +11,7 @@ const Router = require("./routes");
 console.log('password', process.env.MONOG_CLOUD_PASSWORD);
 console.log('secret', process.env.MONGO_URL);
 
-const url = `mongodb://${process.env.MONGO_URL}:27017/ecomm`;
+const url = `mongodb://db:27017/ecomm`;
 
 mongoose
   .connect(url, {

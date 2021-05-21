@@ -80,8 +80,7 @@ async function getCustomerDetails(req, res) {
   const authHeader = req.headers.authorization;
   try {
     const user = await getUserFromToken(authHeader);
-    if (!user) res.status(404).json({ error: "User not found" });
-    return;
+    if (!user) return res.status(404).json({ error: "User not found" });
     return res.status(200).json({
       userDetails: {
         firstName: user.firstName,
@@ -127,6 +126,7 @@ async function handleGoogleLogin(req, res) {
 
 async function getUserFromToken(authHeader) {
   const token = authHeader.split(" ")[1];
+  console.log("token", token);
   if (!token) throw new Error("Authorization header missing");
 
   try {

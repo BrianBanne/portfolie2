@@ -42,7 +42,7 @@ async function getToken(req, res) {
   console.log(user);
 
   return res.redirect(
-    `http://${process.env.PUBLIC_URL}:3000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
+    `http://localhost:3000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
   );
 }
 
