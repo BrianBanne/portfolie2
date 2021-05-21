@@ -9,6 +9,8 @@ const oauth2Client = new google.auth.OAuth2(
   process.env.GOOGLE_REDIRECT_URL
 );
 
+let hostname = ''
+
 const SCOPES = [
   "https://www.googleapis.com/auth/userinfo.profile",
   "https://www.googleapis.com/auth/userinfo.email",
@@ -19,6 +21,7 @@ function getRedirectUrl(req, res) {
     access_type: "offline",
     scope: SCOPES,
   });
+  console.log('hostname', req.headers.host + req.url);
   return res.status(200).json({ url: url });
 }
 
@@ -39,7 +42,7 @@ async function getToken(req, res) {
   console.log(user);
 
   return res.redirect(
-    `http://localhost:3000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
+    `http://${process.env.PUBLIC_URL}:3000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
   );
 }
 

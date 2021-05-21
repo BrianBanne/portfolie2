@@ -35,5 +35,13 @@ For the admin-login, for practical reasons there is a more convential login solu
 
 
 ## DOCKER
+
+### START UP
+Get the project up and going by running the command `docker-compose up` in the root folder.
+
+
+### Potential dangers
+If the build process throws and error saying something like `Error starting userland proxy: listen tcp 0.0.0.0:27017: bind: address already in use`, you may have to run the `service mongodb stop` if mongodb is running in root for some reason.
+
 ### TOOD: 
 - Get docker db-connection up and going, and server-frontend

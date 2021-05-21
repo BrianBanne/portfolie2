@@ -1,33 +1,36 @@
 import axios from "axios";
 
+const serverURL = 'http://'+process.env.REACT_APP_API_URL+':8080';
+console.log("serverurl", serverURL);
+
 const { token } = localStorage.getItem("session")
   ? JSON.parse(localStorage.getItem("session"))
   : "";
 
 const server = axios.create({
-  baseURL: "http://localhost:8080/",
+  baseURL: serverURL,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});
+
+const api = axios.create({
+  baseURL: serverURL.concat("/api"),
   headers: {
     "Content-Type": "application/json",
   },
 });
 
 const admin = axios.create({
-  baseURL: "http://localhost:8080/admin",
+  baseURL: serverURL.concat("/admin"),
   headers: {
     "Content-Type": "application/json",
     authorization: `Bearer ${token}`,
   },
 });
 
-const api = axios.create({
-  baseURL: "http://localhost:8080/api",
-  headers: {
-    "Content-Type": "application/json",
-  },
-});
-
 const user = axios.create({
-  baseURL: "http://localhost:8080/api/user",
+  baseURL: serverURL.concat("/api/user"),
   headers: {
     "Content-Type": "application/json",
     authorization: `Bearer ${token}`,
@@ -65,7 +68,7 @@ export const API = {
   createOrder,
   getUserOrders,
   updateUserDetails,
-  getUserDetails
+  getUserDetails,
 };
 
 export const AdminAPI = {

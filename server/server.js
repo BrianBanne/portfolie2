@@ -6,10 +6,12 @@ const Router = require("./routes");
 
 //const DB_HOST = "simplelinuxvm-tfh4puu22joq4.norwayeast.cloudapp.azure.com";
 //const URL = `mongodb://adminHans:Tvgj3789@${DB_HOST}:27017/ecomm`;
-console.log(process.env.MONOG_CLOUD_PASSWORD);
-const mongoCloudUrl = `mongodb+srv://admin:${process.env.MONOG_CLOUD_PASSWORD}@portfolie2.dk8ag.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
+//const mongoCloudUrl = `mongodb+srv://admin:${process.env.MONOG_CLOUD_PASSWORD}@portfolie2.dk8ag.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 
-const url = `mongodb://0.0.0.0:27017/ecomm`;
+console.log('password', process.env.MONOG_CLOUD_PASSWORD);
+console.log('secret', process.env.MONGO_URL);
+
+const url = `mongodb://${process.env.MONGO_URL}:27017/ecomm`;
 
 mongoose
   .connect(url, {
@@ -18,7 +20,7 @@ mongoose
   })
   .then(() => console.log("Connected to database"))
   .then(() => seedDatabase(mongoose))
-  .catch((err) => console.log());
+  .catch((err) => console.log(err));
 
 const PORT = 8080;
 const ADDRESS = "0.0.0.0";
