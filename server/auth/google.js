@@ -46,7 +46,7 @@ async function getToken(req, res) {
     console.log(user);
 
     return res.redirect(
-      `https://localhost:3000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
+      `https://localhost:4000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
     );
   } catch (error) {
     return res.status(500).json({error: 'Unable to process google callback, please try again'})

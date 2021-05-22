@@ -7,8 +7,23 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const seedDatabase = require("./data/seed");
 const Router = require("./routes");
-
+const client = require('prom-client');
+const collectDefaultMetrics = client.collectDefaultMetrics;
+collectDefaultMetrics({ timeout: 5000 });
 const url = `mongodb://localhost:27017/ecomm`;
+
+const counter = new client.Counter({
+  name: 'node_request_operations_total',
+  help: 'The total number of processed requests'
+});
+
+const histogram = new client.Histogram({
+  name: 'node_request_duration_seconds',
+  help: 'Histogram for the duration in sec',
+  buckets: [1, 2, 5, 6, 10]
+});
+
+
 
 const SSL_OPTIONS = {
   key: fs.readFileSync("key.pem"),
@@ -54,6 +69,12 @@ server.get("/", (req, res) => {
   counter.inc();
   res.send("Welcome to the server:) Make requests to the api at /api");
 });
+
+server.get('/metrics', (req, res) => {
+  res.set('Content-Type', client.register.contentType)
+  res.end(client.register.metrics())
+})
+
 
 
 //Server that redirects all incoming http-requests to https
