@@ -3,8 +3,10 @@ const Product = require("../database/models/product");
 const { sendError } = require("../lib");
 
 async function getAllProducts(req, res) {
+  // #swagger.tags = ['Product']
+  // #swagger.description = 'Returns  all products'
   try {
-    console.log('when you try your best');
+    console.log("when you try your best");
     const products = await Product.find();
     return res.status(200).json({ products: products });
   } catch (error) {
@@ -13,6 +15,8 @@ async function getAllProducts(req, res) {
 }
 
 async function getProduct(req, res) {
+  // #swagger.tags = ['Product']
+  // #swagger.description = 'Returns a single product from given id'
   const productId = req.params.id;
   if (!productId)
     return sendError(res, 400, "Product id not defined in request");
@@ -25,6 +29,8 @@ async function getProduct(req, res) {
 }
 
 async function createProduct(req, res) {
+  // #swagger.tags = ['Product']
+  // #swagger.description = 'Creates a new product'
   const product = req.body;
 
   try {
@@ -51,6 +57,8 @@ async function createProduct(req, res) {
 }
 
 async function updateProduct(req, res) {
+  // #swagger.tags = ['Product']
+  // #swagger.description = 'Updated product from given id'
   const productId = req.params.id;
   const updatedValues = req.body;
   if (!productId)
@@ -72,7 +80,9 @@ async function updateProduct(req, res) {
 }
 
 async function deleteProduct(req, res) {
-  //auth
+  // #swagger.tags = ['Product']
+  // #swagger.description = 'Deletes product from given id'
+
   const productId = req.params.id;
   try {
     const deletedProduct = await Product.deleteOne({ _id: productId });
@@ -86,7 +96,8 @@ async function deleteProduct(req, res) {
 }
 
 async function deleteAllProducts(req, res) {
-  //auth
+  // #swagger.tags = ['Product']
+  // #swagger.description = 'Deletes all products'
   try {
     const deletedProducts = await Product.remove({});
     console.log(deletedProducts);

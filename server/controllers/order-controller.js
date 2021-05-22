@@ -5,6 +5,16 @@ const Product = require("../database/models/product");
 const { sendError } = require("../lib");
 
 async function createOrder(req, res) {
+  // #swagger.tags = ['Order']
+  // #swagger.description = 'Creates a new order from checkout'
+
+  /*	#swagger.parameters['obj'] = {
+            in: 'body',
+            description: 'Order details',
+            required: true,
+            schema: { $ref: "#/definitions/Order" }
+    } */
+
   //if customer has not created account customerId is left blank
   //const customerId = req.params.userId || "";
   const order = req.body;
@@ -61,6 +71,9 @@ async function createOrder(req, res) {
 }
 
 async function updateOrder(req, res) {
+  // #swagger.tags = ['Order']
+  // #swagger.description = 'Update order from admin'
+
   //Restrictions: not allowed to change products in placed order, only details
   const orderData = req.body;
 
@@ -91,6 +104,8 @@ async function updateOrder(req, res) {
 }
 
 async function getAllOrders(req, res) {
+  // #swagger.tags = ['Order']
+  // #swagger.description = 'Get all orders'
   try {
     const orders = await Order.find();
     console.log(orders);
@@ -102,7 +117,8 @@ async function getAllOrders(req, res) {
 }
 
 async function getOrder(req, res) {
-  //todo: auth
+  // #swagger.tags = ['Order']
+  // #swagger.description = 'Get order from id'
   const orderId = req.params.id;
   try {
     const order = await Order.findById(orderId);
@@ -115,6 +131,9 @@ async function getOrder(req, res) {
 }
 
 async function getUserOrders(req, res) {
+  // #swagger.tags = ['Order']
+  // #swagger.description = 'Get a users orders'
+
   //todo: this is handled in middleware, maybe get userid from mw header?
   const authHeader = req.headers.authorization;
 
@@ -124,12 +143,14 @@ async function getUserOrders(req, res) {
     const { email } = await getUserFromToken(token);
     const { id: userId } = await Customer.findOne({ email: email });
     const userOrders = await Order.find({ customer: userId });
-    console.log('userorders', userOrders);
+    console.log("userorders", userOrders);
     return res.status(200).json({ orders: userOrders });
   } catch (error) {}
 }
 
 async function deleteOrder(req, res) {
+  // #swagger.tags = ['Order']
+  // #swagger.description = 'Delete a order'
   //todo: auth
   const orderId = req.params.id;
   try {

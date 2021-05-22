@@ -17,6 +17,13 @@ const SCOPES = [
   "https://www.googleapis.com/auth/userinfo.email",
 ];
 
+/**
+ * Returns an auth link that redirects to the google oauth login site
+ * 
+ * @param {*} req 
+ * @param {*} res 
+ * @returns {url} 
+ */
 function getRedirectUrl(req, res) {
   const url = oauth2Client.generateAuthUrl({
     access_type: "offline",
@@ -69,7 +76,5 @@ async function getUserFromEmail(email) {
 async function getUserFromToken(access_token) {
   return await oauth2Client.getTokenInfo(access_token);
 }
-
-function authorizeWithGoogle(req, res) {}
 
 module.exports = { getRedirectUrl, getToken, getUserFromToken };
