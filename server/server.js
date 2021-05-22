@@ -8,21 +8,9 @@ const swaggerUi = require("swagger-ui-express");
 const mongoose = require("mongoose");
 const seedDatabase = require("./data/seed");
 const Router = require("./routes");
-const client = require('prom-client');
-const collectDefaultMetrics = client.collectDefaultMetrics;
-collectDefaultMetrics({ timeout: 5000 });
+
 const url = `mongodb://localhost:27017/ecomm`;
 
-const counter = new client.Counter({
-  name: 'node_request_operations_total',
-  help: 'The total number of processed requests'
-});
-
-const histogram = new client.Histogram({
-  name: 'node_request_duration_seconds',
-  help: 'Histogram for the duration in sec',
-  buckets: [1, 2, 5, 6, 10]
-});
 
 
 
@@ -62,24 +50,13 @@ server.use("/api/admin", Router.AdminRouter);
 server.use("/api/user", Router.UserRouter);
 
 server.get("/", (req, res) => {
-
-  //simulate sleep
-  var start = new Date()
-  var simulateTime = 1000
-
-  setTimeout(function(argument) {
-    var end = new Date() - start
-    histogram.observe(end / 1000);
-  }, simulateTime)
-
-  counter.inc();
   res.send("Welcome to the server:) Make requests to the api at /api");
 });
 
 server.get('/metrics', (req, res) => {
   res.set('Content-Type', client.register.contentType)
   res.end(client.register.metrics())
-})
+});
 
 
 

@@ -1,16 +1,14 @@
 # portfolie2
 ## group23,
 Hans Erling Klevstad, s341872
-Brian Banne
+Brian Banne, s329333
 
 ### problemos
-validering av produkter
+validering av produkter ---- maybe done? not sure. see imorgen
 push rabatt til server, slik at bruker ser at total er null og at rabatt er brukt
 
 ### mulig implementering om tid og viljestyrke
-
-Prometheus - nettverks monitor
-SSL/TLS - API endpoints
+Prometheus - nettverks monitor ---- nesten i mål
 flere bilder til hvert produkt når man er inne på produktsiden
 
 
@@ -21,7 +19,7 @@ flere bilder til hvert produkt når man er inne på produktsiden
 ### START UP
 
 Get the project up and going by running the command `docker-compose up` in the root folder.
-If the build is a success, the react client will run at `https://localhost:3000`, and the express-server at `https://localhost:8080`
+If the build is a success, the react client will run at `https://localhost:4000`, and the express-server at `https://localhost:8080`
 
 ### Server/API
 
@@ -37,6 +35,8 @@ We have utilized the `swagger-ui-express` and `swagger-autogen` module which gen
 
 The client login utilizes OAuth2 for the login flow. This is a more secure solution since it do not require the user to provide us directly with the crendentials.
 For the admin-login, for practical reasons there is a more convential login solution with the good ol' email/password combination. These credentials will be provided in the pdf file, and is served by the `node env`
+Admin-email: 
+Admin password: 
 
 ### Potential dangers
 
