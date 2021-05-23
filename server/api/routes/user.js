@@ -6,6 +6,8 @@ module.exports = (app) => {
   app.use("/user", route);
 
   route.put("/update", validateUser, async (req, res) => {
+    // #swagger.tags = ['Customer']
+    // #swagger.description = 'Updates user details'
     const customerDetails = req.body;
 
     try {
@@ -28,6 +30,8 @@ module.exports = (app) => {
   });
 
   route.get("/details", validateUser, async (req, res) => {
+    // #swagger.tags = ['Customer']
+    // #swagger.description = 'Returns user details'
     const authHeader = req.headers.authorization;
     try {
       const user = await getUserFromToken(authHeader);

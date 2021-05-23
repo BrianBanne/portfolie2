@@ -1,12 +1,5 @@
 version: "3"
 services:
-  prometheus:
-    container_name: prometheus-svc
-    image: prom/prometheus
-    ports:
-      - "9100:9090"
-    volumes:
-      - ./prometheus.yml:/prometheus.yml
   client:
     build:
       context: client
@@ -39,5 +32,24 @@ services:
     restart: always
     ports:
       - 27017:27017
+  prometheus:
+    container_name: prometheus-svc
+    image: prom/prometheus
+    ports:
+      - "9100:9090"
+    volumes:
+      - ./promotheus:/etc/promotheus/
+      - prometheus_data:/prometheus
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+  grafana:
+    container_name: grafana
+    image: grafana/grafana
+    ports:
+      - 9000:3000
+    volumes:
+      - grafana-data:/var/lib/grafana
 volumes:
   mongodb_data:
+  grafana-data:
+  prometheus_data:

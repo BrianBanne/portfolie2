@@ -11,21 +11,12 @@ const SSL_OPTIONS = {
 };
 
 async function startServer() {
-  //Redirects all requests to https
-  /* server.use((req, res, next) => {
-    req.secure ? next() : res.redirect("https://" + req.headers.host + req.url);
-  }); */
   const expressApp = express()
   await loaders(expressApp);
 
   //Server that redirects all incoming http-requests to https
   http
-    .createServer((req, res) => {
-      res.writeHead(301, {
-        Location: "https://" + req.headers.host + req.url,
-      });
-      res.end();
-    })
+    .createServer(expressApp)
     .listen(80, () => console.log("Http listening on port 80 "));
 
   https

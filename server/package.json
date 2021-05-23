@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
+    "express-prom-bundle": "^6.3.6",
     "google-auth-library": "^7.0.4",
     "googleapis": "^73.0.0",
     "jsonwebtoken": "^8.5.1",

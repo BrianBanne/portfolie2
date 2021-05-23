@@ -15,6 +15,7 @@ if (localStorage.getItem("session")) {
     //check if expired??
     initialState.token = session.token;
     initialState.user.type = session.type;
+    initialState.user.email = session.email;
   } catch (error) {
     console.error(error);
   }

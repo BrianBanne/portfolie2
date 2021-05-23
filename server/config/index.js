@@ -1,7 +1,6 @@
 const path = require('path')
 require("dotenv").config({path: path.resolve(__dirname, '../../.env')});
 
-console.log( process.env.GOOGLE_AUTH_SECRET);
 module.exports = {
   dbUrl: process.env.MONGODB_URL,
   port: process.env.SERVER_PORT,

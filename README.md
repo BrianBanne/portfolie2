@@ -24,7 +24,7 @@ If the build is a success, the react client will run at `https://localhost:4000`
 ### Server/API
 
 Documentation for the API can be found at `https://localhost:8080/docs/#/`
-We have utilized the `swagger-ui-express` and `swagger-autogen` module which generates the swagger doc based on the existing routes.
+We have utilized the `swagger-ui-express` and `swagger-autogen` module which generates the swagger doc based on the existing routes. 
 
 
 ### Notes

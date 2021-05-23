@@ -3,27 +3,29 @@ const route = express.Router();
 const config = require("../../config");
 const oauth2Client = require("../../loaders/google-oauth");
 const User = require("../../models/user");
-const { getTokenFromCode } = require("../../services/auth-user");
+const { getTokensFromCode, getUserFromEmail } = require("../../services/auth-user");
 const jwt = require("jsonwebtoken");
 
 module.exports = (app) => {
   app.use("/auth", route);
 
   route.get("/login/google", async (req, res) => {
+    // #swagger.tags = ['Auth']
+    // #swagger.description = 'Returns a redirect url to google login'
     const url = oauth2Client.generateAuthUrl({
       access_type: "offline",
       scope: config.google.scopes,
     });
-    console.log("url", url);
     return res.status(200).json({ url: url });
   });
 
   route.get("/login/google/callback", async (req, res) => {
+    // #swagger.tags = ['Auth']
+    // #swagger.description = 'Callback url from google oauth'
     try {
       const code = req.query.code;
-      console.log(code);
-      const { user, tokens } = await getTokenFromCode(code);
-      console.log("user", user);
+      const { user, tokens } = await getTokensFromCode(code);
+      console.log('user ', user);
 
       return res.redirect(
         `https://localhost:4000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
@@ -37,6 +39,8 @@ module.exports = (app) => {
   });
 
   route.post("/login/admin", async (req, res) => {
+    // #swagger.tags = ['Auth']
+    // #swagger.description = 'Admin login verification'
     const userData = req.body;
 
     const user = await User.findOne({
