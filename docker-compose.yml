@@ -3,7 +3,7 @@ services:
   prometheus:
     container_name: prometheus-svc
     image: prom/prometheus
-    ports: 
+    ports:
       - "9100:9090"
     volumes:
       - ./prometheus.yml:/prometheus.yml
