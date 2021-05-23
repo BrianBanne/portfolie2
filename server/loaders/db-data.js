@@ -1,3 +1,5 @@
+const config = require('../config')
+
 const url =
   "https://png.pngtree.com/png-clipart/20190516/original/pngtree-premium-white-t-shirt--mockup-png-image_3635949.jpg";
 const socksurl =

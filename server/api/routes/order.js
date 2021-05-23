@@ -1,6 +1,8 @@
 const express = require("express");
-const { validateAdmin, validateUser } = require("../middleware/auth-middleware");
-const { getTokenInfo } = require("../../services/auth-user")
+const {
+  validateAdmin,
+  validateUser,
+} = require("../middleware/auth-middleware");
 const Customer = require("../../models/customer");
 const Order = require("../../models/order");
 const Product = require("../../models/product");
@@ -23,6 +25,7 @@ module.exports = (app) => {
 
     //if customer has not created account customerId is left blank
     const order = req.body;
+    console.log("req order", order);
     const { shippingDetails, cart, user } = order;
     const cartItems = [];
     let calculatedTotal = 0;
@@ -65,7 +68,7 @@ module.exports = (app) => {
     }
   });
 
-  route.get("/orders", validateAdmin,  async (req, res) => {
+  route.get("/orders", validateAdmin, async (req, res) => {
     // #swagger.tags = ['Order']
     // #swagger.description = 'Get all orders'
     try {
@@ -78,7 +81,7 @@ module.exports = (app) => {
     }
   });
 
-  route.get("/order/:id", validateAdmin,  async (req, res) => {
+  route.get("/order/:id", validateAdmin, async (req, res) => {
     // #swagger.tags = ['Order']
     // #swagger.description = 'Get order from id'
     const orderId = req.params.id;
@@ -92,20 +95,14 @@ module.exports = (app) => {
     }
   });
 
-  route.get("/orders/user", validateUser , async (req, res) => {
+  route.get("/orders/user", validateUser, async (req, res) => {
     // #swagger.tags = ['Order']
     // #swagger.description = 'Get a users orders'
 
-    //todo: this is handled in middleware, maybe get userid from mw header?
-    const authHeader = req.headers.authorization;
-
-    const token = authHeader.split(" ")[1];
-    console.log("token", token);
     try {
-      const { email } = await getTokenInfo(token);
-      const { id: userId } = await Customer.findOne({ email: email });
+      const user = req.user;
+      const { id: userId } = await Customer.findById(user._id);
       const userOrders = await Order.find({ customer: userId });
-      console.log("userorders", userOrders);
       return res.status(200).json({ orders: userOrders });
     } catch (error) {
       console.log(error);

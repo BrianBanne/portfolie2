@@ -5,7 +5,6 @@ const { validateAdmin } = require("../middleware/auth-middleware");
 const route = express.Router();
 
 module.exports = (app) => {
-  //Adds middleware to authorize admin
   app.use(route);
   //route.use(validateAdmin);
 
@@ -13,7 +12,6 @@ module.exports = (app) => {
     // #swagger.tags = ['Product']
     // #swagger.description = 'Returns  all products'
     try {
-      console.log("when you try your best");
       const products = await Product.find();
       return res.status(200).json({ products: products });
     } catch (error) {
@@ -37,9 +35,15 @@ module.exports = (app) => {
   });
 
   //AdminRouter.use(validateAdmin);
-  route.post("/product", async (req, res) => {
+  route.post("/product", validateAdmin, async (req, res) => {
     // #swagger.tags = ['Product']
     // #swagger.description = 'Creates a new product'
+    /*	#swagger.parameters['obj'] = {
+              in: 'body',
+              description: 'Product object',
+              required: true,
+              schema: { $ref: "#/definitions/Product" }
+      } */
     const product = req.body;
 
     try {
@@ -55,7 +59,6 @@ module.exports = (app) => {
         imageUrl: product.imageUrl,
         stockQuantity: product.stockQuantity,
       });
-      console.log(newProduct);
       const result = await newProduct.save();
       return res.status(201).json({
         product: result._doc,
@@ -66,9 +69,16 @@ module.exports = (app) => {
     }
   });
 
-  route.put("/product/:id", async (req, res) => {
+  route.put("/product/:id", validateAdmin, async (req, res) => {
     // #swagger.tags = ['Product']
     // #swagger.description = 'Updated product from given id'
+    /*	#swagger.parameters['obj'] = {
+              in: 'body',
+              description: 'Product object',
+              required: true,
+              schema: { $ref: "#/definitions/Product" }
+      } */
+      
     const productId = req.params.id;
     const updatedValues = req.body;
     if (!productId)
@@ -89,7 +99,7 @@ module.exports = (app) => {
     }
   });
 
-  route.delete("/product/:id", async (req, res) => {
+  route.delete("/product/:id", validateAdmin, async (req, res) => {
     // #swagger.tags = ['Product']
     // #swagger.description = 'Deletes product from given id'
 

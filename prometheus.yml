@@ -2,10 +2,19 @@ global:
   scrape_interval: 5s
   evaluation_interval: 30s
 scrape_configs:
-  - job_name: "portfolie2"
+  - job_name: "promotheus"
     metrics_path: /metrics
     honor_labels: true
     static_configs:
       - targets:
-        - "prometheus:9090"
-        - "idonotexists:564"
+          - "prometheus:9090"
+  - job_name: "client"
+    static_configs:
+      - targets: ["localhost:4000"]
+  - job_name: "server"
+    static_configs:
+      - targets: ["localhost:8080"]
+
+      #- job_name: 'grafana'
+      #   static_configs:
+      #  -targets: ['docker.for.win.localhost:3001']

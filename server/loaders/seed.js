@@ -16,6 +16,7 @@ function seedDatabase(client) {
 
 function createInstances() {
   try {
+    Product.collection.drop()
     DB_DATA.PRODUCTS.forEach((product) => {
       const newProduct = new Product({
         name: product.name,

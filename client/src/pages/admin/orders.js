@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { AdminAPI } from "../../api";
+import { API } from "../../api";
 import { AuthContext } from "../../components/context/auth-context";
 import Layout from "../../components/layout/index";
 import OrderTable from "../../components/tables/orders-table";
@@ -9,9 +9,9 @@ const AdminOrdersPage = () => {
   const [orders, setOrders] = useState();
 
   useEffect(() => {
-    console.log('token ', token);
-    if (typeof token !== undefined ) {
-      AdminAPI.getAllOrders(token)
+    console.log("token ", token);
+    if (typeof token !== undefined) {
+      API.getAllOrders(token)
         .then(({ data }) => {
           setOrders(data.orders);
         })

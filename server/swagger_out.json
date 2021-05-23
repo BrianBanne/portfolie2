@@ -24,30 +24,91 @@
     "application/json"
   ],
   "paths": {
-    "/product": {
-      "post": {
+    "/login/google": {
+      "get": {
         "tags": [
-          "Product"
+          "Auth"
         ],
-        "description": "Creates a new product",
+        "description": "Returns a redirect url to google login",
         "parameters": [],
         "responses": {
-          "201": {
-            "description": "Created"
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/login/google/callback": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Callback url from google oauth",
+        "parameters": [
+          {
+            "name": "code",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "500": {
+            "description": "Internal Server Error"
+          }
+        }
+      }
+    },
+    "/login/admin": {
+      "post": {
+        "tags": [
+          "Auth"
+        ],
+        "description": "Admin login verification",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
           },
           "401": {
             "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/products": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Returns all products",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
           }
         }
       }
     },
     "/product/{id}": {
+      "get": {
+        "tags": [
+          "Product"
+        ],
+        "description": "Returns a single product from given id",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
       "put": {
         "tags": [
           "Product"
@@ -59,6 +120,15 @@
             "in": "path",
             "required": true,
             "type": "string"
+          },
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Product object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
           }
         ],
         "responses": {
@@ -103,12 +173,94 @@
             "description": "Not Found"
           }
         }
-      },
-      "get": {
+      }
+    },
+    "/product": {
+      "post": {
         "tags": [
           "Product"
         ],
-        "description": "Returns a single product from given id",
+        "description": "Creates a new product",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Product object",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Product"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/order/create": {
+      "post": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Creates a new order from checkout",
+        "parameters": [
+          {
+            "name": "obj",
+            "in": "body",
+            "description": "Order details",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/Order"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/orders": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Get all orders",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "OK"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        }
+      }
+    },
+    "/order/{id}": {
+      "get": {
+        "tags": [
+          "Order"
+        ],
+        "description": "Get order from id",
         "parameters": [
           {
             "name": "id",
@@ -131,32 +283,7 @@
             "description": "Not Found"
           }
         }
-      }
-    },
-    "/orders": {
-      "get": {
-        "tags": [
-          "Order"
-        ],
-        "description": "Get a users orders",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/order/{id}": {
+      },
       "put": {
         "tags": [
           "Order"
@@ -212,40 +339,14 @@
             "description": "Not Found"
           }
         }
-      },
+      }
+    },
+    "/orders/user": {
       "get": {
         "tags": [
           "Order"
         ],
-        "description": "Get order from id",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/login/google": {
-      "get": {
-        "tags": [],
-        "description": "",
+        "description": "Get a users orders",
         "parameters": [],
         "responses": {
           "200": {
@@ -256,68 +357,16 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/login/google/callback": {
-      "get": {
-        "tags": [],
-        "description": "",
-        "parameters": [
-          {
-            "name": "code",
-            "in": "query",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "400": {
-            "description": "Bad Request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          },
-          "500": {
-            "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/login/admin": {
-      "post": {
-        "tags": [],
-        "description": "",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
     },
     "/update": {
       "put": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Customer"
+        ],
+        "description": "Updates user details",
         "parameters": [],
         "responses": {
           "200": {
@@ -328,9 +377,6 @@
           },
           "403": {
             "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           },
           "500": {
             "description": "Internal Server Error"
@@ -340,8 +386,10 @@
     },
     "/details": {
       "get": {
-        "tags": [],
-        "description": "",
+        "tags": [
+          "Customer"
+        ],
+        "description": "Returns user details",
         "parameters": [],
         "responses": {
           "200": {
@@ -358,62 +406,6 @@
           },
           "500": {
             "description": "Internal Server Error"
-          }
-        }
-      }
-    },
-    "/products": {
-      "get": {
-        "tags": [
-          "Product"
-        ],
-        "description": "Returns all products",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "OK"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
-          }
-        }
-      }
-    },
-    "/order/create": {
-      "post": {
-        "tags": [
-          "Order"
-        ],
-        "description": "Creates a new order from checkout",
-        "parameters": [
-          {
-            "name": "obj",
-            "in": "body",
-            "description": "Order details",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/Order"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created"
-          },
-          "401": {
-            "description": "Unauthorized"
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "Not Found"
           }
         }
       }
