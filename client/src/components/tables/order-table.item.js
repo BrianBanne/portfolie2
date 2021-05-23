@@ -1,5 +1,6 @@
 import React from "react";
 import { formatDate } from "../../utils/helpers";
+import { Link } from "react-router-dom";
 
 
 
@@ -16,7 +17,7 @@ const OrderTableItem = ({ order, isAdmin }) => {
   if (isAdmin)
     return (
       <tr>
-        <td>{order._id}</td>
+        <td><Link to={`/admin/order/${order._id}`}>{order._id}</Link></td>
         <td>{order.firstName + " " + order.lastName}</td>
         <td>{formatDate(order.date)}</td>
         <td>{order.total} kr</td>
