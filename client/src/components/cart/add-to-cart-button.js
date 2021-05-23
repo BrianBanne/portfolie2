@@ -10,7 +10,7 @@ const AddToCartButton = ({ product, inInStock }) => {
   //TODO: update qty
   function handleAddToCart() {
     addToCart(product);
-    alert(product.name + "added to cart");
+    alert(product.name + " added to cart");
     history.push("/cart");
   }
   return (
