@@ -26,7 +26,6 @@ const ShopReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
       const cartItemIdx = getCartIdx(state, action);
-      console.log(cartItemIdx);
       if (cartItemIdx < 0) {
         state.cart.push({
           ...action.payload,
