@@ -7,8 +7,9 @@ function seedDatabase(client) {
     if (err) {
       console.log(err);
     } else {
-      if (names.length < 1) createInstances();
-      else console.log("Db already seeded");
+      //if (names.length < 1)
+      createInstances();
+      //else console.log("Db already seeded");
     }
   });
 }
@@ -30,7 +31,11 @@ function createInstances() {
     console.log(`${DB_DATA.PRODUCTS.length} products added to db`);
 
     DB_DATA.ADMINS.forEach((admin) => {
-      const newAdmin = new User(admin);
+      const newAdmin = new User({
+        email: admin.email,
+        password: admin.password,
+        userType: "ADMIN",
+      });
       newAdmin.save();
     });
     console.log(`${DB_DATA.ADMINS.length} users added to db`);

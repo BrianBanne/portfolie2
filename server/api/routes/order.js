@@ -1,16 +1,15 @@
 const express = require("express");
-const { validateAdmin } = require("../middleware/auth-middleware");
-const { getUserFromToken } = require("../services/auth-user");
-const Customer = require("../../database/models/customer");
-const Order = require("./order");
-const Product = require("../products/product");
-const { sendError } = require("../lib");
+const { validateAdmin, validateUser } = require("../middleware/auth-middleware");
+const { getTokenInfo } = require("../../services/auth-user")
+const Customer = require("../../models/customer");
+const Order = require("../../models/order");
+const Product = require("../../models/product");
+const { sendError } = require("../../lib");
 
 const route = express.Router();
 
 module.exports = (app) => {
-  app.use("/api", route);
-
+  app.use(route);
   route.post("/order/create", async (req, res) => {
     // #swagger.tags = ['Order']
     // #swagger.description = 'Creates a new order from checkout'
@@ -66,7 +65,7 @@ module.exports = (app) => {
     }
   });
 
-  route.get("/orders", async (req, res) => {
+  route.get("/orders", validateAdmin,  async (req, res) => {
     // #swagger.tags = ['Order']
     // #swagger.description = 'Get all orders'
     try {
@@ -79,7 +78,7 @@ module.exports = (app) => {
     }
   });
 
-  route.get("/order/:id", async (req, res) => {
+  route.get("/order/:id", validateAdmin,  async (req, res) => {
     // #swagger.tags = ['Order']
     // #swagger.description = 'Get order from id'
     const orderId = req.params.id;
@@ -93,7 +92,7 @@ module.exports = (app) => {
     }
   });
 
-  route.get("/orders/user", async (req, res) => {
+  route.get("/orders/user", validateUser , async (req, res) => {
     // #swagger.tags = ['Order']
     // #swagger.description = 'Get a users orders'
 
@@ -103,15 +102,17 @@ module.exports = (app) => {
     const token = authHeader.split(" ")[1];
     console.log("token", token);
     try {
-      const { email } = await getUserFromToken(token);
+      const { email } = await getTokenInfo(token);
       const { id: userId } = await Customer.findOne({ email: email });
       const userOrders = await Order.find({ customer: userId });
       console.log("userorders", userOrders);
       return res.status(200).json({ orders: userOrders });
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   });
 
-  route.put("/order/:id", async (req, res) => {
+  route.put("/order/:id", validateAdmin, async (req, res) => {
     // #swagger.tags = ['Order']
     // #swagger.description = 'Update order from admin'
 
@@ -143,7 +144,7 @@ module.exports = (app) => {
       );
     }
   });
-  route.delete("/order/:id", async (req, res) => {
+  route.delete("/order/:id", validateAdmin, async (req, res) => {
     // #swagger.tags = ['Order']
     // #swagger.description = 'Delete a order'
     const orderId = req.params.id;

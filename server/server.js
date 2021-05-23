@@ -3,6 +3,7 @@ const http = require("http");
 const fs = require("fs");
 const loaders = require("./loaders");
 const express = require("express");
+const config = require("./config");
 
 const SSL_OPTIONS = {
   key: fs.readFileSync("key.pem"),
@@ -14,8 +15,8 @@ async function startServer() {
   /* server.use((req, res, next) => {
     req.secure ? next() : res.redirect("https://" + req.headers.host + req.url);
   }); */
-
-  await loaders.default(express);
+  const expressApp = express()
+  await loaders(expressApp);
 
   //Server that redirects all incoming http-requests to https
   http
@@ -28,9 +29,9 @@ async function startServer() {
     .listen(80, () => console.log("Http listening on port 80 "));
 
   https
-    .createServer(SSL_OPTIONS, server)
-    .listen(HTTPS_PORT, ADDRESS, () =>
-      console.log(`HTTPS-server listening at port ${HTTPS_PORT}`)
+    .createServer(SSL_OPTIONS, expressApp)
+    .listen(config.port, config.address,  () =>
+      console.log(`HTTPS-server listening at port ${config.port}`)
     );
 }
 

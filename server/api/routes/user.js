@@ -1,11 +1,11 @@
 const express = require("express");
+const { validateUser } = require("../middleware/auth-middleware");
 const route = express.Router();
 
 module.exports = (app) => {
   app.use("/user", route);
 
-  route.use(validateUser);
-  route.put("/update", async (req, res) => {
+  route.put("/update", validateUser, async (req, res) => {
     const customerDetails = req.body;
 
     try {
@@ -27,7 +27,7 @@ module.exports = (app) => {
     }
   });
 
-  route.get("/details", async (req, res) => {
+  route.get("/details", validateUser, async (req, res) => {
     const authHeader = req.headers.authorization;
     try {
       const user = await getUserFromToken(authHeader);

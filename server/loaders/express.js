@@ -12,7 +12,7 @@ module.exports = (app) => {
     swaggerUi.serve,
     swaggerUi.setup(require("../swagger_out.json"))
   );
-  app.use("api", routes());
+  app.use("/api", routes());
 
   app.get("/", (req, res) => {
     //simulate sleep

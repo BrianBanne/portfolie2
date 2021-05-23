@@ -1,11 +1,13 @@
 const express = require("express");
+const { sendError } = require("../../lib");
+const Product = require("../../models/product");
 const { validateAdmin } = require("../middleware/auth-middleware");
 const route = express.Router();
 
 module.exports = (app) => {
   //Adds middleware to authorize admin
-  app.use("/api", route);
-  route.use(validateAdmin);
+  app.use(route);
+  //route.use(validateAdmin);
 
   route.get("/products", async (req, res) => {
     // #swagger.tags = ['Product']
@@ -15,6 +17,7 @@ module.exports = (app) => {
       const products = await Product.find();
       return res.status(200).json({ products: products });
     } catch (error) {
+      console.log(error);
       return sendError(res, 500, error);
     }
   });

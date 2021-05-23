@@ -1,5 +1,7 @@
 const mongoose = require("mongoose");
 const config = require("../config");
+const Customer = require("../models/customer");
+const User = require("../models/user");
 const seedDatabase = require("./seed");
 
 //const DB_URL = `mongodb://db:27017/ecomm`;
