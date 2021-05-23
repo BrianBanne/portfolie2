@@ -6,12 +6,12 @@ const express = require("express");
 const config = require("./config");
 
 const SSL_OPTIONS = {
-  key: fs.readFileSync("./ssl/key.pem"),
-  cert: fs.readFileSync("./ssl/cert.pem"),
+  key: fs.readFileSync("./ssl/server.key"),
+  cert: fs.readFileSync("./ssl/server.crt"),
 };
 
 async function startServer() {
-  const expressApp = express()
+  const expressApp = express();
   await loaders(expressApp);
 
   //Server that redirects all incoming http-requests to https
@@ -21,7 +21,7 @@ async function startServer() {
 
   https
     .createServer(SSL_OPTIONS, expressApp)
-    .listen(config.port, config.address,  () =>
+    .listen(config.port, config.address, () =>
       console.log(`HTTPS-server listening at port ${config.port}`)
     );
 }
