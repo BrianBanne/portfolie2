@@ -25,12 +25,15 @@ module.exports = (app) => {
 
     const order = req.body;
     const { shippingDetails, cart, user } = order;
+    console.log("cart", cart);
+
     const cartItems = [];
     let calculatedTotal = 0;
 
-    for (const cartItem of cart) {
-      const product = await Product.findOne({ _id: cartItem._id });
-      calculatedTotal = calculatedTotal + cartItem.quantity * product.price;
+    for (const item of cart) {
+      const product = await Product.findById(item._id);
+      calculatedTotal = calculatedTotal + item.quantity * product.price;
+      cartItems.push({ product: product._id, quantity: item.quantity });
     }
 
     try {
@@ -84,6 +87,7 @@ module.exports = (app) => {
     const orderId = req.params.id;
     try {
       const order = await Order.findById(orderId);
+      console.log(order);
       return res.status(200).json({ order: order });
     } catch (error) {
       console.log(error);

@@ -34,7 +34,3 @@ const Input = ({ label, onChange, value = "", type = "text", ...props }) => {
 };
 
 export default Input;
-
-/* 
-  <span className={`input__label-text ${isFocus ? (' input__label-text-focus') : ('')}  `}>{label}</span> 
-  */

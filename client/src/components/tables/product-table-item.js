@@ -30,6 +30,5 @@ const ProductTableItem = ({ product, handleEdit, handleDelete }) => {
     </tr>
   );
 };
-// onClick={()=>handleEdit(product)}
-// onClick={()=> handleRemove(product)}
+
 export default ProductTableItem;

@@ -4,8 +4,7 @@ import { API } from "../../api";
 import AddToCartButton from "../cart/add-to-cart-button";
 import Layout from "../layout";
 
-const ProductPage = ({ data }) => {
-  //TODO: get slug from server
+const ProductPage = () => {
   const { id } = useParams();
   const [product, setProduct] = useState();
 

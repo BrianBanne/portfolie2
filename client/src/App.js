@@ -30,7 +30,6 @@ function App() {
             <Route path="/product/:id">
               <ProductPage />
             </Route>
-
             <Route path="/cart">
               <CartPage />
             </Route>
@@ -46,16 +45,12 @@ function App() {
             <ProtectedRoute exact path="/admin/products">
               <AdminProductsPage />
             </ProtectedRoute>
-            <ProtectedRoute exact path="/admin/order/:id">
-              <AdminProductsPage />
-            </ProtectedRoute>
             <ProtectedRoute exact path="/admin/orders">
               <AdminOrdersPage />
             </ProtectedRoute>
             <ProtectedRoute exact path="/user">
               <UserPage />
             </ProtectedRoute>
-
             <ProtectedRoute exact path="/user/orders">
               <UserOrdersPage />
             </ProtectedRoute>
@@ -67,23 +62,3 @@ function App() {
 }
 
 export default App;
-
-/* 
- return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  ); */

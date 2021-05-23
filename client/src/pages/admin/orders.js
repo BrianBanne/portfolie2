@@ -9,7 +9,6 @@ const AdminOrdersPage = () => {
   const [orders, setOrders] = useState();
 
   useEffect(() => {
-    console.log("token ", token);
     if (typeof token !== undefined) {
       API.getAllOrders(token)
         .then(({ data }) => {

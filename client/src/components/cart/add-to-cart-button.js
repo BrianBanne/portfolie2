@@ -7,7 +7,6 @@ const AddToCartButton = ({ product, inInStock }) => {
   const { addToCart } = useContext(ShopContext);
   const history = useHistory();
 
-  //TODO: update qty
   function handleAddToCart() {
     addToCart(product);
     alert(product.name + " added to cart");

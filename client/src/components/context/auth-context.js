@@ -12,7 +12,7 @@ const initialState = {
 if (localStorage.getItem("session")) {
   try {
     const session = JSON.parse(localStorage.getItem("session"));
-    //check if expired??
+    //future: check if expired
     initialState.token = session.token;
     initialState.user.type = session.type;
     initialState.user.email = session.email;
@@ -50,7 +50,6 @@ const AuthProvider = ({ children }) => {
   const history = useHistory();
 
   const loginUser = (token, email) => {
-    //console.log(token, email);
     dispatch({
       type: "LOGIN",
       payload: { token: token, type: "USER", email: email },

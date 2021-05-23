@@ -1,9 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { API } from "../../api";
 import Layout from "../../components/layout";
-import ProductTable from "../../components/tables/product-table";
-import Form from "../../components/shared/form";
 import Button from "../../components/shared/button";
+import Form from "../../components/shared/form";
+import ProductTable from "../../components/tables/product-table";
+import { validateProducts } from "../../utils/helpers";
 
 const AdminProductsPage = () => {
   const [products, setProducts] = useState();
@@ -52,22 +53,6 @@ const AdminProductsPage = () => {
       label: `${initialValues ? "Update" : "Add new"}`,
     },
   ];
-  /// validering??? maybe, not sure
-  function validate(product) {
-    if (product.name.length === 0) {
-      return false;
-    } else if (product.price <= 0) {
-      return false;
-    } else if (product.shortDescription.length === 0) {
-      return false;
-    } else if (product.description.length === 0) {
-      return false;
-    } else if (product.stockQuantity < 0) {
-      return false;
-    } else {
-      return true;
-    }
-  }
 
   function getProducts() {
     API.getAllProducts()
@@ -80,20 +65,29 @@ const AdminProductsPage = () => {
   }, []);
 
   function submitFormData(product) {
-    if (validate === true) {
-      if (initialValues) {
-        API.editProduct(product._id, product)
-          .then(() => alert(`Updated product ${product.name}`))
-          .then(() => setShowProductForm(false))
-          .then(() => getProducts())
-          .catch((err) => console.log(err));
-      } else {
-        API.addproduct(product)
-          .then(() => getProducts())
-          .then(() => setShowProductForm(!showProductForm))
-          .then(() => alert(`${product.name} added to collection`))
-          .catch((err) => console.log(err));
-      }
+    const isProductsValidated = validateProducts(product);
+    if (!isProductsValidated) {
+      alert("You have some missing fields :(");
+      return;
+    }
+    if (initialValues) {
+      API.editProduct(product._id, product)
+        .then(() => alert(`Updated product ${product.name}`))
+        .then(() => setShowProductForm(false))
+        .then(() => getProducts())
+        .catch((err) => {
+          alert("Could not update..check that all values are correct");
+          console.log(err);
+        });
+    } else {
+      API.addproduct(product)
+        .then(() => getProducts())
+        .then(() => setShowProductForm(!showProductForm))
+        .then(() => alert(`${product.name} added to collection`))
+        .catch((err) => {
+          alert("Could not update..check that all values are correct");
+          console.log(err);
+        });
     }
   }
 

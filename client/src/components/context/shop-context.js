@@ -19,22 +19,24 @@ function setLocalStorage(cart) {
   localStorage.setItem("cart", JSON.stringify(cart.length > 0 ? cart : []));
 }
 
-/* function (state, action){
-
-}
- */
 function getCartIdx(state, action) {
-  return state.cart.findIndex((product) => product.id === action.payload.id);
+  return state.cart.findIndex((product) => product._id === action.payload._id);
 }
 const ShopReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
       const cartItemIdx = getCartIdx(state, action);
+      console.log(cartItemIdx);
       if (cartItemIdx < 0) {
         state.cart.push({
           ...action.payload,
           quantity: 1,
         });
+        return {
+          ...state,
+          cart: state.cart,
+          ...setLocalStorage(state.cart),
+        };
       } else {
         const newCart = [
           ...state.cart.slice(0, cartItemIdx),
@@ -50,13 +52,6 @@ const ShopReducer = (state, action) => {
           ...setLocalStorage(state.cart),
         };
       }
-
-      return {
-        ...state,
-        cart: [...state.cart],
-        ...setLocalStorage(state.cart),
-      };
-    //øker med 2 ad gangen
     case "INCREMENT":
       const cartItemId = getCartIdx(state, action);
 
@@ -124,7 +119,6 @@ const ShopReducer = (state, action) => {
 };
 
 export const ShopProvider = ({ children }) => {
-  //const [cart, addToCart] = useCart([]);
   const [state, dispatch] = useReducer(ShopReducer, initialState);
 
   function increment(payload) {

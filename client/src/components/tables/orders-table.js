@@ -18,7 +18,6 @@ const OrderTable = ({ orders, isAdmin }) => {
             <tr>
               <th>Order ID</th>
               <th>Date</th>
-              <th># of items</th>
               <th>Amount</th>
               <th>Status</th>
             </tr>

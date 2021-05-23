@@ -28,7 +28,6 @@ const LoginPage = () => {
   function handleAdminLogin(event) {
     event.preventDefault();
     if (formFields.userType === "ADMIN") {
-      console.log(formFields);
       API.loginAdmin(formFields)
         .then(({ data }) => loginAdmin(data))
         .catch((err) => getErrorData(err));

@@ -11,7 +11,6 @@ const UserOrdersPage = () => {
 
   useEffect(() => {
     //prevents react from fetching orders before token is loaded
-    console.log('token', token);
     if (typeof token !== undefined) {
       API.getUserOrders(token)
         .then(({ data }) => {

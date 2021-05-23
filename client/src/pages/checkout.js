@@ -27,7 +27,6 @@ const CheckoutPage = () => {
   }, [token]);
 
   function handleCheckout(formData) {
-    console.log(user);
     const order = {
       shippingDetails: formData,
       cart: cart,

@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import AddToCartButton from "../cart/add-to-cart-button";
 
 const ProductPreview = ({ product }) => {
-  //sku eller id i link-to? 
   const { name, imageUrl, price, _id, stockQuantity } = product;
   return (
     <div className="productPreview">
