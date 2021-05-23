@@ -32,7 +32,7 @@ const PRODUCTS = [
     stockStatus: 16,
     imageUrl: shoesurl,
     description: "Svarte lærsko",
-    shortDescription: '"Lang tekst om svarte sko',
+    shortDescription: 'Lang tekst om svarte sko',
   },
   {
     id: 234,
@@ -42,7 +42,7 @@ const PRODUCTS = [
     stockStatus: 5,
     imageUrl: pantsurl,
     description: "Blå jeans",
-    shortDescription: '"Blå jeans som passer perfekt til fest',
+    shortDescription: 'Blå jeans som passer perfekt til fest',
   },
   {
     id: 456,
@@ -52,7 +52,7 @@ const PRODUCTS = [
     stockStatus: 99,
     imageUrl: secret,
     description: "OMG U NEED THIS",
-    shortDescription: '"if you dont have this, youre not it',
+    shortDescription: 'if you dont have this, youre not it',
   },
   {
     id: 678,
@@ -62,7 +62,7 @@ const PRODUCTS = [
     stockStatus: 1,
     imageUrl: crocsurl,
     description: "Grønne crocs",
-    shortDescription: '"Imponer familie og venner med dette mesterverket',
+    shortDescription: 'Imponer familie og venner med dette mesterverket',
   },
   {
     id: 444,
@@ -72,7 +72,7 @@ const PRODUCTS = [
     stockStatus: 8,
     imageUrl: glovesurl,
     description: "Svarte motorsykkelhansker",
-    shortDescription: '"Perfekt til å kjøre på landeveien med',
+    shortDescription: 'Perfekt til å kjøre på landeveien med',
   },
   {
     id: 555,
@@ -82,7 +82,7 @@ const PRODUCTS = [
     stockStatus: 50,
     imageUrl: socksurl,
     description: "Hvite sokker",
-    shortDescription: '"Hvite sokker, 2 stykker, 1 par',
+    shortDescription: 'Hvite sokker, 2 stykker, 1 par',
   },
   {
     id: 122,
