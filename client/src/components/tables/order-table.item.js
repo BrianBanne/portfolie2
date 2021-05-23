@@ -23,12 +23,13 @@ const OrderTableItem = ({ order, isAdmin }) => {
         <td>{order.orderStatus}</td>
       </tr>
     );
+    
 
   return (
     <tr>
       <td>{order._id}</td>
       <td>{formatDate(order.date)}</td>
-      <td>todo: qty mbe?</td>
+      <td>{order.quantity}</td>
       <td>{order.total} kr</td>
       <td>{order.orderStatus}</td>
     </tr>
