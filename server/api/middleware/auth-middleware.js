@@ -33,7 +33,7 @@ async function validateUser(req, res, next) {
     return res.status(401).json({ error: "Missing authorization header" });
   try {
     const token = authHeader.split(" ")[1];
-    const user = await getGoogleToken(token);
+    const user = getGoogleToken(token);
     if (!user)
       return res
         .status(403)

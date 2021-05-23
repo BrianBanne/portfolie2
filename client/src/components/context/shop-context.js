@@ -95,7 +95,7 @@ const ShopReducer = (state, action) => {
     case "REMOVE":
       return {
         ...state,
-        cart: state.cart.filter(({ id }) => id !== action.payload.id),
+        cart: state.cart.filter(({ _id }) => _id !== action.payload._id),
         ...setLocalStorage(state.cart),
       };
     case "CLEAR_CART":

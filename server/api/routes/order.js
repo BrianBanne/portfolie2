@@ -87,7 +87,6 @@ module.exports = (app) => {
     const orderId = req.params.id;
     try {
       const order = await Order.findById(orderId);
-      console.log(order);
       return res.status(200).json({ order: order });
     } catch (error) {
       console.log(error);
@@ -100,9 +99,11 @@ module.exports = (app) => {
     // #swagger.description = 'Get a users orders'
 
     try {
-      const user = req.user;
-      const { id: userId } = await Customer.findById(user._id);
-      const userOrders = await Order.find({ customer: userId });
+      const existingUser = await Customer.findById(req.user._id);
+      if (!existingUser)
+        return res.status(404).json({ error: "Could not find user" });
+
+      const userOrders = await Order.find({ customer: existingUser.id });
       return res.status(200).json({ orders: userOrders });
     } catch (error) {
       console.log(error);

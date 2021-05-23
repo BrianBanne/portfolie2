@@ -27,7 +27,7 @@ module.exports = (app) => {
       const { user, tokens } = await getTokensFromCode(code);
 
       return res.redirect(
-        `http://localhost:4000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
+        `https://localhost:4000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
       );
     } catch (error) {
       console.log(error);
