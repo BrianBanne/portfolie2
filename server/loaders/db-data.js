@@ -5,11 +5,11 @@ const url =
 const socksurl =
   "https://i.pinimg.com/originals/36/17/0a/36170a902ea0452cc9a1918080ef3be2.png";
 const pantsurl =
-  "https://lh3.googleusercontent.com/proxy/hWbMzjOROKSwZP2wex-28LJ-OhQSEMekM1KUWrJV_q7KoBJXVIR5-UuYxpbFvPsuG1YvAzAeEUQFj5raGwU4P5WnpdXqWKBegmLa5t9865yRzsI";
+  "http://pngimg.com/uploads/jeans/jeans_PNG5779.png"
 const shoesurl =
   "https://banner2.cleanpng.com/20180213/pzw/kisspng-oxford-shoe-dress-shoe-leather-men-s-shoes-tide-shoes-carved-england-5a837b7a0c57e2.3487388715185662660506.jpg";
 const secret =
-  "https://lh3.googleusercontent.com/proxy/fdoDF-RN0nWevkaLzq0Havhhmcy4th7JjisBjKPtZc5bGp_wnD1pzlrOcP7f1_avltRrxddB7V5b_ghTVkzPKyKSV7zR1OfWeoqq5Msl0--Z_HNtMyMA7S92-J_JimOZ";
+  "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.pinterest.com%2Fpin%2Ffree-stock-clip-art-hollow-hand-painted-transprent-question-mark-vector-png-transparent-png--714242822142902902%2F&psig=AOvVaw2JRRAkI4yhNq9p-ZQTCzwq&ust=1621872285903000&source=images&cd=vfe&ved=2ahUKEwjmkIadl-DwAhWGsyoKHWNYCA4Qr4kDegUIARCrAQ"
 const crocsurl =
   "https://p.kindpng.com/picc/s/210-2103602_transparent-crocs-png-crocs-transparent-background-png-download.png";
 const glovesurl =
@@ -19,7 +19,6 @@ const PRODUCTS = [
   {
     id: 111,
     name: "Dårllig teve",
-    sku: 111,
     price: 200,
     stockStatus: 0,
     imageUrl: url,
@@ -29,7 +28,6 @@ const PRODUCTS = [
   {
     id: 123,
     name: "Kule sko",
-    sku: 123,
     price: 450,
     stockStatus: 16,
     imageUrl: shoesurl,
@@ -39,7 +37,6 @@ const PRODUCTS = [
   {
     id: 234,
     name: "Ordenlige bukser",
-    sku: 234,
     price: 600,
     stockStatus: 5,
     imageUrl: pantsurl,
@@ -49,7 +46,6 @@ const PRODUCTS = [
   {
     id: 456,
     name: "Secret item",
-    sku: 456,
     price: 15000,
     stockStatus: 99,
     imageUrl: secret,
@@ -59,7 +55,6 @@ const PRODUCTS = [
   {
     id: 678,
     name: "Crocs med hull",
-    sku: 678,
     price: 1,
     stockStatus: 1,
     imageUrl: crocsurl,
@@ -69,7 +64,6 @@ const PRODUCTS = [
   {
     id: 444,
     name: "Kule hansker",
-    sku: 444,
     price: 150,
     stockStatus: 8,
     imageUrl: glovesurl,
@@ -79,7 +73,6 @@ const PRODUCTS = [
   {
     id: 555,
     name: "Socks",
-    sku: 555,
     price: 50,
     stockStatus: 50,
     imageUrl: socksurl,

@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
-import { API } from "../../api";
+import { AdminAPI, API } from "../../api";
 import Layout from "../../components/layout";
 import ProductTable from "../../components/tables/product-table";
 import Form from "../../components/shared/form";
 import Button from "../../components/shared/button";
+
+
 
 const AdminProductsPage = () => {
   const [products, setProducts] = useState();
@@ -52,21 +54,21 @@ const AdminProductsPage = () => {
       label: `${initialValues ? "Update" : "Add new"}`,
     },
   ];
-  /// validering??? maybe, not sure
+    /// validering??? maybe, not sure
   function validate(product) {
-    if (product.name.length === 0) {
-      return false;
-    } else if (product.price <= 0) {
-      return false;
-    } else if (product.shortDescription.length === 0) {
-      return false;
-    } else if (product.description.length === 0) {
-      return false;
-    } else if (product.stockQuantity < 0) {
-      return false;
-    } else {
-      return true;
-    }
+  if(product.name.length === 0) {
+    return false;
+  } else if(product.price <= 0) {
+    return false;
+  } else if(product.shortDescription.length === 0) {
+    return false;
+  } else if(product.description.length === 0) {
+    return false;
+  } else if(product.stockQuantity < 0) {
+    return false;
+  } else {
+    return true;
+  }
   }
 
   function getProducts() {
@@ -80,26 +82,22 @@ const AdminProductsPage = () => {
   }, []);
 
   function submitFormData(product) {
-    const isProductValid = validate(product);
-    if (isProductValid !== true) {
-      alert("You are missing some required fields..");
-      return;
-    }
+    if (validate === true) {
     if (initialValues) {
-      console.log("update");
-      API.editProduct(product._id, product)
+      AdminAPI.editProduct(product._id, product)
         .then(() => alert(`Updated product ${product.name}`))
         .then(() => setShowProductForm(false))
         .then(() => getProducts())
         .catch((err) => console.log(err));
     } else {
-      API.addproduct(product)
+      AdminAPI.addproduct(product)
         .then(() => getProducts())
         .then(() => setShowProductForm(!showProductForm))
         .then(() => alert(`${product.name} added to collection`))
         .catch((err) => console.log(err));
     }
   }
+}
 
   function handleEditProduct(product) {
     setInitalValues(product);
@@ -108,7 +106,7 @@ const AdminProductsPage = () => {
   }
 
   function handleDeleteProduct(product) {
-    API.deleteProduct(product._id)
+    AdminAPI.deleteProduct(product._id)
       .then(() => alert(`${product.name} deleted`))
       .then(() => getProducts())
       .catch((err) => console.log(err));

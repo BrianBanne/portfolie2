@@ -1,9 +1,7 @@
 import React from "react";
 import { formatDate } from "../../utils/helpers";
 
-function getrandomnumber() {
 
-}
 
 const OrderTableItem = ({ order, isAdmin }) => {
   function getStatusColor(order) {
@@ -18,10 +16,7 @@ const OrderTableItem = ({ order, isAdmin }) => {
   if (isAdmin)
     return (
       <tr>
-        <td>
-        TODO: orderID?
-        
-        </td>
+        <td>{order._id}</td>
         <td>{order.firstName + " " + order.lastName}</td>
         <td>{formatDate(order.date)}</td>
         <td>{order.total} kr</td>
@@ -31,9 +26,7 @@ const OrderTableItem = ({ order, isAdmin }) => {
 
   return (
     <tr>
-      <td>
-        Kanskje penere ID?
-      </td>
+      <td>{order._id}</td>
       <td>{formatDate(order.date)}</td>
       <td>todo: qty mbe?</td>
       <td>{order.total} kr</td>
