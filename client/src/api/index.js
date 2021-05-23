@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const serverURL = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL : 'https://localhost:8080'
+const serverURL = process.env.REACT_APP_API_URL
+  ? process.env.REACT_APP_API_URL
+  : "https://localhost:8080";
 
 console.log("serverurl", serverURL);
 
@@ -38,8 +40,9 @@ const user = axios.create({
   },
 });
 
-const loginAdmin = async (payload) => server.post("/auth/login/admin", payload);
-export const getRedirectUrl = async () => server.get("/auth/login/google");
+const loginAdmin = async (payload) =>
+  server.post("api/auth/login/admin", payload);
+export const getRedirectUrl = async () => server.get("api/auth/login/google");
 
 //** PRODUCT API **/
 const getAllProducts = async () => api.get("/products");
@@ -49,12 +52,22 @@ const createOrder = async (payload) => api.post("/order/create", payload);
 
 //** USER API **/
 
-const getUserOrders = async (id) => user.get(`/orders`);
+const getUserOrders = async (id) =>
+  api.get(`/orders/user`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
 const updateUserDetails = async (payload) => user.put("/update", payload);
 const getUserDetails = async () => user.get("/details");
 
 //** ADMIN API **/
-const getAllOrders = async () => admin.get("/orders");
+const getAllOrders = async () =>
+  api.get("/orders", {
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+  });
 
 const addproduct = async (payload) => admin.post("/product", payload);
 const editProduct = async (id, payload) => admin.put(`/product/${id}`, payload);
