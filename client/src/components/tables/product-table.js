@@ -4,7 +4,6 @@ import ProductTableItem from "./product-table-item";
 const ProductTable = ({ products, handleEditProduct, handleDeleteProduct }) => {
   return (
     <div>
-     
       <table>
         <thead>
           <tr>
@@ -18,7 +17,14 @@ const ProductTable = ({ products, handleEditProduct, handleDeleteProduct }) => {
         </thead>
         <tbody>
           {products &&
-            products.map((product) => <ProductTableItem key={product._id} product={product} handleEdit={handleEditProduct} handleDelete={handleDeleteProduct} />)}
+            products.map((product) => (
+              <ProductTableItem
+                key={product._id}
+                product={product}
+                handleEdit={handleEditProduct}
+                handleDelete={handleDeleteProduct}
+              />
+            ))}
         </tbody>
       </table>
     </div>

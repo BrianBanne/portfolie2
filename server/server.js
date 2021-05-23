@@ -6,8 +6,8 @@ const express = require("express");
 const config = require("./config");
 
 const SSL_OPTIONS = {
-  key: fs.readFileSync("key.pem"),
-  cert: fs.readFileSync("cert.pem"),
+  key: fs.readFileSync("./ssl/key.pem"),
+  cert: fs.readFileSync("./ssl/cert.pem"),
 };
 
 async function startServer() {
@@ -27,23 +27,3 @@ async function startServer() {
 }
 
 startServer();
-
-/* server.get("/", (req, res) => {
-
-  //simulate sleep
-  var start = new Date()
-  var simulateTime = 1000
-
-  setTimeout(function(argument) {
-    var end = new Date() - start
-    histogram.observe(end / 1000);
-  }, simulateTime)
-
-  counter.inc();
-  res.send("Welcome to the server:) Make requests to the api at /api");
-});
-
-server.get('/metrics', (req, res) => {
-  res.set('Content-Type', client.register.contentType)
-  res.end(client.register.metrics())
-}) */

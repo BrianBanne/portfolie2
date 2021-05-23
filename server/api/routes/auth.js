@@ -25,10 +25,9 @@ module.exports = (app) => {
     try {
       const code = req.query.code;
       const { user, tokens } = await getTokensFromCode(code);
-      console.log("user ", user);
 
       return res.redirect(
-        `https://localhost:4000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
+        `http://localhost:4000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
       );
     } catch (error) {
       console.log(error);

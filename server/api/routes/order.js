@@ -52,7 +52,6 @@ module.exports = (app) => {
         });
         if (existingCustomer) newOrder.customer = existingCustomer.id;
       }
-      console.log(newOrder);
       const result = await newOrder.save();
       return res
         .status(201)
@@ -72,7 +71,6 @@ module.exports = (app) => {
     // #swagger.description = 'Get all orders'
     try {
       const orders = await Order.find();
-      console.log(orders);
       return res.status(200).json({ orders: orders });
     } catch (error) {
       console.log(error);
@@ -82,11 +80,10 @@ module.exports = (app) => {
 
   route.get("/order/:id", validateAdmin, async (req, res) => {
     // #swagger.tags = ['Order']
-    // #swagger.description = 'Get order from id'
+    // #swagger.description = 'Returns an order object from given id'
     const orderId = req.params.id;
     try {
       const order = await Order.findById(orderId);
-      console.log(order);
       return res.status(200).json({ order: order });
     } catch (error) {
       console.log(error);
@@ -145,7 +142,6 @@ module.exports = (app) => {
     const orderId = req.params.id;
     try {
       const deletedOrder = await Product.deleteOne({ _id: orderId });
-      console.log(deletedOrder);
       return res.status(200).json({
         message: "Order succesfully deleted",
       });

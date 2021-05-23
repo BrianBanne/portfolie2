@@ -30,7 +30,6 @@ const ShopReducer = (state, action) => {
   switch (action.type) {
     case "ADD_TO_CART":
       const cartItemIdx = getCartIdx(state, action);
-      console.log("idx", cartItemIdx);
       if (cartItemIdx < 0) {
         state.cart.push({
           ...action.payload,
@@ -129,7 +128,6 @@ export const ShopProvider = ({ children }) => {
   const [state, dispatch] = useReducer(ShopReducer, initialState);
 
   function increment(payload) {
-    console.log("how many");
     dispatch({ type: "INCREMENT", payload });
   }
 
@@ -138,7 +136,6 @@ export const ShopProvider = ({ children }) => {
   }
 
   function addToCart(payload) {
-    console.log("how many");
     dispatch({ type: "ADD_TO_CART", payload });
   }
 

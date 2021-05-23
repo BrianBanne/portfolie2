@@ -30,7 +30,7 @@ const CartContainer = () => {
   }
 
   useEffect(() => {
-    if (!activeDiscount) {
+    if (cart.length > 0 && !activeDiscount) {
       //prevents the popup activating on every cart-render
       setTimeout(function () {
         alert(
@@ -39,7 +39,7 @@ const CartContainer = () => {
         setDiscount(true);
       }, 2000);
     } else return;
-  }, [activeDiscount, setDiscount]);
+  }, [activeDiscount, setDiscount, cart]);
 
   const Total = ({ showDiscount }) => {
     if (showDiscount)

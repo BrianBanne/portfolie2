@@ -16,14 +16,6 @@ const LoginPage = () => {
     userType: "",
   });
 
-  /*  useEffect(() => {
-    if (token) {
-      user.userType === "admin"
-        ? history.push("/admin")
-        : history.push("/user");
-    }
-  }); */
-
   /*Handles automatic user login redirect when token from server is served */
   useEffect(() => {
     const token = query.get("token");

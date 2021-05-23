@@ -1,5 +1,0 @@
-{
-  "dependencies": {
-    "express-prom-bundle": "^6.3.6"
-  }
-}

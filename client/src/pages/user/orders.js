@@ -10,13 +10,16 @@ const UserOrdersPage = () => {
   const [orders, setOrders] = useState();
 
   useEffect(() => {
-    console.log("token ", token);
-    API.getUserOrders(token)
-      .then(({ data }) => {
-        setOrders(data.orders);
-      })
-      .catch((err) => console.log(err));
-  }, []);
+    //prevents react from fetching orders before token is loaded
+    console.log('token', token);
+    if (typeof token !== undefined) {
+      API.getUserOrders(token)
+        .then(({ data }) => {
+          setOrders(data.orders);
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [token]);
 
   return (
     <Layout>

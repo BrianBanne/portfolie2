@@ -4,21 +4,21 @@ import AddToCartButton from "../cart/add-to-cart-button";
 
 const ProductPreview = ({ product }) => {
   //sku eller id i link-to? 
-  const { name, imageUrl, price, id, stockQuantity } = product;
+  const { name, imageUrl, price, _id, stockQuantity } = product;
   return (
     <div className="productPreview">
-      <Link to={`/product/${id}`} className="productPreview__link">
+      <Link to={`/product/${_id}`} className="productPreview__link">
         <figure className="productPreview__figure">
           <img
             src={imageUrl}
-            style={{ width: "100%", objectFit: "cover" }}
+            style={{ width: "100%", height:'100%', objectFit: "cover" }}
             alt="t-skjorte"
           />
         </figure>
       </Link>
       <div className="productPreview__info">
         <h2 style={{textAlign:'right'}}>
-          <Link to={`/product/${id}`} className="productPreview__link">
+          <Link to={`/product/${_id}`} className="productPreview__link">
             {name}
           </Link>
         </h2>

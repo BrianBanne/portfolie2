@@ -25,15 +25,16 @@ const getProductFromId = async (id) => api.get(`/product/${id}`);
 const addproduct = async (payload) => api.post("/product", payload);
 const editProduct = async (id, payload) => api.put(`/product/${id}`, payload);
 const deleteProduct = async (id) => api.delete(`/product/${id}`);
-const getAllOrders = async () => api.get("/orders");
 
 //** ORDERS **/
 const createOrder = async (payload) => api.post("/order/create", payload);
 const getUserOrders = async (id) => api.get(`/orders/user`);
+const getOrderById = async (id) => api.get(`/order/${id}`);
+const getAllOrders = async () => api.get("/orders");
 
 //* USERS *//
-const updateUserDetails = async (payload) => api.put("/update", payload);
-const getUserDetails = async () => api.get("/details");
+const updateUserDetails = async (payload) => api.put("user/update", payload);
+const getUserDetails = async () => api.get("user/details");
 
 //** ADMIN API **/
 
@@ -46,6 +47,7 @@ export const API = {
   updateUserDetails,
   getUserDetails,
   getAllOrders,
+  getOrderById,
   addproduct,
   deleteProduct,
   editProduct,

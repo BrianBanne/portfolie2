@@ -66,7 +66,7 @@ a:hover {
 }
 
 main {
-  margin: 1rem auto;
+  margin: 2rem auto 1rem;
   max-width: 960px;
 }
 
@@ -77,7 +77,6 @@ main {
   height: 60px;
   position: sticky;
   padding: 0 1rem;
-  
 }
 /* .nav {
 } */
@@ -102,8 +101,6 @@ main {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(1, 1fr);
-  /*   grid-gap: 46px;
- */
   justify-items: center;
   list-style-type: none;
   margin: 2rem auto;
@@ -111,16 +108,15 @@ main {
 }
 
 .productPreview {
-  position: relative;
   padding: 1rem 0;
   margin: 0;
   overflow: hidden;
   width: 300px;
-  min-height: 350px;
 }
 
 .productPreview__figure {
   transition: 0.3s all;
+  height: 250px;
 }
 
 .productPreview__figure:hover {
@@ -257,7 +253,7 @@ input {
 }
 
 .form__container {
-  min-height: calc(100vh - 74px);
+  min-height: calc(90vh - 74px);
   border-radius: 5px;
   margin: auto;
   background-color: var(--secondary-light);

@@ -5,13 +5,14 @@ import { Link } from "react-router-dom";
 
 
 const OrderTableItem = ({ order, isAdmin }) => {
-  function getStatusColor(order) {
+ 
+/*   function getStatusColor(order) {
     if (order.status === "COMPLETED")
       return <span style={{ color: "green" }}>{order.status}</span>;
     if (order.status === "CANCELLED")
       return <span style={{ color: "red" }}>{order.status}</span>;
     else return <span>{order.status}</span>;
-  }
+  } */
 
 
   if (isAdmin)

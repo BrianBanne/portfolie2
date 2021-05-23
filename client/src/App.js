@@ -46,13 +46,16 @@ function App() {
             <ProtectedRoute exact path="/admin/products">
               <AdminProductsPage />
             </ProtectedRoute>
+            <ProtectedRoute exact path="/admin/order/:id">
+              <AdminProductsPage />
+            </ProtectedRoute>
             <ProtectedRoute exact path="/admin/orders">
               <AdminOrdersPage />
             </ProtectedRoute>
             <ProtectedRoute exact path="/user">
               <UserPage />
             </ProtectedRoute>
-       
+
             <ProtectedRoute exact path="/user/orders">
               <UserOrdersPage />
             </ProtectedRoute>

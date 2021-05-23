@@ -38,10 +38,11 @@ services:
     ports:
       - "9100:9090"
     volumes:
-      - ./promotheus:/etc/promotheus/
+      - ./prometheus:/etc/prometheus/
       - prometheus_data:/prometheus
     command:
       - "--config.file=/etc/prometheus/prometheus.yml"
+    restart: always
   grafana:
     container_name: grafana
     image: grafana/grafana

@@ -8,12 +8,10 @@ scrape_configs:
     static_configs:
       - targets:
           - "prometheus:9090"
-  - job_name: "client"
-    static_configs:
-      - targets: ["localhost:4000"]
   - job_name: "server"
     static_configs:
-      - targets: ["localhost:8080"]
+      - targets: 
+        - localhost:80
 
       #- job_name: 'grafana'
       #   static_configs:
