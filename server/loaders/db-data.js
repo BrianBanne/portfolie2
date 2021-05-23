@@ -11,7 +11,7 @@ const PRODUCTS = [
     stockStatus: 0,
     imageUrl: url,
     description: "Fet greie",
-    shortDescription: '"Litt lengre tekst om en fet greie',
+    shortDescription: 'Litt lengre tekst om en fet greie',
   },
   {
     id: 122,
@@ -20,7 +20,7 @@ const PRODUCTS = [
     stockStatus: 5,
     imageUrl: url,
     description: "Veldig fet greie",
-    shortDescription: '"Litt lengre tekst om en veldig fet greie',
+    shortDescription: 'Litt lengre tekst om en veldig fet greie',
   },
   {
     id: 321,
@@ -29,7 +29,7 @@ const PRODUCTS = [
     stockStatus: 2,
     imageUrl: url,
     description: "Ok greie, funker til det meste",
-    shortDescription: '"Litt lengre tekst om en ok  greie',
+    shortDescription: 'Litt lengre tekst om en ok  greie',
   },
 ];
 
