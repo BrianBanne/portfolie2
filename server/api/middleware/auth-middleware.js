@@ -42,8 +42,9 @@ async function validateUser(req, res, next) {
     req.user = user;
     return next();
   } catch (error) {
-    console.log(error);
-    sendError(res, 500, "Error occured while validating user");
+    if (error.response.data.error === "invalid_token")
+      return sendError(res, 401, "Expired token");
+    return sendError(res, 500, "Error occured while validating user");
   }
 }
 

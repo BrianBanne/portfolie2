@@ -115,21 +115,3 @@ module.exports = (app) => {
     }
   });
 };
-
-/*
-
-async function deleteAllProducts(req, res) {
-  // #swagger.tags = ['Product']
-  // #swagger.description = 'Deletes all products'
-  try {
-    const deletedProducts = await Product.remove({});
-    console.log(deletedProducts);
-    return res.status(200).json({
-      message: "Products succesfully deleted",
-    });
-  } catch (error) {
-    return sendError(res, 500, "Unable to delete products");
-  }
-}
-
-*/

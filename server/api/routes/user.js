@@ -1,4 +1,5 @@
 const express = require("express");
+const Customer = require("../../models/customer");
 const { validateUser } = require("../middleware/auth-middleware");
 const route = express.Router();
 
@@ -11,7 +12,8 @@ module.exports = (app) => {
     const customerDetails = req.body;
 
     try {
-      const user = await getUserFromToken(req.headers.authorization);
+      const user = await Customer.findOne(req.user._id);
+
       if (!user)
         res.status(500).json({ error: "Unable to get user from token" });
 
@@ -20,6 +22,7 @@ module.exports = (app) => {
       user.address = customerDetails.address;
       user.postcode = customerDetails.postcode;
       user.city = customerDetails.city;
+      
       await user.save();
       return res
         .status(200)
@@ -32,9 +35,9 @@ module.exports = (app) => {
   route.get("/details", validateUser, async (req, res) => {
     // #swagger.tags = ['Customer']
     // #swagger.description = 'Returns user details'
-    const authHeader = req.headers.authorization;
     try {
-      const user = await getUserFromToken(authHeader);
+      const user = await Customer.findOne(req.user._id);
+
       if (!user) return res.status(404).json({ error: "User not found" });
       return res.status(200).json({
         userDetails: {

@@ -23,9 +23,7 @@ module.exports = (app) => {
               schema: { $ref: "#/definitions/Order" }
       } */
 
-    //if customer has not created account customerId is left blank
     const order = req.body;
-    console.log("req order", order);
     const { shippingDetails, cart, user } = order;
     const cartItems = [];
     let calculatedTotal = 0;
@@ -47,6 +45,7 @@ module.exports = (app) => {
         city: shippingDetails.city,
       });
 
+      //if customer has not created account customerId is left blank
       if (user) {
         const existingCustomer = await Customer.findOne({
           email: user.email,
@@ -115,23 +114,22 @@ module.exports = (app) => {
 
     //Restrictions: not allowed to change products in placed order, only details
     const orderData = req.body;
+    const orderId = req.params.id;
 
     try {
       const order = await Order.findById(orderId);
 
-      // order.total = orderData.total;
-      //order.products = orderData;
-      order.orderStatus = orderDatao.orderStatus;
+      order.orderStatus = orderData.orderStatus;
       order.firstName = orderData.firstName;
       order.lastName = orderData.lastName;
       order.address = orderData.address;
       order.postcode = orderData.postcode;
       order.city = orderData.city;
 
-      await order.save();
+      const updatedOrder = await order.save();
       return res
         .status(200)
-        .json({ message: "order succesfully updated!", order: result._doc });
+        .json({ message: "order succesfully updated!", order: updatedOrder });
     } catch (error) {
       console.log(error);
       return sendError(

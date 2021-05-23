@@ -3,7 +3,7 @@ const route = express.Router();
 const config = require("../../config");
 const oauth2Client = require("../../loaders/google-oauth");
 const User = require("../../models/user");
-const { getTokensFromCode, getUserFromEmail } = require("../../services/auth-user");
+const { getTokensFromCode } = require("../../services/auth-user");
 const jwt = require("jsonwebtoken");
 
 module.exports = (app) => {
@@ -21,11 +21,11 @@ module.exports = (app) => {
 
   route.get("/login/google/callback", async (req, res) => {
     // #swagger.tags = ['Auth']
-    // #swagger.description = 'Callback url from google oauth'
+    // #swagger.description = 'Callback url from google oauth. Returns link with token in query'
     try {
       const code = req.query.code;
       const { user, tokens } = await getTokensFromCode(code);
-      console.log('user ', user);
+      console.log("user ", user);
 
       return res.redirect(
         `https://localhost:4000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
@@ -40,7 +40,17 @@ module.exports = (app) => {
 
   route.post("/login/admin", async (req, res) => {
     // #swagger.tags = ['Auth']
-    // #swagger.description = 'Admin login verification'
+    // #swagger.description = 'Admin login verification, returns token'
+
+    /*	#swagger.parameters['obj'] = {
+              in: 'body',
+              description: 'Admin email and password',
+              required: true,
+              schema: {
+                $email: 'admin@admin.com',
+                $password: admin123,
+    } */
+
     const userData = req.body;
 
     const user = await User.findOne({
@@ -49,7 +59,6 @@ module.exports = (app) => {
     });
     if (!user) return res.status(401).json({ error: "No admin found" });
 
-    console.log(user);
     const isPasswordValid = user.password === userData.password;
     if (!isPasswordValid)
       return res.status(401).json({ error: "Password is not correct" });
@@ -67,8 +76,11 @@ module.exports = (app) => {
       token: token,
     });
   });
+};
 
-  async function handleGoogleLogin(req, res) {
+/*
+
+async function handleGoogleLogin(req, res) {
     const { token } = req.body;
 
     const ticket = await client.verifyIdToken({
@@ -94,4 +106,4 @@ module.exports = (app) => {
 
     return res.status(201).json({ user: newUser, token: ticket });
   }
-};
+  */
