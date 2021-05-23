@@ -1,15 +1,12 @@
 const { google } = require("googleapis");
-const path = require('path')
-const Customer = require("../database/models/customer");
-
-require("dotenv").config({path: path.resolve(__dirname, '../../.env')});
-
-console.log(process.env.GOOGLE_CLIENT_ID);
+const path = require("path");
+const Customer = require("../models/customer");
+const config = require("../config");
 
 const oauth2Client = new google.auth.OAuth2(
-  process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_AUTH_SECRET,
-  process.env.GOOGLE_REDIRECT_URL
+  config.google.clientId,
+  config.google.secret,
+  config.google.redirectUrl
 );
 
 const SCOPES = [
@@ -19,17 +16,17 @@ const SCOPES = [
 
 /**
  * Returns an auth link that redirects to the google oauth login site
- * 
- * @param {*} req 
- * @param {*} res 
- * @returns {url} 
+ *
+ * @param {*} req
+ * @param {*} res
+ * @returns {url}
  */
 function getRedirectUrl(req, res) {
   const url = oauth2Client.generateAuthUrl({
     access_type: "offline",
     scope: SCOPES,
   });
-  console.log('url', url);
+  console.log("url", url);
   return res.status(200).json({ url: url });
 }
 
@@ -56,7 +53,9 @@ async function getToken(req, res) {
       `https://localhost:4000/login/?token=${tokens.access_token}&email=${user.email}&userId=${user.id}`
     );
   } catch (error) {
-    return res.status(500).json({error: 'Unable to process google callback, please try again'})
+    return res
+      .status(500)
+      .json({ error: "Unable to process google callback, please try again" });
   }
 }
 
@@ -73,8 +72,24 @@ async function getUserFromEmail(email) {
   return { email: newUser.email, id: newUser.id };
 }
 
-async function getUserFromToken(access_token) {
+async function getUserFromToken(authHeader) {
+  const token = authHeader.split(" ")[1];
+  console.log("token", token);
+  if (!token) throw new Error("Authorization header missing");
+
+  try {
+    const { email } = await client.getTokenInfo(token);
+    console.log("email ", email);
+    if (!email) throw new Error("Authorization failed, invalid token");
+
+    return await Customer.findOne({ email: email });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+async function getTokenInfo(access_token) {
   return await oauth2Client.getTokenInfo(access_token);
 }
 
-module.exports = { getRedirectUrl, getToken, getUserFromToken };
+module.exports = { getRedirectUrl, getToken, getUserFromToken, getTokenInfo };

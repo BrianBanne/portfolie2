@@ -1,21 +1,20 @@
 const { OAuth2Client } = require("google-auth-library");
-const Customer = require("../database/models/customer");
+const Customer = require("../../models/customer");
 const jwt = require("jsonwebtoken");
-const User = require("../database/models/user");
-const { getUserFromToken } = require("../auth/google");
-const { sendError } = require("../lib");
+const User = require("../../models/user");
+const { getUserFromToken } = require("../../services/auth-user");
+const { sendError } = require("../../lib");
 
-require("dotenv").config();
-
-const client = new OAuth2Client(process.env.OAUTH_CLIENT_ID);
+const config = require("../../config");
+const client = new OAuth2Client(config.google.clientId);
 
 async function validateAdmin(req, res, next) {
   const authHeader = req.headers.authorization;
   if (!authHeader)
     return res.status(401).json({ error: "Missing authorization header" });
   const token = authHeader.split(" ")[1];
-  const decodedToken = jwt.decode(token, process.env.JWT_ACCESS_SECRET);
-  
+  const decodedToken = jwt.decode(token, config.jwtSecret);
+
   if (!decodedToken)
     return res
       .status(403)
@@ -39,7 +38,7 @@ async function validateUser(req, res, next) {
         .status(403)
         .json({ error: "You are not authorized to access this resource" });
   } catch (error) {
-    sendError(res, 500, "Error occured while validating user")
+    sendError(res, 500, "Error occured while validating user");
   }
 
   next();

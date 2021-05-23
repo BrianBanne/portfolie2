@@ -1,5 +1,4 @@
 const User = require("../models/user");
-
 const Product = require("../models/product");
 const DB_DATA = require("./db-data");
 
@@ -9,8 +8,7 @@ function seedDatabase(client) {
       console.log(err);
     } else {
       if (names.length < 1) createInstances();
-      else 
-        console.log('Db already seeded');
+      else console.log("Db already seeded");
     }
   });
 }

@@ -1,4 +1,4 @@
-require("dotenv").config();
+const config = require("../config");
 
 const url =
   "https://png.pngtree.com/png-clipart/20190516/original/pngtree-premium-white-t-shirt--mockup-png-image_3635949.jpg";
@@ -65,13 +65,12 @@ const ORDERS = [
 
 const ADMINS = [
   {
-    email: process.env.MONGO_ADMIN_EMAIL,
-    password: process.env.MONGO_ADMIN_PASSWORD,
+    email: config.adminEmail,
+    password: config.adminPassword,
     firstName: "Admin",
     lastName: "Adminsen",
     userType: "ADMIN",
   },
 ];
 
-const DB_DATA = { PRODUCTS, ORDERS, ADMINS };
-module.exports = DB_DATA;
+module.exports = { PRODUCTS, ADMINS, ORDERS };

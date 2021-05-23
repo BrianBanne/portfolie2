@@ -1,5 +1,6 @@
-const User = require("../database/models/user");
+const User = require("../models/user");
 const jwt = require("jsonwebtoken");
+const config = require("../config");
 
 require("dotenv").config();
 
@@ -15,7 +16,7 @@ async function loginAdmin(req, res) {
 
   const token = jwt.sign(
     { id: user._id, email: user.email },
-    process.env.JWT_ACCESS_SECRET,
+    config.jwtSecret,
     {
       expiresIn: "1h",
     }

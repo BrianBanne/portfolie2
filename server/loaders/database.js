@@ -1,11 +1,12 @@
 const mongoose = require("mongoose");
-const seedDatabase = require("./data/seed");
+const config = require("../config");
+const seedDatabase = require("./seed");
 
 //const DB_URL = `mongodb://db:27017/ecomm`;
 
-function connectToDB() {
+async function connectToDB() {
   mongoose
-    .connect(process.env.DB_URL, {
+    .connect(config.dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
     })
