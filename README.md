@@ -1,3 +1,10 @@
+Website for any kind of products, but in this case we chose a clothing-store
+
+Fully implemented with everything from docker, API, database and a reactive site. 
+Missing payment features as that was not a requirement
+
+
+
 # portfolie2
 ## group23,
 Hans Erling Klevstad, s341872
